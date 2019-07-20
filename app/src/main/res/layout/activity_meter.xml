@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_vertical"
+    tools:context=".MeterActivity">
+      
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:columnCount="2">
+
+        <TextView
+            android:layout_gravity="right"
+            android:textSize="25dp"
+            android:text="요금 방식 " />
+
+        <TextView
+            android:id="@+id/tvType"
+            android:text=":"
+            android:textSize="25dp" />
+
+        <TextView
+            android:layout_gravity="right"
+            android:textSize="25dp"
+            android:text="현재 속도 " />
+
+        <TextView
+            android:id="@+id/tvSpeed"
+            android:text=":"
+            android:textSize="25dp" />
+
+        <TextView
+            android:layout_gravity="right"
+            android:textSize="25dp"
+            android:text="현재 요금 " />
+
+        <TextView
+            android:id="@+id/tvCost"
+            android:text=":"
+            android:textSize="25dp" />
+      
+        <TextView
+            android:layout_gravity="right"
+            android:textSize="25dp"
+            android:text="이동 시간 " />
+
+        <TextView
+            android:id="@+id/tvTime"
+            android:text=":"
+            android:textSize="25dp" />
+
+        <TextView
+            android:layout_gravity="right"
+            android:textSize="25dp"
+            android:text="이동 거리 " />
+
+        <TextView
+            android:id="@+id/tvDistance"
+            android:text=":"
+            android:textSize="25dp" />
+
+        <Button
+            android:onClick="startCount"
+            android:text="start" />
+
+        <Button
+            android:onClick="stopCount"
+            android:text="stop" />
+
+    </GridLayout>
+
+</LinearLayout>
