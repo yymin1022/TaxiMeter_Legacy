@@ -3,11 +3,13 @@ package com.yong.taximeter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -34,6 +36,7 @@ public class MeterActivity extends AppCompatActivity implements LocationListener
     private LocationManager locationManager;
     private Location mLastlocation = null;
     private TextView tvCost, tvDistance, tvSpeed, tvTime, tvType;
+    private ImageView ivHorse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,21 @@ public class MeterActivity extends AppCompatActivity implements LocationListener
         tvTime = findViewById(R.id.tvTime);
         tvType = findViewById(R.id.tvType);
 
+        ivHorse = findViewById(R.id.meter_image_horse);
+
+        Typeface typeFace = Typeface.createFromAsset(getAssets(), "fonts/digital_num.ttf");
+        tvCost.setTypeface(typeFace);
+        tvDistance.setTypeface(typeFace);
+        tvSpeed.setTypeface(typeFace);
+        tvTime.setTypeface(typeFace);
+        tvType.setTypeface(typeFace);
+
+        tvCost.setText(String.valueOf(currentCost));
+        tvDistance.setText(String.valueOf(sumDistance));
+        tvSpeed.setText("0.0");
+        tvTime.setText(String.valueOf(sumTime));
+        tvType.setText("기본요금");
+
         locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
     }
  
@@ -53,13 +71,14 @@ public class MeterActivity extends AppCompatActivity implements LocationListener
     public void onLocationChanged(Location location) {
         double deltaDistance = 0;
         double deltaTime = 0;
-        double getSpeed = Double.parseDouble(String.format(Locale.getDefault(), "%.3f", location.getSpeed()));
+        double getSpeed = (Double.parseDouble(String.format(Locale.getDefault(), "%.3f", location.getSpeed()))) * 3600 / 1000;
 
         if(mLastlocation != null) {
-            deltaDistance = mLastlocation.distanceTo(location);
+            deltaDistance = getSpeed;
             deltaTime = (location.getTime() - mLastlocation.getTime()) / 1000.0;
             sumDistance += deltaDistance;
             sumTime += deltaTime;
+
             // 이동거리가 기본요금 거리 이상인지 확인
             if(sumDistance > defaultCostDistance){
                 // 속도에 따라 거리요금 / 시간요금 선택 적용
@@ -84,8 +103,8 @@ public class MeterActivity extends AppCompatActivity implements LocationListener
                 tvType.setText("기본요금");
             }
 
-            tvCost.setText(String.valueOf(currentCost));
-            tvDistance.setText(String.format(Locale.getDefault(), "%.2f", sumDistance));
+            tvCost.setText(currentCost + "원");
+            tvDistance.setText(String.format(Locale.getDefault(), "%.1f", sumDistance/1000));
             tvSpeed.setText(String.valueOf(getSpeed));
             tvTime.setText(String.valueOf(Math.round(sumTime)));
         }
