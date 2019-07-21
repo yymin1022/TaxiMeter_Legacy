@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
+import android.graphics.drawable.AnimationDrawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -19,6 +20,8 @@ import androidx.core.app.ActivityCompat;
 import java.util.Locale;
 
 public class MeterActivity extends AppCompatActivity implements LocationListener {
+    int i = 0;
+
     int defaultCost = 3800;          // 기본요금
     int runningCost = 100;          // 주행요금
     int timeCost = 100;             // 시간요금 (시속 15km 이하)
@@ -48,7 +51,6 @@ public class MeterActivity extends AppCompatActivity implements LocationListener
         tvSpeed = findViewById(R.id.tvSpeed);
         tvTime = findViewById(R.id.tvTime);
         tvType = findViewById(R.id.tvType);
-
         ivHorse = findViewById(R.id.meter_image_horse);
 
         Typeface typeFace = Typeface.createFromAsset(getAssets(), "fonts/digital_num.ttf");
@@ -58,10 +60,10 @@ public class MeterActivity extends AppCompatActivity implements LocationListener
         tvTime.setTypeface(typeFace);
         tvType.setTypeface(typeFace);
 
-        tvCost.setText(String.valueOf(currentCost));
-        tvDistance.setText(String.valueOf(sumDistance));
-        tvSpeed.setText("0.0");
-        tvTime.setText(String.valueOf(sumTime));
+        tvCost.setText(String.valueOf(currentCost) + "원");
+        tvDistance.setText(String.valueOf(sumDistance) + "km");
+        tvSpeed.setText("0.0km/s");
+        tvTime.setText(String.valueOf(sumTime) + "초");
         tvType.setText("기본요금");
 
         locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
@@ -84,7 +86,7 @@ public class MeterActivity extends AppCompatActivity implements LocationListener
                 // 속도에 따라 거리요금 / 시간요금 선택 적용
                 if(getSpeed < 15){
                     if(timeForAdding >= timeCostSecond){
-                        currentCost += timeCost * timeForAdding / timeCostSecond;
+                        currentCost += timeCost * Math.round(timeForAdding / timeCostSecond);
                         timeForAdding = 0;
                     }else{
                         timeForAdding += deltaTime;
@@ -104,9 +106,11 @@ public class MeterActivity extends AppCompatActivity implements LocationListener
             }
 
             tvCost.setText(currentCost + "원");
-            tvDistance.setText(String.format(Locale.getDefault(), "%.1f", sumDistance/1000));
-            tvSpeed.setText(String.valueOf(getSpeed));
-            tvTime.setText(String.valueOf(Math.round(sumTime)));
+            tvDistance.setText(String.format(Locale.getDefault(), "%.1f", sumDistance/1000) + "km");
+            tvSpeed.setText(String.format(Locale.getDefault(), "%.1f", getSpeed) + "km/s");
+            tvTime.setText(String.valueOf(Math.round(sumTime)) + "초");
+
+            runHorse(Math.round(getSpeed));
         }
         mLastlocation = location;
     }
@@ -148,5 +152,45 @@ public class MeterActivity extends AppCompatActivity implements LocationListener
             }
         });
         stopDialog.show();
+    }
+
+    public void runHorse(long speed){
+        AnimationDrawable animationDrawable = new AnimationDrawable();
+
+        if(speed > 60){
+            for(int i = 0; i < 7; i++){
+                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_1), 47);
+                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_2), 47);
+                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_3), 48);
+                animationDrawable.setOneShot(true);
+            }
+        }else if(speed > 40){
+            for(int i = 0; i < 5; i++){
+                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_1), 66);
+                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_2), 66);
+                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_3), 68);
+                animationDrawable.setOneShot(true);
+            }
+        }else if(speed > 20){
+            for(int i = 0; i < 3; i++){
+                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_1), 111);
+                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_2), 111);
+                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_3), 111);
+                animationDrawable.setOneShot(true);
+            }
+        }else if(speed > 0){
+            for(int i = 0; i < 2; i++){
+                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_1), 166);
+                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_2), 166);
+                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_3), 168);
+                animationDrawable.setOneShot(true);
+            }
+        }else{
+            animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_2), 1000);
+            animationDrawable.setOneShot(true);
+        }
+
+        ivHorse.setBackground(animationDrawable);
+        animationDrawable.start();
     }
 }
