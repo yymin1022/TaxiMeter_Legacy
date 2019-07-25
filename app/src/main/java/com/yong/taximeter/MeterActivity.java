@@ -9,13 +9,18 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Locale;
 
@@ -28,7 +33,13 @@ public class MeterActivity extends AppCompatActivity implements LocationListener
     int defaultCostDistance = 2000;  // 기본요금 주행 거리
     int runningCostDistance = 132;  // 주행요금 추가 기준 거리
     int timeCostSecond = 31;       // 시간요금 추가 기준 시간
-    int currentCost = defaultCost;          // 계산된 최종 요금
+    int currentCost = defaultCost;    // 계산된 최종 요금
+
+    int addNight = 20;                // 심야할증 비율
+    int addOutCity = 20;              // 시외할증 비율
+
+    boolean isNight = false;
+    boolean isOutCity = false;
 
     double distanceForAdding = 0;
     double timeForAdding = 0;
@@ -36,22 +47,25 @@ public class MeterActivity extends AppCompatActivity implements LocationListener
     double sumDistance = 0;          // 총 이동거리
     double sumTime = 0;              // 총 이동시간
 
+    private ImageView ivHorse;
     private LocationManager locationManager;
     private Location mLastlocation = null;
     private TextView tvCost, tvDistance, tvSpeed, tvTime, tvType;
-    private ImageView ivHorse;
+    private ToggleButton isNightButton, isOutCityButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meter);
 
+        ivHorse = findViewById(R.id.meter_image_horse);
         tvCost = findViewById(R.id.tvCost);
         tvDistance = findViewById(R.id.tvDistance);
         tvSpeed = findViewById(R.id.tvSpeed);
         tvTime = findViewById(R.id.tvTime);
         tvType = findViewById(R.id.tvType);
-        ivHorse = findViewById(R.id.meter_image_horse);
+        isNightButton = findViewById(R.id.isNight);
+        isOutCityButton = findViewById(R.id.isOuterCity);
 
         Typeface typeFace = Typeface.createFromAsset(getAssets(), "fonts/digital_num.ttf");
         tvCost.setTypeface(typeFace);
@@ -60,11 +74,34 @@ public class MeterActivity extends AppCompatActivity implements LocationListener
         tvTime.setTypeface(typeFace);
         tvType.setTypeface(typeFace);
 
-        tvCost.setText(String.valueOf(currentCost) + "원");
-        tvDistance.setText(String.valueOf(sumDistance) + "km");
+        tvCost.setText(currentCost + "원");
+        tvDistance.setText(sumDistance + "km");
         tvSpeed.setText("0.0km/s");
-        tvTime.setText(String.valueOf(sumTime) + "초");
+        tvTime.setText(sumTime + "초");
         tvType.setText("기본요금");
+
+        isNightButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if(isChecked){
+                    Snackbar.make(getWindow().getDecorView().getRootView(), "최종 금액에 심야할증이 적용됩니다.", Snackbar.LENGTH_SHORT).show();
+                }else{
+                    Snackbar.make(getWindow().getDecorView().getRootView(), "심야할증 적용이 해제됩니다.", Snackbar.LENGTH_SHORT).show();
+                }
+                isNight = isChecked;
+            }
+        });
+        isOutCityButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if(isChecked){
+                    Snackbar.make(getWindow().getDecorView().getRootView(), "최종 금액에 시외할증이 적용됩니다.", Snackbar.LENGTH_SHORT).show();
+                }else{
+                    Snackbar.make(getWindow().getDecorView().getRootView(), "시외할증 적용이 해제됩니다.", Snackbar.LENGTH_SHORT).show();
+                }
+                isOutCity = isChecked;
+            }
+        });
 
         locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
     }
@@ -105,10 +142,11 @@ public class MeterActivity extends AppCompatActivity implements LocationListener
                 tvType.setText("기본요금");
             }
 
-            tvCost.setText(currentCost + "원");
-            tvDistance.setText(String.format(Locale.getDefault(), "%.1f", sumDistance/1000) + "km");
-            tvSpeed.setText(String.format(Locale.getDefault(), "%.1f", getSpeed) + "km/s");
-            tvTime.setText(String.valueOf(Math.round(sumTime)) + "초");
+            currentCost = currentCost / 100;
+            tvCost.setText(String.format(Locale.getDefault(), "%d원", currentCost));
+            tvDistance.setText(String.format(Locale.getDefault(), "%.1fkm", sumDistance/1000));
+            tvSpeed.setText(String.format(Locale.getDefault(), "%.1fkm/s", getSpeed));
+            tvTime.setText(String.format(Locale.getDefault(), "%.0f초", sumTime));
 
             runHorse(Math.round(getSpeed));
         }
@@ -142,6 +180,17 @@ public class MeterActivity extends AppCompatActivity implements LocationListener
 
     public void stopCount(View v){
         locationManager.removeUpdates(this);
+
+        if(isOutCity){
+            Log.i("OutCity", "TRUE");
+            currentCost = currentCost * 120/100;
+        }
+        if(isNight){
+            Log.i("Night", "TRUE");
+            currentCost = currentCost * 120/100;
+        }
+        currentCost = (currentCost + 50) / 100 * 100;
+
         AlertDialog.Builder stopDialog = new AlertDialog.Builder(this);
         stopDialog.setTitle("운행이 종료되었습니다");
         stopDialog.setMessage("총 요금 : " + currentCost + "\n운행 시간 : " + sumTime + "\n이동 거리 : " + sumDistance);

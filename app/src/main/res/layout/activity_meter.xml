@@ -144,23 +144,25 @@
                 android:text="운행 종료"
                 android:textSize="15sp"/>
 
-            <Switch
+            <ToggleButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#99ee90"
                 android:gravity="center"
                 android:id="@+id/isOuterCity"
-                android:text="시외 할증"
+                android:textOff="시외할증 미적용"
+                android:textOn="시외할증 적용"
                 android:textSize="15sp"
                 android:textColor="#ff000000" />
 
-            <Switch
+            <ToggleButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#ffdb7093"
                 android:gravity="center"
                 android:id="@+id/isNight"
-                android:text="심야 할증"
+                android:textOff="심야할증 미적용"
+                android:textOn="심야할증 적용"
                 android:textSize="15sp"
                 android:textColor="#ff000000" />
 
