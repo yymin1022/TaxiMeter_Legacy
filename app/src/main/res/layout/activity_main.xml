@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="10dp"
     android:orientation="vertical"
-    android:gravity="center"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -12,22 +12,56 @@
         android:layout_height="wrap_content"
         android:gravity="right">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageButton
+            android:layout_width="40sp"
+            android:layout_height="40sp"
+            android:background="@drawable/btn_main_setting"
             android:text="설정"
             android:onClick="setting" />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageButton
+            android:layout_width="40sp"
+            android:layout_height="40sp"
+            android:background="@drawable/btn_main_info"
             android:text="정보"
             android:onClick="info" />
+
     </LinearLayout>
 
-    <Button
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="택시 탑승하기"
-        android:onClick="start" />
+        android:layout_weight="2"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:onClick="start">
+
+        <ImageView
+            android:layout_width="200sp"
+            android:layout_height="200sp"
+            android:src="@drawable/btn_main_taxi"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="택시"
+                android:textStyle="bold"
+                android:textSize="50sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="미터기"
+                android:textSize="50sp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>
