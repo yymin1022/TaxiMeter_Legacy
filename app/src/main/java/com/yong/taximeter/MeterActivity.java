@@ -25,8 +25,6 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.Locale;
 
 public class MeterActivity extends AppCompatActivity implements LocationListener {
-    int i = 0;
-
     int defaultCost = 3800;          // 기본요금
     int runningCost = 100;          // 주행요금
     int timeCost = 100;             // 시간요금 (시속 15km 이하)
@@ -45,13 +43,12 @@ public class MeterActivity extends AppCompatActivity implements LocationListener
     double timeForAdding = 0;
 
     double sumDistance = 0;          // 총 이동거리
-    double sumTime = 0;              // 총 이동시간
+    int sumTime = 0;              // 총 이동시간
 
     private ImageView ivHorse;
     private LocationManager locationManager;
     private Location mLastlocation = null;
     private TextView tvCost, tvDistance, tvSpeed, tvTime, tvType;
-    private ToggleButton isNightButton, isOutCityButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +61,8 @@ public class MeterActivity extends AppCompatActivity implements LocationListener
         tvSpeed = findViewById(R.id.tvSpeed);
         tvTime = findViewById(R.id.tvTime);
         tvType = findViewById(R.id.tvType);
-        isNightButton = findViewById(R.id.isNight);
-        isOutCityButton = findViewById(R.id.isOuterCity);
+        ToggleButton isNightButton = findViewById(R.id.isNight);
+        ToggleButton isOutCityButton = findViewById(R.id.isOuterCity);
 
         Typeface typeFace = Typeface.createFromAsset(getAssets(), "fonts/digital_num.ttf");
         tvCost.setTypeface(typeFace);
@@ -74,10 +71,10 @@ public class MeterActivity extends AppCompatActivity implements LocationListener
         tvTime.setTypeface(typeFace);
         tvType.setTypeface(typeFace);
 
-        tvCost.setText(currentCost + "원");
-        tvDistance.setText(sumDistance + "km");
+        tvCost.setText(String.format(Locale.getDefault(), "%d원", currentCost));
+        tvDistance.setText(String.format(Locale.getDefault(), "%.1fkm", sumDistance));
         tvSpeed.setText("0.0km/s");
-        tvTime.setText(sumTime + "초");
+        tvTime.setText(String.format(Locale.getDefault(), "%d초", sumTime));
         tvType.setText("기본요금");
 
         isNightButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -108,8 +105,8 @@ public class MeterActivity extends AppCompatActivity implements LocationListener
  
     @Override
     public void onLocationChanged(Location location) {
-        double deltaDistance = 0;
-        double deltaTime = 0;
+        double deltaDistance;
+        double deltaTime;
         double getSpeed = (Double.parseDouble(String.format(Locale.getDefault(), "%.3f", location.getSpeed()))) * 3600 / 1000;
 
         if(mLastlocation != null) {
@@ -142,11 +139,11 @@ public class MeterActivity extends AppCompatActivity implements LocationListener
                 tvType.setText("기본요금");
             }
 
-            currentCost = currentCost / 100;
+            currentCost = currentCost / 100 * 100;
             tvCost.setText(String.format(Locale.getDefault(), "%d원", currentCost));
             tvDistance.setText(String.format(Locale.getDefault(), "%.1fkm", sumDistance/1000));
             tvSpeed.setText(String.format(Locale.getDefault(), "%.1fkm/s", getSpeed));
-            tvTime.setText(String.format(Locale.getDefault(), "%.0f초", sumTime));
+            tvTime.setText(String.format(Locale.getDefault(), "%d초", sumTime));
 
             runHorse(Math.round(getSpeed));
         }
@@ -178,16 +175,16 @@ public class MeterActivity extends AppCompatActivity implements LocationListener
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000,0, this);
     }
 
-    public void stopCount(View v){
+    public void stopCount(View v) {
         locationManager.removeUpdates(this);
 
-        if(isOutCity){
+        if (isOutCity) {
             Log.i("OutCity", "TRUE");
-            currentCost = currentCost * 120/100;
+            currentCost = currentCost * (100 + addOutCity) / 100;
         }
-        if(isNight){
+        if (isNight) {
             Log.i("Night", "TRUE");
-            currentCost = currentCost * 120/100;
+            currentCost = currentCost * (100 + addNight) / 100;
         }
         currentCost = (currentCost + 50) / 100 * 100;
 
