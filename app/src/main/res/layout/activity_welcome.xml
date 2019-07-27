@@ -21,43 +21,69 @@
 
         <RadioGroup
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:id="@+id/rgroup_welcome_local">
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="서울"/>
+                android:text="서울"
+                android:id="@+id/rbtn_welcome_seoul"/>
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="서울"/>
+                android:text="경기"
+                android:id="@+id/rbtn_welcome_kyunggi"/>
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="서울"/>
+                android:text="부산"
+                android:id="@+id/rbtn_welcome_busan"/>
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="서울"/>
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="서울"/>
+                android:text="대구"
+                android:id="@+id/rbtn_welcome_daegu"/>
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="서울"/>
+                android:text="인천"
+                android:id="@+id/rbtn_welcome_incheon"/>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="광주"
+                android:id="@+id/rbtn_welcome_gwangju"/>
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="서울"/>
+                android:text="대전"
+                android:id="@+id/rbtn_welcome_daejeon"/>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="울산"
+                android:id="@+id/rbtn_welcome_ulsan"/>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="기타"
+                android:id="@+id/rbtn_welcome_etc"/>
 
         </RadioGroup>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:id="@+id/input_welcome_"/>
 
         <TextView
             android:layout_marginStart="20sp"
