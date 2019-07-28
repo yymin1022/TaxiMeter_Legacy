@@ -79,19 +79,21 @@
 
         </RadioGroup>
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:enabled="false"
-            android:id="@+id/input_welcome_"/>
-
         <TextView
-            android:layout_marginStart="20sp"
+            android:id="@+id/tv_welcome_cost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="요금안내"/>
+            android:layout_marginStart="25sp"
+            android:text="요금안내"
+            android:textSize="20sp"/>
 
     </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="요금은 중형 일반택시 기준이며, 소형/대형 및 모범택시의 경우 \'기타\'메뉴에서 직접 요금을 입력해주세요."
+        android:textSize="20sp"/>
 
     <Button
         android:layout_width="match_parent"

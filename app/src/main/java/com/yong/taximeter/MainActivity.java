@@ -28,10 +28,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setting(View v){
-
+        startActivity(new Intent(this, SettingsActivity.class));
     }
 
     public void info(View v){
-
+        startActivity(new Intent(this, InfoActivity.class));
     }
 }
