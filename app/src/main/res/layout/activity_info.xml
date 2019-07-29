@@ -2,5 +2,49 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <TextView
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="유용민(a.k.a LR)"
+        android:textSize="30sp"/>
+
+    <TextView
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="(중앙대학교 소프트웨어학부)"
+        android:textSize="15sp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp"
+        android:gravity="center">
+
+        <ImageButton
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:gravity="center"
+            android:onClick="openGit"
+            android:background="@drawable/btn_info_git"/>
+
+        <View
+            android:layout_width="40sp"
+            android:layout_height="50sp"/>
+
+        <ImageButton
+            android:layout_width="60sp"
+            android:layout_height="60sp"
+            android:gravity="center"
+            android:onClick="openBlog"
+            android:background="@drawable/btn_info_blog"/>
+
+    </LinearLayout>
+
 </LinearLayout>

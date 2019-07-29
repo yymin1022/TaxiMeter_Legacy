@@ -11,17 +11,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SettingsActivity"></activity>
-        <activity android:name=".InfoActivity" />
         <activity
-            android:name=".WelcomeActivity"
-            android:label="@string/title_activity_welcome"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".MeterActivity" />
-        <activity android:name=".MainActivity">
+            android:name=".SettingsActivity"
+            android:theme="@style/actionbarAppTheme" />
+        <activity
+            android:name=".InfoActivity"
+            android:theme="@style/actionbarAppTheme" />
+        <activity
+            android:name=".WelcomeActivity" />
+        <activity
+            android:name=".MeterActivity" />
+        <activity
+            android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
