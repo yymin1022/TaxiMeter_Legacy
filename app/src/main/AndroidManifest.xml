@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.yong.taximeter">
 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,22 +10,31 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".DonationActivity"
+            android:theme="@style/actionbarAppTheme" />
+
+        <activity
             android:name=".SettingsActivity"
             android:theme="@style/actionbarAppTheme" />
         <activity
             android:name=".InfoActivity"
             android:theme="@style/actionbarAppTheme" />
-        <activity
-            android:name=".WelcomeActivity" />
-        <activity
-            android:name=".MeterActivity" />
-        <activity
-            android:name=".MainActivity">
+        <activity android:name=".WelcomeActivity" />
+        <activity android:name=".MeterActivity" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <service
+            android:name=".MeterService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
+    <uses-permission android:name="com.android.vending.BILLING" />
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
 </manifest>

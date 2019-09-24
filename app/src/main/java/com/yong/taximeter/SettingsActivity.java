@@ -1,6 +1,7 @@
 package com.yong.taximeter;
 
 import androidx.annotation.IdRes;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +34,8 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("설정");
         setContentView(R.layout.activity_settings);
 
         prefs = getSharedPreferences("prefs", MODE_PRIVATE);
@@ -158,6 +162,9 @@ public class SettingsActivity extends AppCompatActivity {
                 tvCost.setText(String.format(Locale.getDefault(),"기본요금 %d원\n기본요금 주행거리 %dm\n주행요금 %d원\n주행요금 추가기준거리 %dm\n시간요금 %d원\n시간요즘 추가기준시간 %d초\n심야할증 비율 %d%%\n시외할증 비율 %d%%", defaultCost, defaultCostDistance, runningCost, runningCostDistance, timeCost, timeCostSecond, addNight, addOutCity));
             }
         });
+
+        RadioButton defaultSelect = findViewById(R.id.rbtn_setting_seoul);
+        defaultSelect.setChecked(true);
     }
 
     public void saveData(View V){

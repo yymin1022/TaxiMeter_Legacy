@@ -15,6 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,10 +36,17 @@ public class WelcomeActivity extends AppCompatActivity {
     SharedPreferences prefs;
     SharedPreferences.Editor ed;
 
+    LinearLayout locationLayout;
+    LinearLayout costLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+
+        locationLayout = findViewById(R.id.layout_welcome_location);
+        costLayout = findViewById(R.id.layout_welcome_cost);
+        costLayout.setVisibility(View.INVISIBLE);
 
         prefs = getSharedPreferences("prefs", MODE_PRIVATE);
 
@@ -174,10 +183,18 @@ public class WelcomeActivity extends AppCompatActivity {
                 tvCost.setText(String.format(Locale.getDefault(),"기본요금 %d원\n기본요금 주행거리 %dm\n주행요금 %d원\n주행요금 추가기준거리 %dm\n시간요금 %d원\n시간요즘 추가기준시간 %d초\n심야할증 비율 %d%%\n시외할증 비율 %d%%", defaultCost, defaultCostDistance, runningCost, runningCostDistance, timeCost, timeCostSecond, addNight, addOutCity));
             }
         });
+
+        RadioButton defaultSelect = findViewById(R.id.rbtn_welcome_seoul);
+        defaultSelect.setChecked(true);
     }
 
     public void getLocationPermission(View V){
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
+    }
+
+    public void doneLocation(View v){
+        locationLayout.setVisibility(View.INVISIBLE);
+        costLayout.setVisibility(View.VISIBLE);
     }
 
     public void exitWelcome(View V){

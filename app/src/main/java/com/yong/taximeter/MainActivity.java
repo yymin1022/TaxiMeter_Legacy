@@ -18,13 +18,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
-        if(prefs.getBoolean("isFirst", true)){
+//        if(prefs.getBoolean("isFirst", true)){
             startActivity(new Intent(this, WelcomeActivity.class));
-        }
+//        }
     }
 
     public void start(View v){
         startActivity(new Intent(this, MeterActivity.class));
+    }
+
+    public void donation(View v){
+        startActivity(new Intent(this, DonationActivity.class));
     }
 
     public void setting(View v){

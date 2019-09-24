@@ -15,15 +15,21 @@
             android:layout_width="40sp"
             android:layout_height="40sp"
             android:layout_margin="10dp"
+            android:background="@drawable/btn_main_donation"
+            android:onClick="donation" />
+
+        <ImageButton
+            android:layout_width="40sp"
+            android:layout_height="40sp"
+            android:layout_margin="10dp"
             android:background="@drawable/btn_main_setting"
-            android:text="설정"
             android:onClick="setting" />
+
         <ImageButton
             android:layout_width="40sp"
             android:layout_height="40sp"
             android:layout_margin="10dp"
             android:background="@drawable/btn_main_info"
-            android:text="정보"
             android:onClick="info" />
 
     </LinearLayout>
