@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.android.billingclient.api.BillingClient;
@@ -37,33 +38,24 @@ public class DonationActivity extends AppCompatActivity implements PurchasesUpda
     String priceDonate4;
 
     private BillingClient billingClient;
-    private Button btnAdRemove;
-    private Button btnDonate1;
-    private Button btnDonate2;
-    private Button btnDonate3;
-    private Button btnDonate4;
+    private LinearLayout btnAdRemove;
+    private LinearLayout btnDonate1;
+    private LinearLayout btnDonate2;
+    private LinearLayout btnDonate3;
+    private LinearLayout btnDonate4;
+    private LinearLayout btnDonateSelf;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donation);
 
-        btnAdRemove = findViewById(R.id.ad_remove);
-        btnDonate1 = findViewById(R.id.donate1);
-        btnDonate2 = findViewById(R.id.donate2);
-        btnDonate3 = findViewById(R.id.donate3);
-        btnDonate4 = findViewById(R.id.donate4);
-
-        btnAdRemove.setEnabled(false);
-        btnAdRemove.setText("잠시만 기다려주세요,");
-        btnDonate1.setEnabled(false);
-        btnDonate1.setText("잠시만 기다려주세요,");
-        btnDonate2.setEnabled(false);
-        btnDonate2.setText("잠시만 기다려주세요,");
-        btnDonate3.setEnabled(false);
-        btnDonate3.setText("잠시만 기다려주세요,");
-        btnDonate4.setEnabled(false);
-        btnDonate4.setText("잠시만 기다려주세요,");
+        btnAdRemove = findViewById(R.id.btn_donation_ad);
+        btnDonate1 = findViewById(R.id.btn_donation_1000);
+        btnDonate2 = findViewById(R.id.btn_donation_5000);
+        btnDonate3 = findViewById(R.id.btn_donation_10000);
+        btnDonate4 = findViewById(R.id.btn_donation_50000);
+        btnDonateSelf = findViewById(R.id.btn_donation_self);
 
         billingClient = BillingClient.newBuilder(DonationActivity.this).setListener(this).build();
         billingClient.startConnection(new BillingClientStateListener() {
@@ -80,6 +72,59 @@ public class DonationActivity extends AppCompatActivity implements PurchasesUpda
                 //Try reconnect to Google Play using startConnection() method
             }
         });
+
+        View.OnClickListener onClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BillingFlowParams flowParams;
+                switch(v.getId()){
+                    case R.id.btn_donation_1000:
+                        flowParams = BillingFlowParams.newBuilder()
+                                .setSku(SKU_DONATE_1)
+                                .setType(BillingClient.SkuType.INAPP)
+                                .build();
+                        billingClient.launchBillingFlow(DonationActivity.this, flowParams);
+                        break;
+                    case R.id.btn_donation_5000:
+                        flowParams = BillingFlowParams.newBuilder()
+                                .setSku(SKU_DONATE_2)
+                                .setType(BillingClient.SkuType.INAPP)
+                                .build();
+                        billingClient.launchBillingFlow(DonationActivity.this, flowParams);
+                        break;
+                    case R.id.btn_donation_10000:
+                        flowParams = BillingFlowParams.newBuilder()
+                                .setSku(SKU_DONATE_3)
+                                .setType(BillingClient.SkuType.INAPP)
+                                .build();
+                        billingClient.launchBillingFlow(DonationActivity.this, flowParams);
+                        break;
+                    case R.id.btn_donation_50000:
+                        flowParams = BillingFlowParams.newBuilder()
+                                .setSku(SKU_DONATE_4)
+                                .setType(BillingClient.SkuType.INAPP)
+                                .build();
+                        billingClient.launchBillingFlow(DonationActivity.this, flowParams);
+                        break;
+                    case R.id.btn_donation_ad:
+                        flowParams = BillingFlowParams.newBuilder()
+                                .setSku(SKU_AD_REMOVE)
+                                .setType(BillingClient.SkuType.INAPP)
+                                .build();
+                        billingClient.launchBillingFlow(DonationActivity.this, flowParams);
+                        break;
+                    case R.id.btn_donation_self:
+                        break;
+                }
+            }
+        };
+
+        btnAdRemove.setOnClickListener(onClickListener);
+        btnDonate1.setOnClickListener(onClickListener);
+        btnDonate2.setOnClickListener(onClickListener);
+        btnDonate3.setOnClickListener(onClickListener);
+        btnDonate4.setOnClickListener(onClickListener);
+        btnDonateSelf.setOnClickListener(onClickListener);
     }
 
     @Override
@@ -167,55 +212,5 @@ public class DonationActivity extends AppCompatActivity implements PurchasesUpda
                         }
                     }
                 });
-        btnAdRemove.setEnabled(true);
-        btnAdRemove.setText("구매하려면 누르세요.");
-        btnDonate1.setEnabled(true);
-        btnDonate1.setText("구매하려면 누르세요.");
-        btnDonate2.setEnabled(true);
-        btnDonate2.setText("구매하려면 누르세요.");
-        btnDonate3.setEnabled(true);
-        btnDonate3.setText("구매하려면 누르세요.");
-        btnDonate4.setEnabled(true);
-        btnDonate4.setText("구매하려면 누르세요.");
-    }
-
-    public void ad_remove(View v){
-        BillingFlowParams flowParams = BillingFlowParams.newBuilder()
-                .setSku(SKU_AD_REMOVE)
-                .setType(BillingClient.SkuType.INAPP)
-                .build();
-        billingClient.launchBillingFlow(this, flowParams);
-    }
-
-    public void donate1(View v){
-        BillingFlowParams flowParams = BillingFlowParams.newBuilder()
-                .setSku(SKU_DONATE_1)
-                .setType(BillingClient.SkuType.INAPP)
-                .build();
-        billingClient.launchBillingFlow(this, flowParams);
-    }
-
-    public void donate2(View v){
-        BillingFlowParams flowParams = BillingFlowParams.newBuilder()
-                .setSku(SKU_DONATE_2)
-                .setType(BillingClient.SkuType.INAPP)
-                .build();
-        billingClient.launchBillingFlow(this, flowParams);
-    }
-
-    public void donate3(View v){
-        BillingFlowParams flowParams = BillingFlowParams.newBuilder()
-                .setSku(SKU_DONATE_3)
-                .setType(BillingClient.SkuType.INAPP)
-                .build();
-        billingClient.launchBillingFlow(this, flowParams);
-    }
-
-    public void donate4(View v){
-        BillingFlowParams flowParams = BillingFlowParams.newBuilder()
-                .setSku(SKU_DONATE_4)
-                .setType(BillingClient.SkuType.INAPP)
-                .build();
-        billingClient.launchBillingFlow(this, flowParams);
     }
 }

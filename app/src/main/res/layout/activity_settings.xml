@@ -9,89 +9,126 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:id="@+id/layout_setting_cost">
 
-        <RadioGroup
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/rgroup_setting_local">
+            android:orientation="horizontal"
+            android:gravity="center">
 
-            <RadioButton
+            <RadioGroup
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="서울"
-                android:id="@+id/rbtn_setting_seoul"/>
+                android:id="@+id/rgroup_setting_local">
 
-            <RadioButton
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="서울"
+                    android:id="@+id/rbtn_setting_seoul"/>
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="경기"
+                    android:id="@+id/rbtn_setting_kyunggi"/>
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="부산"
+                    android:id="@+id/rbtn_setting_busan"/>
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="대구"
+                    android:id="@+id/rbtn_setting_daegu"/>
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="인천"
+                    android:id="@+id/rbtn_setting_incheon"/>
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="광주"
+                    android:id="@+id/rbtn_setting_gwangju"/>
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="대전"
+                    android:id="@+id/rbtn_setting_daejeon"/>
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="울산"
+                    android:id="@+id/rbtn_setting_ulsan"/>
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="기타"
+                    android:id="@+id/rbtn_setting_etc"/>
+
+            </RadioGroup>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="경기"
-                android:id="@+id/rbtn_setting_kyunggi"/>
+                android:layout_marginStart="20sp"
+                android:orientation="vertical">
 
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="부산"
-                android:id="@+id/rbtn_setting_busan"/>
+                <TextView
+                    android:id="@+id/tv_setting_cost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="지역을 선택하세요."
+                    android:textSize="15sp"/>
 
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="대구"
-                android:id="@+id/rbtn_setting_daegu"/>
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="15sp" />
 
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="인천"
-                android:id="@+id/rbtn_setting_incheon"/>
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="광주"
-                android:id="@+id/rbtn_setting_gwangju"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="요금은 중형 일반택시 기준이며,\n소형/대형 및 모범택시의 경우\n\'기타\'메뉴에서 직접\n요금을 입력해주세요."
+                    android:textSize="15sp"/>
 
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="대전"
-                android:id="@+id/rbtn_setting_daejeon"/>
+            </LinearLayout>
 
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="울산"
-                android:id="@+id/rbtn_setting_ulsan"/>
+        </LinearLayout>
 
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="기타"
-                android:id="@+id/rbtn_setting_etc"/>
-
-        </RadioGroup>
-
-        <TextView
-            android:id="@+id/tv_setting_cost"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25sp"
-            android:text="지역을 선택하세요."
-            android:textSize="20sp"/>
+            android:layout_margin="20dp"
+            android:orientation="horizontal"
+            android:id="@+id/btn_setting_done"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_btn_done"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="완료"
+                android:textColor="@android:color/black"
+                android:textSize="15sp"/>
+
+        </LinearLayout>
 
     </LinearLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="요금은 중형 일반택시 기준이며, 소형/대형 및 모범택시의 경우 \'기타\'메뉴에서 직접 요금을 입력해주세요."
-        android:textSize="20sp"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="저장"
-        android:onClick="saveData"/>
 
 </LinearLayout>

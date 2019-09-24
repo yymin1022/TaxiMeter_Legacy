@@ -3,7 +3,6 @@ package com.yong.taximeter;
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import androidx.annotation.IdRes;
@@ -21,6 +20,10 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
+
+import java.util.List;
 import java.util.Locale;
 
 public class WelcomeActivity extends AppCompatActivity {
@@ -33,33 +36,100 @@ public class WelcomeActivity extends AppCompatActivity {
     int addNight = 20;                // 심야할증 비율
     int addOutCity = 20;              // 시외할증 비율
 
+    LinearLayout btnCostDone;
+    LinearLayout btnLocationNext;
+    LinearLayout btnWarningNext;
+    LinearLayout costLayout;
+    LinearLayout locationLayout;
+    LinearLayout warningLayout;
     SharedPreferences prefs;
     SharedPreferences.Editor ed;
-
-    LinearLayout locationLayout;
-    LinearLayout costLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-        locationLayout = findViewById(R.id.layout_welcome_location);
+        btnCostDone = findViewById(R.id.btn_welcome_cost_done);
+        btnLocationNext = findViewById(R.id.btn_welcome_location_next);
+        btnWarningNext = findViewById(R.id.btn_welcome_warning_next);
+
         costLayout = findViewById(R.id.layout_welcome_cost);
+        locationLayout = findViewById(R.id.layout_welcome_location);
+        warningLayout = findViewById(R.id.layout_welcome_warning);
+
         costLayout.setVisibility(View.INVISIBLE);
+        warningLayout.setVisibility(View.INVISIBLE);
 
         prefs = getSharedPreferences("prefs", MODE_PRIVATE);
 
-        Button locationPermissionButton = findViewById(R.id.btn_welcome_location);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION) &&
-                    ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION)) {
-                locationPermissionButton.setEnabled(true);
-            } else {
-                locationPermissionButton.setEnabled(true);
+        View.OnClickListener onClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch(v.getId()){
+                    case R.id.btn_welcome_cost_done:
+                        Toast.makeText(WelcomeActivity.this, "기본 설정이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+
+                        ed = prefs.edit();
+                        ed.putInt("defaultCost", defaultCost);
+                        ed.putInt("defaultCostDistance", defaultCostDistance);
+                        ed.putInt("runningCost", runningCost);
+                        ed.putInt("runningCostDistance", runningCostDistance);
+                        ed.putInt("timeCost", timeCost);
+                        ed.putInt("timeCostSecond", timeCostSecond);
+                        ed.putInt("addNight", addNight);
+                        ed.putInt("addOutCity", addOutCity);
+                        ed.putBoolean("isFirst", false);
+                        ed.apply();
+
+                        finish();
+                        break;
+                    case R.id.btn_welcome_location_next:
+                        if(TedPermission.isGranted(WelcomeActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)){
+                            costLayout.setVisibility(View.INVISIBLE);
+                            locationLayout.setVisibility(View.INVISIBLE);
+                            warningLayout.setVisibility(View.VISIBLE);
+                        }else{
+                            TedPermission.with(WelcomeActivity.this)
+                                    .setPermissionListener(new PermissionListener() {
+                                        @Override
+                                        public void onPermissionGranted() {
+                                            Toast.makeText(getApplicationContext(), "위치정보 사용 권한이 허용되었습니다.", Toast.LENGTH_SHORT).show();
+                                        }
+
+                                        @Override
+                                        public void onPermissionDenied(List<String> deniedPermissions) {
+                                        }
+                                    })
+                                    .setDeniedMessage("위치정보 사용 권한이 허용되지 않았습니다. 애플리케이션 사용 중 예상치 못한 문제가 발생할 수 있으며, [설절] > [앱 및 알림] > [Seoul Healing] > [권한]으로 이동하여 위치정보 사용 권한을 허용해주세요.")
+                                    .setPermissions(Manifest.permission.ACCESS_FINE_LOCATION)
+                                    .check();
+                        }
+
+                        ActivityCompat.requestPermissions(WelcomeActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
+                        break;
+                    case R.id.btn_welcome_warning_next:
+                        costLayout.setVisibility(View.VISIBLE);
+                        locationLayout.setVisibility(View.INVISIBLE);
+                        warningLayout.setVisibility(View.INVISIBLE);
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(WelcomeActivity.this);
+                        builder.setMessage("지역을 선택하거나 요금을 지정해주세요.");
+                        builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                        builder.show();
+                        break;
+                }
             }
-        }
+        };
+
+        btnCostDone.setOnClickListener(onClickListener);
+        btnLocationNext.setOnClickListener(onClickListener);
+        btnWarningNext.setOnClickListener(onClickListener);
 
         final TextView tvCost = findViewById(R.id.tv_welcome_cost);
 
@@ -114,15 +184,26 @@ public class WelcomeActivity extends AppCompatActivity {
                         builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                defaultCost = Integer.valueOf(defaultCostInput.getText().toString());
-                                defaultCostDistance = Integer.valueOf(defaultCostDistanceInput.getText().toString());
-                                runningCost = Integer.valueOf(runningCostInput.getText().toString());
-                                runningCostDistance = Integer.valueOf(runningCostDistanceInput.getText().toString());
-                                timeCost = Integer.valueOf(timeCostInput.getText().toString());
-                                timeCostSecond = Integer.valueOf(timeCostSecondInput.getText().toString());
-                                addNight = Integer.valueOf(nightInput.getText().toString());
-                                addOutCity = Integer.valueOf(outcityInput.getText().toString());
-                                tvCost.setText(String.format(Locale.getDefault(),"기본요금 %d원\n기본요금 주행거리 %dm\n주행요금 %d원\n주행요금 추가기준거리 %dm\n시간요금 %d원\n시간요즘 추가기준시간 %d초\n심야할증 비율 %d%%\n시외할증 비율 %d%%", defaultCost, defaultCostDistance, runningCost, runningCostDistance, timeCost, timeCostSecond, addNight, addOutCity));
+                                if(defaultCostInput.getText().toString().equals("") ||
+                                    defaultCostDistanceInput.getText().toString().equals("") ||
+                                    runningCostInput.getText().toString().equals("") ||
+                                    runningCostDistanceInput.getText().toString().equals("") ||
+                                    timeCostInput.getText().toString().equals("") ||
+                                    timeCostSecondInput.getText().toString().equals("") ||
+                                    nightInput.getText().toString().equals("") ||
+                                    outcityInput.getText().toString().equals("")){
+                                    Toast.makeText(WelcomeActivity.this, "모든 칸을 입력하지 않았습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                                }else{
+                                    defaultCost = Integer.valueOf(defaultCostInput.getText().toString());
+                                    defaultCostDistance = Integer.valueOf(defaultCostDistanceInput.getText().toString());
+                                    runningCost = Integer.valueOf(runningCostInput.getText().toString());
+                                    runningCostDistance = Integer.valueOf(runningCostDistanceInput.getText().toString());
+                                    timeCost = Integer.valueOf(timeCostInput.getText().toString());
+                                    timeCostSecond = Integer.valueOf(timeCostSecondInput.getText().toString());
+                                    addNight = Integer.valueOf(nightInput.getText().toString());
+                                    addOutCity = Integer.valueOf(outcityInput.getText().toString());
+                                    tvCost.setText(String.format(Locale.getDefault(),"기본요금 %d원\n기본요금 주행거리 %dm\n주행요금 %d원\n주행요금 추가기준거리 %dm\n시간요금 %d원\n시간요즘 추가기준시간 %d초\n심야할증 비율 %d%%\n시외할증 비율 %d%%", defaultCost, defaultCostDistance, runningCost, runningCostDistance, timeCost, timeCostSecond, addNight, addOutCity));
+                                }
                             }
                         });
                         builder.show();
@@ -190,25 +271,5 @@ public class WelcomeActivity extends AppCompatActivity {
 
     public void getLocationPermission(View V){
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
-    }
-
-    public void doneLocation(View v){
-        locationLayout.setVisibility(View.INVISIBLE);
-        costLayout.setVisibility(View.VISIBLE);
-    }
-
-    public void exitWelcome(View V){
-        ed = prefs.edit();
-        ed.putInt("defaultCost", defaultCost);
-        ed.putInt("defaultCostDistance", defaultCostDistance);
-        ed.putInt("runningCost", runningCost);
-        ed.putInt("runningCostDistance", runningCostDistance);
-        ed.putInt("timeCost", timeCost);
-        ed.putInt("timeCostSecond", timeCostSecond);
-        ed.putInt("addNight", addNight);
-        ed.putInt("addOutCity", addOutCity);
-        ed.putBoolean("isFirst", false);
-        ed.apply();
-        finish();
     }
 }

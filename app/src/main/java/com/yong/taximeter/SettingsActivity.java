@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -93,15 +94,26 @@ public class SettingsActivity extends AppCompatActivity {
                         builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                defaultCost = Integer.valueOf(defaultCostInput.getText().toString());
-                                defaultCostDistance = Integer.valueOf(defaultCostDistanceInput.getText().toString());
-                                runningCost = Integer.valueOf(runningCostInput.getText().toString());
-                                runningCostDistance = Integer.valueOf(runningCostDistanceInput.getText().toString());
-                                timeCost = Integer.valueOf(timeCostInput.getText().toString());
-                                timeCostSecond = Integer.valueOf(timeCostSecondInput.getText().toString());
-                                addNight = Integer.valueOf(nightInput.getText().toString());
-                                addOutCity = Integer.valueOf(outcityInput.getText().toString());
-                                tvCost.setText(String.format(Locale.getDefault(),"기본요금 %d원\n기본요금 주행거리 %dm\n주행요금 %d원\n주행요금 추가기준거리 %dm\n시간요금 %d원\n시간요즘 추가기준시간 %d초\n심야할증 비율 %d%%\n시외할증 비율 %d%%", defaultCost, defaultCostDistance, runningCost, runningCostDistance, timeCost, timeCostSecond, addNight, addOutCity));
+                                if(defaultCostInput.getText().toString().equals("") ||
+                                        defaultCostDistanceInput.getText().toString().equals("") ||
+                                        runningCostInput.getText().toString().equals("") ||
+                                        runningCostDistanceInput.getText().toString().equals("") ||
+                                        timeCostInput.getText().toString().equals("") ||
+                                        timeCostSecondInput.getText().toString().equals("") ||
+                                        nightInput.getText().toString().equals("") ||
+                                        outcityInput.getText().toString().equals("")){
+                                    Toast.makeText(SettingsActivity.this, "모든 칸을 입력하지 않았습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                                }else{
+                                    defaultCost = Integer.valueOf(defaultCostInput.getText().toString());
+                                    defaultCostDistance = Integer.valueOf(defaultCostDistanceInput.getText().toString());
+                                    runningCost = Integer.valueOf(runningCostInput.getText().toString());
+                                    runningCostDistance = Integer.valueOf(runningCostDistanceInput.getText().toString());
+                                    timeCost = Integer.valueOf(timeCostInput.getText().toString());
+                                    timeCostSecond = Integer.valueOf(timeCostSecondInput.getText().toString());
+                                    addNight = Integer.valueOf(nightInput.getText().toString());
+                                    addOutCity = Integer.valueOf(outcityInput.getText().toString());
+                                    tvCost.setText(String.format(Locale.getDefault(),"기본요금 %d원\n기본요금 주행거리 %dm\n주행요금 %d원\n주행요금 추가기준거리 %dm\n시간요금 %d원\n시간요즘 추가기준시간 %d초\n심야할증 비율 %d%%\n시외할증 비율 %d%%", defaultCost, defaultCostDistance, runningCost, runningCostDistance, timeCost, timeCostSecond, addNight, addOutCity));
+                                }
                             }
                         });
                         builder.show();
@@ -165,20 +177,26 @@ public class SettingsActivity extends AppCompatActivity {
 
         RadioButton defaultSelect = findViewById(R.id.rbtn_setting_seoul);
         defaultSelect.setChecked(true);
-    }
 
-    public void saveData(View V){
-        ed = prefs.edit();
-        ed.putInt("defaultCost", defaultCost);
-        ed.putInt("defaultCostDistance", defaultCostDistance);
-        ed.putInt("runningCost", runningCost);
-        ed.putInt("runningCostDistance", runningCostDistance);
-        ed.putInt("timeCost", timeCost);
-        ed.putInt("timeCostSecond", timeCostSecond);
-        ed.putInt("addNight", addNight);
-        ed.putInt("addOutCity", addOutCity);
-        ed.putBoolean("isFirst", false);
-        ed.apply();
-        Toast.makeText(getApplicationContext(), "저장되었습니다.", Toast.LENGTH_SHORT).show();
+        LinearLayout btnSave = findViewById(R.id.btn_setting_done);
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ed = prefs.edit();
+                ed.putInt("defaultCost", defaultCost);
+                ed.putInt("defaultCostDistance", defaultCostDistance);
+                ed.putInt("runningCost", runningCost);
+                ed.putInt("runningCostDistance", runningCostDistance);
+                ed.putInt("timeCost", timeCost);
+                ed.putInt("timeCostSecond", timeCostSecond);
+                ed.putInt("addNight", addNight);
+                ed.putInt("addOutCity", addOutCity);
+                ed.putBoolean("isFirst", false);
+                ed.apply();
+                Toast.makeText(getApplicationContext(), "저장되었습니다.", Toast.LENGTH_SHORT).show();
+
+                finish();
+            }
+        });
     }
 }
