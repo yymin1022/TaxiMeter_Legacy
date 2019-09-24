@@ -28,7 +28,7 @@ public class MeterService extends Service  implements LocationListener {
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
             stopSelf();
         }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,0, this);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000,0, this);
 
         return super.onStartCommand(intent, flags, startId);
     }

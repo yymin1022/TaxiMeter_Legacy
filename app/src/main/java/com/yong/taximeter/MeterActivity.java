@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
@@ -43,14 +44,27 @@ public class MeterActivity extends AppCompatActivity{
     boolean isNight = false;
     boolean isOutCity = false;
 
-    private ImageView ivHorse;
     BroadcastReceiver speedReceiver = null;
+    SharedPreferences prefs;
+
+    private ImageView ivHorse;
     private TextView tvCost, tvDistance, tvSpeed, tvTime, tvType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meter);
+
+        prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+
+        defaultCost = prefs.getInt("defaultCost", 3800);
+        runningCost = prefs.getInt("runningCost", 100);
+        timeCost = prefs.getInt("timeCost", 100);
+        defaultCostDistance = prefs.getInt("defaultCostDistance", 2000);
+        runningCostDistance = prefs.getInt("runningCostDistance", 132);
+        timeCostSecond = prefs.getInt("timeCostSecond", 32);
+        addNight = prefs.getInt("addNight", 20);
+        addOutCity = prefs.getInt("addOutCity", 20);
 
         ivHorse = findViewById(R.id.meter_image_horse);
         tvCost = findViewById(R.id.tvCost);
