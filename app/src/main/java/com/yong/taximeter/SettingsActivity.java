@@ -45,6 +45,46 @@ public class SettingsActivity extends AppCompatActivity {
         
         final TextView tvCost = findViewById(R.id.tv_setting_cost);
 
+        RadioButton defaultSelect;
+        switch(prefs.getString("CURRENT_LOCATION", "SEOUL")){
+            case "BUSAN":
+                defaultSelect = findViewById(R.id.rbtn_setting_busan);
+                defaultSelect.setChecked(true);
+                break;
+            case "DAEGU":
+                defaultSelect = findViewById(R.id.rbtn_setting_daegu);
+                defaultSelect.setChecked(true);
+                break;
+            case "DAEJEON":
+                defaultSelect = findViewById(R.id.rbtn_setting_daejeon);
+                defaultSelect.setChecked(true);
+                break;
+            case "ETC":
+                defaultSelect = findViewById(R.id.rbtn_setting_etc);
+                defaultSelect.setChecked(true);
+                break;
+            case "GWANGJU":
+                defaultSelect = findViewById(R.id.rbtn_setting_gwangju);
+                defaultSelect.setChecked(true);
+                break;
+            case "INCHEON":
+                defaultSelect = findViewById(R.id.rbtn_setting_incheon);
+                defaultSelect.setChecked(true);
+                break;
+            case "KYUNGGI":
+                defaultSelect = findViewById(R.id.rbtn_setting_kyunggi);
+                defaultSelect.setChecked(true);
+                break;
+            case "SEOUL":
+                defaultSelect = findViewById(R.id.rbtn_setting_seoul);
+                defaultSelect.setChecked(true);
+                break;
+            case "ULSAN":
+                defaultSelect = findViewById(R.id.rbtn_setting_ulsan);
+                defaultSelect.setChecked(true);
+                break;
+        }
+
         RadioGroup localSelect = findViewById(R.id.rgroup_setting_local);
         localSelect.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -118,6 +158,9 @@ public class SettingsActivity extends AppCompatActivity {
                                     addNight = Integer.valueOf(nightInput.getText().toString());
                                     addOutCity = Integer.valueOf(outcityInput.getText().toString());
                                     selectedCity = "ETC";
+
+                                    ed.putString("CURRENT_LOCATION", selectedCity);
+                                    tvCost.setText(String.format(Locale.getDefault(),"기본요금 %d원\n기본요금 주행거리 %dm\n주행요금 %d원\n주행요금 추가기준거리 %dm\n시간요금 %d원\n시간요즘 추가기준시간 %d초\n심야할증 비율 %d%%\n시외할증 비율 %d%%", defaultCost, defaultCostDistance, runningCost, runningCostDistance, timeCost, timeCostSecond, addNight, addOutCity));
                                 }
                             }
                         });
@@ -185,46 +228,6 @@ public class SettingsActivity extends AppCompatActivity {
                 tvCost.setText(String.format(Locale.getDefault(),"기본요금 %d원\n기본요금 주행거리 %dm\n주행요금 %d원\n주행요금 추가기준거리 %dm\n시간요금 %d원\n시간요즘 추가기준시간 %d초\n심야할증 비율 %d%%\n시외할증 비율 %d%%", defaultCost, defaultCostDistance, runningCost, runningCostDistance, timeCost, timeCostSecond, addNight, addOutCity));
             }
         });
-
-        RadioButton defaultSelect;
-        switch(prefs.getString("CURRENT_LOCATION", "SEOUL")){
-            case "BUSAN":
-                defaultSelect = findViewById(R.id.rbtn_setting_busan);
-                defaultSelect.setChecked(true);
-                break;
-            case "DAEGU":
-                defaultSelect = findViewById(R.id.rbtn_setting_daegu);
-                defaultSelect.setChecked(true);
-                break;
-            case "DAEJEON":
-                defaultSelect = findViewById(R.id.rbtn_setting_daejeon);
-                defaultSelect.setChecked(true);
-                break;
-            case "ETC":
-                defaultSelect = findViewById(R.id.rbtn_setting_etc);
-                defaultSelect.setChecked(true);
-                break;
-            case "GWANGJU":
-                defaultSelect = findViewById(R.id.rbtn_setting_gwangju);
-                defaultSelect.setChecked(true);
-                break;
-            case "INCHEON":
-                defaultSelect = findViewById(R.id.rbtn_setting_incheon);
-                defaultSelect.setChecked(true);
-                break;
-            case "KYUNGGI":
-                defaultSelect = findViewById(R.id.rbtn_setting_kyunggi);
-                defaultSelect.setChecked(true);
-                break;
-            case "SEOUL":
-                defaultSelect = findViewById(R.id.rbtn_setting_seoul);
-                defaultSelect.setChecked(true);
-                break;
-            case "ULSAN":
-                defaultSelect = findViewById(R.id.rbtn_setting_ulsan);
-                defaultSelect.setChecked(true);
-                break;
-        }
 
         LinearLayout btnSave = findViewById(R.id.btn_setting_done);
         btnSave.setOnClickListener(new View.OnClickListener() {

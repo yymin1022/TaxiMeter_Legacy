@@ -30,7 +30,7 @@ public class MeterActivity extends AppCompatActivity{
     int defaultCostDistance = 2000;  // 기본요금 주행 거리
     int runningCostDistance = 132;  // 주행요금 추가 기준 거리
     int timeCostSecond = 31;       // 시간요금 추가 기준 시간
-    int currentCost = defaultCost;    // 계산된 최종 요금
+    int currentCost = 0;    // 계산된 최종 요금
 
     double distanceForAdding = 0;
     double timeForAdding = 0;
@@ -65,6 +65,7 @@ public class MeterActivity extends AppCompatActivity{
         timeCostSecond = prefs.getInt("timeCostSecond", 32);
         addNight = prefs.getInt("addNight", 20);
         addOutCity = prefs.getInt("addOutCity", 20);
+        currentCost = defaultCost;
 
         ivHorse = findViewById(R.id.meter_image_horse);
         tvCost = findViewById(R.id.tvCost);
