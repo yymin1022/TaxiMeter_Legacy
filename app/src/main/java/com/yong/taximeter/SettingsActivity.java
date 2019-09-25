@@ -28,6 +28,7 @@ public class SettingsActivity extends AppCompatActivity {
     int timeCostSecond = 31;       // 시간요금 추가 기준 시간
     int addNight = 20;                // 심야할증 비율
     int addOutCity = 20;              // 시외할증 비율
+    String selectedCity = "";
 
     SharedPreferences prefs;
     SharedPreferences.Editor ed;
@@ -40,6 +41,7 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+        ed = prefs.edit();
         
         final TextView tvCost = findViewById(R.id.tv_setting_cost);
 
@@ -57,6 +59,7 @@ public class SettingsActivity extends AppCompatActivity {
                         timeCostSecond = 34;
                         addNight = 20;
                         addOutCity = 20;
+                        selectedCity = "BUSAN";
                         break;
                     case R.id.rbtn_setting_daegu:
                         defaultCost = 3800;
@@ -67,6 +70,7 @@ public class SettingsActivity extends AppCompatActivity {
                         timeCostSecond = 32;
                         addNight = 40;
                         addOutCity = 40;
+                        selectedCity = "DAEGU";
                         break;
                     case R.id.rbtn_setting_daejeon:
                         defaultCost = 3300;
@@ -77,6 +81,7 @@ public class SettingsActivity extends AppCompatActivity {
                         timeCostSecond = 34;
                         addNight = 20;
                         addOutCity = 30;
+                        selectedCity = "DAEJEON";
                         break;
                     case R.id.rbtn_setting_etc:
                         AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
@@ -112,7 +117,7 @@ public class SettingsActivity extends AppCompatActivity {
                                     timeCostSecond = Integer.valueOf(timeCostSecondInput.getText().toString());
                                     addNight = Integer.valueOf(nightInput.getText().toString());
                                     addOutCity = Integer.valueOf(outcityInput.getText().toString());
-                                    tvCost.setText(String.format(Locale.getDefault(),"기본요금 %d원\n기본요금 주행거리 %dm\n주행요금 %d원\n주행요금 추가기준거리 %dm\n시간요금 %d원\n시간요즘 추가기준시간 %d초\n심야할증 비율 %d%%\n시외할증 비율 %d%%", defaultCost, defaultCostDistance, runningCost, runningCostDistance, timeCost, timeCostSecond, addNight, addOutCity));
+                                    selectedCity = "ETC";
                                 }
                             }
                         });
@@ -127,6 +132,7 @@ public class SettingsActivity extends AppCompatActivity {
                         timeCostSecond = 32;
                         addNight = 20;
                         addOutCity = 35;
+                        selectedCity = "GWANGJU";
                         break;
                     case R.id.rbtn_setting_incheon:
                         defaultCost = 3800;
@@ -137,6 +143,7 @@ public class SettingsActivity extends AppCompatActivity {
                         timeCostSecond = 33;
                         addNight = 20;
                         addOutCity = 30;
+                        selectedCity = "INCHEON";
                         break;
                     case R.id.rbtn_setting_kyunggi:
                         defaultCost = 3800;
@@ -147,6 +154,7 @@ public class SettingsActivity extends AppCompatActivity {
                         timeCostSecond = 31;
                         addNight = 20;
                         addOutCity = 20;
+                        selectedCity = "KYUNGGI";
                         break;
                     case R.id.rbtn_setting_seoul:
                         defaultCost = 3800;
@@ -157,6 +165,7 @@ public class SettingsActivity extends AppCompatActivity {
                         timeCostSecond = 31;
                         addNight = 20;
                         addOutCity = 20;
+                        selectedCity = "SEOUL";
                         break;
                     case R.id.rbtn_setting_ulsan:
                         defaultCost = 3300;
@@ -167,22 +176,60 @@ public class SettingsActivity extends AppCompatActivity {
                         timeCostSecond = 30;
                         addNight = 20;
                         addOutCity = 30;
+                        selectedCity = "ULSAN";
                         break;
                     default:
                         Toast.makeText(getApplicationContext(), "오류가 발생하였습니다.", Toast.LENGTH_SHORT).show();
                 }
+                ed.putString("CURRENT_LOCATION", selectedCity);
                 tvCost.setText(String.format(Locale.getDefault(),"기본요금 %d원\n기본요금 주행거리 %dm\n주행요금 %d원\n주행요금 추가기준거리 %dm\n시간요금 %d원\n시간요즘 추가기준시간 %d초\n심야할증 비율 %d%%\n시외할증 비율 %d%%", defaultCost, defaultCostDistance, runningCost, runningCostDistance, timeCost, timeCostSecond, addNight, addOutCity));
             }
         });
 
-        RadioButton defaultSelect = findViewById(R.id.rbtn_setting_seoul);
-        defaultSelect.setChecked(true);
+        RadioButton defaultSelect;
+        switch(prefs.getString("CURRENT_LOCATION", "SEOUL")){
+            case "BUSAN":
+                defaultSelect = findViewById(R.id.rbtn_setting_busan);
+                defaultSelect.setChecked(true);
+                break;
+            case "DAEGU":
+                defaultSelect = findViewById(R.id.rbtn_setting_daegu);
+                defaultSelect.setChecked(true);
+                break;
+            case "DAEJEON":
+                defaultSelect = findViewById(R.id.rbtn_setting_daejeon);
+                defaultSelect.setChecked(true);
+                break;
+            case "ETC":
+                defaultSelect = findViewById(R.id.rbtn_setting_etc);
+                defaultSelect.setChecked(true);
+                break;
+            case "GWANGJU":
+                defaultSelect = findViewById(R.id.rbtn_setting_gwangju);
+                defaultSelect.setChecked(true);
+                break;
+            case "INCHEON":
+                defaultSelect = findViewById(R.id.rbtn_setting_incheon);
+                defaultSelect.setChecked(true);
+                break;
+            case "KYUNGGI":
+                defaultSelect = findViewById(R.id.rbtn_setting_kyunggi);
+                defaultSelect.setChecked(true);
+                break;
+            case "SEOUL":
+                defaultSelect = findViewById(R.id.rbtn_setting_seoul);
+                defaultSelect.setChecked(true);
+                break;
+            case "ULSAN":
+                defaultSelect = findViewById(R.id.rbtn_setting_ulsan);
+                defaultSelect.setChecked(true);
+                break;
+        }
 
         LinearLayout btnSave = findViewById(R.id.btn_setting_done);
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ed = prefs.edit();
                 ed.putInt("defaultCost", defaultCost);
                 ed.putInt("defaultCostDistance", defaultCostDistance);
                 ed.putInt("runningCost", runningCost);
