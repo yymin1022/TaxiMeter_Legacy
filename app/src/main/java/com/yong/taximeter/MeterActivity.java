@@ -1,5 +1,6 @@
 package com.yong.taximeter;
 
+import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -14,12 +15,11 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Locale;
 
@@ -48,7 +48,7 @@ public class MeterActivity extends AppCompatActivity{
     SharedPreferences prefs;
 
     private ImageView ivHorse;
-    private TextView tvCost, tvDistance, tvSpeed, tvTime, tvType;
+    private TextView tvCost, tvDistance, tvInfo, tvSpeed, tvTime, tvType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +70,7 @@ public class MeterActivity extends AppCompatActivity{
         ivHorse = findViewById(R.id.meter_image_horse);
         tvCost = findViewById(R.id.tvCost);
         tvDistance = findViewById(R.id.tvDistance);
+        tvInfo = findViewById(R.id.tvInfo);
         tvSpeed = findViewById(R.id.tvSpeed);
         tvTime = findViewById(R.id.tvTime);
         tvType = findViewById(R.id.tvType);
@@ -93,9 +94,9 @@ public class MeterActivity extends AppCompatActivity{
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if(isChecked){
-                    Snackbar.make(getWindow().getDecorView().getRootView(), "최종 금액에 심야할증이 적용됩니다.", Snackbar.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "최종 금액에 심야할증이 적용됩니다.", Toast.LENGTH_SHORT).show();
                 }else{
-                    Snackbar.make(getWindow().getDecorView().getRootView(), "심야할증 적용이 해제됩니다.", Snackbar.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "심야할증 적용이 해제됩니다.", Toast.LENGTH_SHORT).show();
                 }
                 isNight = isChecked;
             }
@@ -104,13 +105,18 @@ public class MeterActivity extends AppCompatActivity{
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if(isChecked){
-                    Snackbar.make(getWindow().getDecorView().getRootView(), "최종 금액에 시외할증이 적용됩니다.", Snackbar.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "최종 금액에 시외할증이 적용됩니다.", Toast.LENGTH_SHORT).show();
                 }else{
-                    Snackbar.make(getWindow().getDecorView().getRootView(), "시외할증 적용이 해제됩니다.", Snackbar.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "시외할증 적용이 해제됩니다.", Toast.LENGTH_SHORT).show();
                 }
                 isOutCity = isChecked;
             }
         });
+
+        // FOR DEBUGGING ONLY : CURRENT TIME IS DISABLED FOR RELEASE MODE
+        TextView tvTimeTitle = findViewById(R.id.tvTimeTitle);
+        tvTime.setVisibility(View.GONE);
+        tvTimeTitle.setVisibility(View.GONE);
     }
  
     public void carculate(double curSpeed){
@@ -154,6 +160,7 @@ public class MeterActivity extends AppCompatActivity{
     }
 
     public void startCount(View v){
+        tvInfo.setVisibility(View.INVISIBLE);
         IntentFilter speedFilter = new IntentFilter();
         speedFilter.addAction("CURRENT_SPEED");
 
@@ -172,31 +179,43 @@ public class MeterActivity extends AppCompatActivity{
     }
 
     public void stopCount(View v) {
-        stopService(new Intent(this, MeterService.class));
-        if(speedReceiver != null){
-            unregisterReceiver(speedReceiver);
-        }
+        ActivityManager manager = (ActivityManager)getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+        boolean isRunning = false;
 
-        if (isOutCity) {
-            Log.i("OutCity", "TRUE");
-            currentCost = currentCost * (100 + addOutCity) / 100;
-        }
-        if (isNight) {
-            Log.i("Night", "TRUE");
-            currentCost = currentCost * (100 + addNight) / 100;
-        }
-        currentCost = (currentCost + 50) / 100 * 100;
+        for(ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE))
+        {
+            if(MeterService.class.getName().equals(service.service.getClassName())){
+                isRunning = true;
+                stopService(new Intent(this, MeterService.class));
+                if(speedReceiver != null){
+                    unregisterReceiver(speedReceiver);
+                }
 
-        AlertDialog.Builder stopDialog = new AlertDialog.Builder(this);
-        stopDialog.setTitle("운행이 종료되었습니다");
-        stopDialog.setMessage("총 요금 : " + currentCost + "\n운행 시간 : " + sumTime + "\n이동 거리 : " + sumDistance);
-        stopDialog.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                finish();
+                if (isOutCity) {
+                    Log.i("OutCity", "TRUE");
+                    currentCost = currentCost * (100 + addOutCity) / 100;
+                }
+                if (isNight) {
+                    Log.i("Night", "TRUE");
+                    currentCost = currentCost * (100 + addNight) / 100;
+                }
+                currentCost = (currentCost + 50) / 100 * 100;
+
+                AlertDialog.Builder stopDialog = new AlertDialog.Builder(this);
+                stopDialog.setTitle("운행이 종료되었습니다");
+                stopDialog.setMessage("총 요금 : " + currentCost + /* "\n운행 시간 : " + sumTime + */ "\n이동 거리 : " + sumDistance);
+                stopDialog.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        finish();
+                    }
+                });
+                stopDialog.show();
             }
-        });
-        stopDialog.show();
+        }
+        if(!isRunning){
+            Toast.makeText(getApplicationContext(), "운행을 아직 시작하지 않았습니다.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void runHorse(long speed){
