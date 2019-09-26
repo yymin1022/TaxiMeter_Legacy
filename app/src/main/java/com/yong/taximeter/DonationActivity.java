@@ -1,5 +1,6 @@
 package com.yong.taximeter;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -22,6 +23,7 @@ import java.util.List;
 import java.util.Locale;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class DonationActivity extends AppCompatActivity implements PurchasesUpdatedListener{
@@ -114,6 +116,15 @@ public class DonationActivity extends AppCompatActivity implements PurchasesUpda
                         billingClient.launchBillingFlow(DonationActivity.this, flowParams);
                         break;
                     case R.id.btn_donation_self:
+                        AlertDialog.Builder builder = new AlertDialog.Builder(DonationActivity.this);
+                        builder.setMessage("은행 계좌입금을 통해 원하시는 만큼 기부해주실 수 있습니다.\n\n우리은행 1002-357-339255\n카카오뱅크 3333-12-7882414");
+                        builder.setPositiveButton("닫기", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                        builder.show();
                         break;
                 }
             }
@@ -139,7 +150,7 @@ public class DonationActivity extends AppCompatActivity implements PurchasesUpda
             //Successfully Purchased
             for(Purchase purchase : purchases){
                 if(purchase.getSku().equals(SKU_AD_REMOVE)){
-                    Toast.makeText(getApplicationContext(), "Thanks for purchasing! Your AD will be hidden!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "구매해주셔서 감사합니다. 애플리케이션을 다시 시작하시면 광고가 사라집니다.", Toast.LENGTH_LONG).show();
 
                     //Save SharedPreferences about Removing Advertisement
                     SharedPreferences prefs = getApplicationContext().getSharedPreferences("androesPrefName", MODE_PRIVATE);
