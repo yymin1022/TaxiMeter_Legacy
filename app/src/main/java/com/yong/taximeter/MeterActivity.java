@@ -9,6 +9,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,6 +22,7 @@ import android.widget.ToggleButton;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.nio.channels.InterruptedByTimeoutException;
 import java.util.Locale;
 
 public class MeterActivity extends AppCompatActivity{
@@ -44,6 +46,7 @@ public class MeterActivity extends AppCompatActivity{
     boolean isNight = false;
     boolean isOutCity = false;
 
+    BroadcastReceiver gpsStatusReceiver = null;
     BroadcastReceiver speedReceiver = null;
     SharedPreferences prefs;
 
@@ -113,12 +116,23 @@ public class MeterActivity extends AppCompatActivity{
             }
         });
 
-        // FOR DEBUGGING ONLY : CURRENT TIME IS DISABLED FOR RELEASE MODE
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            createGpsDisabledAlert();
+        }
+
+        // FOR DEBUGGING ONLY : CURRENT TIME TEXT VIEW IS DISABLED FOR RELEASE MODE
         TextView tvTimeTitle = findViewById(R.id.tvTimeTitle);
         tvTime.setVisibility(View.GONE);
         tvTimeTitle.setVisibility(View.GONE);
     }
- 
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Toast.makeText(getApplicationContext(), "운행 종료를 먼저 눌러주세요.", Toast.LENGTH_SHORT).show();
+    }
+
     public void carculate(double curSpeed){
         double deltaDistance;
         
@@ -160,9 +174,26 @@ public class MeterActivity extends AppCompatActivity{
     }
 
     public void startCount(View v){
-        tvInfo.setVisibility(View.INVISIBLE);
+        tvInfo.setText("운행중입니다.");
+
+        IntentFilter gpsStatusFiler = new IntentFilter();
         IntentFilter speedFilter = new IntentFilter();
+        gpsStatusFiler.addAction("GPS_STATUS");
         speedFilter.addAction("CURRENT_SPEED");
+
+        gpsStatusReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                boolean receivedStatus = intent.getBooleanExtra("curStatus", false);
+                if(intent.getAction().equals("GPS_STATUS")){
+                    if(receivedStatus){
+                        tvInfo.setText("운행중입니다.");
+                    }else{
+                        tvInfo.setText("GPS를 일시적으로 사용할 수 없습니다.");
+                    }
+                }
+            }
+        };
 
         speedReceiver = new BroadcastReceiver() {
             @Override
@@ -175,6 +206,7 @@ public class MeterActivity extends AppCompatActivity{
         };
 
         startService(new Intent(this, MeterService.class));
+        registerReceiver(gpsStatusReceiver, gpsStatusFiler);
         registerReceiver(speedReceiver, speedFilter);
     }
 
@@ -256,5 +288,26 @@ public class MeterActivity extends AppCompatActivity{
 
         ivHorse.setBackground(animationDrawable);
         animationDrawable.start();
+    }
+
+    private void createGpsDisabledAlert() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("GPS 기능이 비활성화되었습니다.")
+                .setCancelable(false)
+                .setPositiveButton("GPS 활성화하기",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                Intent gpsOptionsIntent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                startActivity(gpsOptionsIntent);
+                            }
+                        })
+                .setNegativeButton("종료",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                finish();
+                            }
+                        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 }

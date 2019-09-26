@@ -11,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.location.LocationProvider;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -22,6 +23,7 @@ import java.util.Locale;
 
 public class MeterService extends Service  implements LocationListener {
     NotificationCompat.Builder notificationBuilder;
+    NotificationManager notificationManager;
     private LocationManager locationManager;
     private Location mLastlocation = null;
 
@@ -36,19 +38,20 @@ public class MeterService extends Service  implements LocationListener {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
             NotificationChannel channel = new NotificationChannel("RunningBackground", "택시미터기 실행중 알림", NotificationManager.IMPORTANCE_MIN);
-            channel.setImportance(NotificationManager.IMPORTANCE_MIN);
-            channel.setDescription("택시미터기가 백그라운드에서 실행중일 때 표시됩니다.");
+            channel.setImportance(NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription("택시미터기가 실행중일 때 표시됩니다.");
             notificationManager.createNotificationChannel(channel);
         }
         notificationBuilder = new NotificationCompat.Builder(getApplicationContext(), "RunningBackground")
                 .setSmallIcon(R.drawable.btn_main_taxi)
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.drawable.btn_main_taxi))
                 .setContentTitle("택시미터기")
-                .setContentText("택시미터기가 백그라운드에서 동작중입니다.")
+                .setContentText("택시미터기가 동작중입니다.")
                 .setOngoing(true)
-                .setPriority(Notification.PRIORITY_MIN)
+                .setPriority(Notification.PRIORITY_DEFAULT)
                 .setAutoCancel(false);
-        startForeground(1379, notificationBuilder.build());
+        notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(1379, notificationBuilder.build());
 
         return super.onStartCommand(intent, flags, startId);
     }
@@ -74,7 +77,19 @@ public class MeterService extends Service  implements LocationListener {
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
-
+        Intent intent = new Intent("GPS_STATUS");
+        switch(status){
+            case LocationProvider.AVAILABLE:
+                intent.putExtra("curStatus", true);
+                break;
+            case LocationProvider.OUT_OF_SERVICE:
+                intent.putExtra("curStatus",false);
+                break;
+            case LocationProvider.TEMPORARILY_UNAVAILABLE:
+                intent.putExtra("curStatus",false);
+                break;
+        }
+        sendBroadcast(intent);
     }
 
     @Override
