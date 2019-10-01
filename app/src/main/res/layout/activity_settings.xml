@@ -28,54 +28,54 @@
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="서울"
+                    android:text="@string/setting_radio_seoul"
                     android:id="@+id/rbtn_setting_seoul"/>
 
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="경기"
+                    android:text="@string/setting_radio_kyeonggi"
                     android:id="@+id/rbtn_setting_kyunggi"/>
 
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="부산"
+                    android:text="@string/setting_radio_busan"
                     android:id="@+id/rbtn_setting_busan"/>
 
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="대구"
+                    android:text="@string/setting_radio_daegu"
                     android:id="@+id/rbtn_setting_daegu"/>
 
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="인천"
+                    android:text="@string/setting_radio_incheon"
                     android:id="@+id/rbtn_setting_incheon"/>
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="광주"
+                    android:text="@string/setting_radio_gwangju"
                     android:id="@+id/rbtn_setting_gwangju"/>
 
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="대전"
+                    android:text="@string/setting_radio_daejeon"
                     android:id="@+id/rbtn_setting_daejeon"/>
 
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="울산"
+                    android:text="@string/setting_radio_ulsan"
                     android:id="@+id/rbtn_setting_ulsan"/>
 
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="기타"
+                    android:text="@string/setting_radio_etc"
                     android:id="@+id/rbtn_setting_etc"/>
 
             </RadioGroup>
@@ -90,7 +90,7 @@
                     android:id="@+id/tv_setting_cost"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="지역을 선택하세요."
+                    android:text="@string/setting_tv_select"
                     android:textSize="15sp"/>
 
                 <Space
@@ -100,7 +100,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="요금은 중형 일반택시 기준이며,\n소형/대형 및 모범택시의 경우\n\'기타\'메뉴에서 직접\n요금을 입력해주세요."
+                    android:text="@string/setting_tv_info"
                     android:textSize="15sp"/>
 
             </LinearLayout>
@@ -123,7 +123,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="완료"
+                android:text="@string/setting_tv_done"
                 android:textColor="@android:color/black"
                 android:textSize="15sp"/>
 

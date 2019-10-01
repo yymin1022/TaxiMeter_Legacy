@@ -15,4 +15,34 @@
     <string name="main_tv_meter">Meter</string>
     <string name="main_tv_start">Touch to Start</string>
     <string name="main_tv_taxi">Taxi</string>
+
+    <string name="setting_radio_seoul">Seoul</string>
+    <string name="setting_radio_kyeonggi">Kyeonggi</string>
+    <string name="setting_radio_busan">Busan</string>
+    <string name="setting_radio_daegu">Daegu</string>
+    <string name="setting_radio_incheon">Incheon</string>
+    <string name="setting_radio_gwangju">Gwangju</string>
+    <string name="setting_radio_daejeon">Daejeon</string>
+    <string name="setting_radio_ulsan">Ulsan</string>
+    <string name="setting_radio_etc">ETC</string>
+    <string name="setting_tv_done">Done</string>
+    <string name="setting_tv_info">Fee is about Default Taxi, if you want Smaller or Larger Taxi, you can input Fee by your selft with ETC.</string>
+    <string name="setting_tv_select">Select your Location.</string>
+
+    <string name="welcome_btn_done">Done</string>
+    <string name="welcome_btn_gps_ok">OK</string>
+    <string name="welcome_btn_location_grant">Grant Location Permission</string>
+    <string name="welcome_radio_seoul">Seoul</string>
+    <string name="welcome_radio_kyeonggi">Kyeonggi</string>
+    <string name="welcome_radio_busan">Busan</string>
+    <string name="welcome_radio_daegu">Daegu</string>
+    <string name="welcome_radio_incheon">Incheon</string>
+    <string name="welcome_radio_gwangju">Gwangju</string>
+    <string name="welcome_radio_daejeon">Daejeon</string>
+    <string name="welcome_radio_ulsan">Ulsan</string>
+    <string name="welcome_radio_etc">ETC</string>
+    <string name="welcome_tv_gps_info">GPS Runtime might be wrong about the GPS satellite status and your environment. About this, the Taxi Fee mighe has some error with real Taxi Fee. All of the responsibility for these Fee Problem is on User, not Developer.</string>
+    <string name="welcome_tv_location_info">You must grant Location Permission to Application works properly.</string>
+    <string name="welcome_tv_location_select_info">Fee is about Default Taxi, if you want Smaller or Larger Taxi, you can input Fee by your selft with ETC.</string>
+    <string name="welcome_tv_location_select">Select your Location.</string>
 </resources>
