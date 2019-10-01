@@ -11,14 +11,14 @@
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="유용민(a.k.a LR)"
+        android:text="@string/info_tv_name"
         android:textSize="30sp"/>
 
     <TextView
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="중앙대학교 소프트웨어학부 19학번"
+        android:text="@string/info_tv_school"
         android:textSize="15sp"/>
 
     <LinearLayout

@@ -60,7 +60,7 @@ public class MeterService extends Service  implements LocationListener {
     public void onDestroy() {
         super.onDestroy();
         locationManager.removeUpdates(this);
-        stopForeground(true);
+        notificationManager.cancel(1379);
     }
 
     @Override

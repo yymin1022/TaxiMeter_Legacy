@@ -1,4 +1,18 @@
 <resources>
     <string name="app_name">Taxi Meter</string>
     <string name="title_activity_welcome">WelcomeActivity</string>
+
+    <string name="donate_btn_1000">Energy Drink\n1 Bottle</string>
+    <string name="donate_btn_5000">Starbucks\n1 Glass</string>
+    <string name="donate_btn_10000">Hamburger\n1 Set</string>
+    <string name="donate_btn_50000">Full Course\nDinner</string>
+    <string name="donate_btn_adremove">Advertisement\nRemoval</string>
+    <string name="donate_btn_free">Bank\nAccount</string>
+
+    <string name="info_tv_name">Yongmin Yoo(a.k.a LR)</string>
+    <string name="info_tv_school">Chung-Ang University Software Dept. 19</string>
+
+    <string name="main_tv_meter">Meter</string>
+    <string name="main_tv_start">Touch to Start</string>
+    <string name="main_tv_taxi">Taxi</string>
 </resources>

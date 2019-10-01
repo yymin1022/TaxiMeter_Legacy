@@ -27,7 +27,7 @@
                 android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="핫식스\n한 캔"/>
+                android:text="@string/donate_btn_1000"/>
 
         </LinearLayout>
 
@@ -48,7 +48,7 @@
                 android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="카페모카\n한 잔"/>
+                android:text="@string/donate_btn_5000"/>
 
         </LinearLayout>
 
@@ -69,7 +69,7 @@
                 android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="햄버거세트\n하나"/>
+                android:text="@string/donate_btn_10000"/>
 
         </LinearLayout>
 
@@ -98,7 +98,7 @@
                 android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="고오급\n식사"/>
+                android:text="@string/donate_btn_50000"/>
 
         </LinearLayout>
 
@@ -119,7 +119,7 @@
                 android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="광고 제거\n"/>
+                android:text="@string/donate_btn_adremove"/>
 
         </LinearLayout>
 
@@ -140,116 +140,10 @@
                 android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="원하는만큼\n"/>
+                android:text="@string/donate_btn_free"/>
 
         </LinearLayout>
 
     </LinearLayout>
-
-
-
-<!--    <View-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="5dp"-->
-<!--        android:background="#00000000"/>-->
-
-<!--    <TextView-->
-<!--        android:gravity="center"-->
-<!--        android:layout_marginLeft="5dp"-->
-<!--        android:layout_marginRight="5dp"-->
-<!--        android:layout_width="fill_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="5000원"-->
-<!--        android:textColor="#616161"-->
-<!--        android:background="#f2f2f2"/>-->
-
-<!--    <Button-->
-<!--        android:layout_marginLeft="5dp"-->
-<!--        android:layout_marginRight="5dp"-->
-<!--        android:layout_width="fill_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="잠시만 기다려주세요,"-->
-<!--        android:textColor="#616161"-->
-<!--        android:background="#f2f2f2"-->
-<!--        android:id="@+id/donate2"-->
-<!--        android:onClick="donate2"/>-->
-
-<!--    <View-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="5dp"-->
-<!--        android:background="#00000000"/>-->
-
-<!--    <TextView-->
-<!--        android:gravity="center"-->
-<!--        android:layout_marginLeft="5dp"-->
-<!--        android:layout_marginRight="5dp"-->
-<!--        android:layout_width="fill_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="10000원"-->
-<!--        android:textColor="#616161"-->
-<!--        android:background="#f2f2f2"/>-->
-
-<!--    <Button-->
-<!--        android:layout_marginLeft="5dp"-->
-<!--        android:layout_marginRight="5dp"-->
-<!--        android:layout_width="fill_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="잠시만 기다려주세요,"-->
-<!--        android:textColor="#616161"-->
-<!--        android:background="#f2f2f2"-->
-<!--        android:id="@+id/donate3"-->
-<!--        android:onClick="donate3"/>-->
-
-<!--    <View-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="5dp"-->
-<!--        android:background="#00000000"/>-->
-
-<!--    <TextView-->
-<!--        android:gravity="center"-->
-<!--        android:layout_marginLeft="5dp"-->
-<!--        android:layout_marginRight="5dp"-->
-<!--        android:layout_width="fill_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="50000원"-->
-<!--        android:textColor="#616161"-->
-<!--        android:background="#f2f2f2"/>-->
-
-<!--    <Button-->
-<!--        android:layout_marginLeft="5dp"-->
-<!--        android:layout_marginRight="5dp"-->
-<!--        android:layout_width="fill_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="잠시만 기다려주세요,"-->
-<!--        android:textColor="#616161"-->
-<!--        android:background="#f2f2f2"-->
-<!--        android:id="@+id/donate4"-->
-<!--        android:onClick="donate4"/>-->
-
-<!--    <View-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="5dp"-->
-<!--        android:background="#00000000"/>-->
-
-<!--    <TextView-->
-<!--        android:gravity="center"-->
-<!--        android:layout_marginLeft="5dp"-->
-<!--        android:layout_marginRight="5dp"-->
-<!--        android:layout_width="fill_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="광고제거"-->
-<!--        android:textColor="#616161"-->
-<!--        android:background="#f2f2f2"/>-->
-
-<!--    <Button-->
-<!--        android:layout_marginLeft="5dp"-->
-<!--        android:layout_marginRight="5dp"-->
-<!--        android:layout_width="fill_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="잠시만 기다려주세요,"-->
-<!--        android:textColor="#616161"-->
-<!--        android:background="#f2f2f2"-->
-<!--        android:id="@+id/ad_remove"-->
-<!--        android:onClick="ad_remove"/>-->
 
 </LinearLayout>

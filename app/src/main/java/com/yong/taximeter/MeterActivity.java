@@ -22,7 +22,6 @@ import android.widget.ToggleButton;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.nio.channels.InterruptedByTimeoutException;
 import java.util.Locale;
 
 public class MeterActivity extends AppCompatActivity{

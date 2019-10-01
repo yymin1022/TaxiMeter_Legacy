@@ -56,7 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="택시"
+                android:text="@string/main_tv_taxi"
                 android:textStyle="bold"
                 android:textSize="50sp"/>
 
@@ -64,7 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="미터기"
+                android:text="@string/main_tv_meter"
                 android:textSize="50sp"/>
 
         </LinearLayout>
@@ -74,7 +74,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="45sp"
             android:gravity="center"
-            android:text="터치하여 시작하기"
+            android:text="@string/main_tv_start"
             android:textSize="15sp"/>
 
     </LinearLayout>
