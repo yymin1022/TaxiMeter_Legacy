@@ -17,7 +17,7 @@
     <string name="main_tv_taxi">Taxi</string>
 
     <string name="setting_radio_seoul">Seoul</string>
-    <string name="setting_radio_kyeonggi">Kyeonggi</string>
+    <string name="setting_radio_gyeonggi">Gyeonggi</string>
     <string name="setting_radio_busan">Busan</string>
     <string name="setting_radio_daegu">Daegu</string>
     <string name="setting_radio_incheon">Incheon</string>
@@ -32,8 +32,10 @@
     <string name="welcome_btn_done">Done</string>
     <string name="welcome_btn_gps_ok">OK</string>
     <string name="welcome_btn_location_grant">Grant Location Permission</string>
+    <string name="welcome_dialog_location_select">Select location or Input by yourself.</string>
+    <string name="welcome_dialog_ok">OK</string>
     <string name="welcome_radio_seoul">Seoul</string>
-    <string name="welcome_radio_kyeonggi">Kyeonggi</string>
+    <string name="welcome_radio_gyeonggi">Gyeonggi</string>
     <string name="welcome_radio_busan">Busan</string>
     <string name="welcome_radio_daegu">Daegu</string>
     <string name="welcome_radio_incheon">Incheon</string>
@@ -41,6 +43,11 @@
     <string name="welcome_radio_daejeon">Daejeon</string>
     <string name="welcome_radio_ulsan">Ulsan</string>
     <string name="welcome_radio_etc">ETC</string>
+    <string name="welcome_toast_done">Basic Setup has been Finished</string>
+    <string name="welcome_toast_input_wrong">Some input is empty.</string>
+    <string name="welcome_toast_location_granted">Location Permission has been Granted</string>
+    <string name="welcome_toast_location_not_granted">Location Permission has been refused. Go to [Settings] > [Applications] > [TaxiMeter] and grant please.</string>
+    <string name="welcome_tv_fee_info">Default Fee %d원\nDefault Fee Distance %dm\nRunning Cost %d원\nRunning Cost Standard %dm\nTime Cost %d원\nTime Cost Standard %d초\nNight Adding Percentage %d%%\nOuter City Adding Percentage %d%%</string>
     <string name="welcome_tv_gps_info">GPS Runtime might be wrong about the GPS satellite status and your environment. About this, the Taxi Fee mighe has some error with real Taxi Fee. All of the responsibility for these Fee Problem is on User, not Developer.</string>
     <string name="welcome_tv_location_info">You must grant Location Permission to Application works properly.</string>
     <string name="welcome_tv_location_select_info">Fee is about Default Taxi, if you want Smaller or Larger Taxi, you can input Fee by your selft with ETC.</string>

@@ -128,7 +128,6 @@ public class MeterActivity extends AppCompatActivity{
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         Toast.makeText(getApplicationContext(), "운행 종료를 먼저 눌러주세요.", Toast.LENGTH_SHORT).show();
     }
 

@@ -71,7 +71,7 @@ public class SettingsActivity extends AppCompatActivity {
                 defaultSelect = findViewById(R.id.rbtn_setting_incheon);
                 defaultSelect.setChecked(true);
                 break;
-            case "KYUNGGI":
+            case "GYEONGGI":
                 defaultSelect = findViewById(R.id.rbtn_setting_kyunggi);
                 defaultSelect.setChecked(true);
                 break;
@@ -197,7 +197,7 @@ public class SettingsActivity extends AppCompatActivity {
                         timeCostSecond = 31;
                         addNight = 20;
                         addOutCity = 20;
-                        selectedCity = "KYUNGGI";
+                        selectedCity = "GYEONGGI";
                         break;
                     case R.id.rbtn_setting_seoul:
                         defaultCost = 3800;

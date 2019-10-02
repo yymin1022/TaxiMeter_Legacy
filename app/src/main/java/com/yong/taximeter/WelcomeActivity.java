@@ -70,7 +70,7 @@ public class WelcomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 switch(v.getId()){
                     case R.id.btn_welcome_cost_done:
-                        Toast.makeText(WelcomeActivity.this, "기본 설정이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(WelcomeActivity.this, getString(R.string.welcome_toast_done), Toast.LENGTH_SHORT).show();
 
                         ed.putInt("defaultCost", defaultCost);
                         ed.putInt("defaultCostDistance", defaultCostDistance);
@@ -95,14 +95,14 @@ public class WelcomeActivity extends AppCompatActivity {
                                     .setPermissionListener(new PermissionListener() {
                                         @Override
                                         public void onPermissionGranted() {
-                                            Toast.makeText(getApplicationContext(), "위치정보 사용 권한이 허용되었습니다.", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getApplicationContext(), getString(R.string.welcome_toast_location_granted), Toast.LENGTH_SHORT).show();
                                         }
 
                                         @Override
                                         public void onPermissionDenied(List<String> deniedPermissions) {
                                         }
                                     })
-                                    .setDeniedMessage("위치정보 사용 권한이 허용되지 않았습니다. 애플리케이션 사용 중 예상치 못한 문제가 발생할 수 있으며, [설절] > [앱 및 알림] > [Seoul Healing] > [권한]으로 이동하여 위치정보 사용 권한을 허용해주세요.")
+                                    .setDeniedMessage(getString(R.string.welcome_toast_location_not_granted))
                                     .setPermissions(Manifest.permission.ACCESS_FINE_LOCATION)
                                     .check();
                         }
@@ -115,8 +115,8 @@ public class WelcomeActivity extends AppCompatActivity {
                         warningLayout.setVisibility(View.INVISIBLE);
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(WelcomeActivity.this);
-                        builder.setMessage("지역을 선택하거나 요금을 지정해주세요.");
-                        builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                        builder.setMessage(getString(R.string.welcome_dialog_location_select));
+                        builder.setPositiveButton(getString(R.string.welcome_dialog_ok), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.cancel();
@@ -185,7 +185,7 @@ public class WelcomeActivity extends AppCompatActivity {
                         final EditText nightInput = view.findViewById(R.id.dialog_input_night);
                         final EditText outcityInput = view.findViewById(R.id.dialog_input_outcity);
                         builder.setView(view);
-                        builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                        builder.setPositiveButton(getString(R.string.welcome_dialog_ok), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 if(defaultCostInput.getText().toString().equals("") ||
@@ -196,7 +196,7 @@ public class WelcomeActivity extends AppCompatActivity {
                                         timeCostSecondInput.getText().toString().equals("") ||
                                         nightInput.getText().toString().equals("") ||
                                         outcityInput.getText().toString().equals("")){
-                                    Toast.makeText(WelcomeActivity.this, "모든 칸을 입력하지 않았습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(WelcomeActivity.this, getString(R.string.welcome_toast_input_wrong), Toast.LENGTH_SHORT).show();
                                 }else{
                                     defaultCost = Integer.valueOf(defaultCostInput.getText().toString());
                                     defaultCostDistance = Integer.valueOf(defaultCostDistanceInput.getText().toString());
@@ -209,7 +209,7 @@ public class WelcomeActivity extends AppCompatActivity {
                                     selectedCity = "ETC";
 
                                     ed.putString("CURRENT_LOCATION", selectedCity);
-                                    tvCost.setText(String.format(Locale.getDefault(),"기본요금 %d원\n기본요금 주행거리 %dm\n주행요금 %d원\n주행요금 추가기준거리 %dm\n시간요금 %d원\n시간요즘 추가기준시간 %d초\n심야할증 비율 %d%%\n시외할증 비율 %d%%", defaultCost, defaultCostDistance, runningCost, runningCostDistance, timeCost, timeCostSecond, addNight, addOutCity));
+                                    tvCost.setText(String.format(Locale.getDefault(),getString(R.string.welcome_tv_fee_info), defaultCost, defaultCostDistance, runningCost, runningCostDistance, timeCost, timeCostSecond, addNight, addOutCity));
                                 }
                             }
                         });
@@ -246,7 +246,7 @@ public class WelcomeActivity extends AppCompatActivity {
                         timeCostSecond = 31;
                         addNight = 20;
                         addOutCity = 20;
-                        selectedCity = "KYUNGGI";
+                        selectedCity = "GYEONGGI";
                         break;
                     case R.id.rbtn_welcome_seoul:
                         defaultCost = 3800;
@@ -272,7 +272,7 @@ public class WelcomeActivity extends AppCompatActivity {
                         break;
                 }
                 ed.putString("CURRENT_LOCATION", selectedCity);
-                tvCost.setText(String.format(Locale.getDefault(),"기본요금 %d원\n기본요금 주행거리 %dm\n주행요금 %d원\n주행요금 추가기준거리 %dm\n시간요금 %d원\n시간요즘 추가기준시간 %d초\n심야할증 비율 %d%%\n시외할증 비율 %d%%", defaultCost, defaultCostDistance, runningCost, runningCostDistance, timeCost, timeCostSecond, addNight, addOutCity));
+                tvCost.setText(String.format(Locale.getDefault(),getString(R.string.welcome_tv_fee_info), defaultCost, defaultCostDistance, runningCost, runningCostDistance, timeCost, timeCostSecond, addNight, addOutCity));
             }
         });
         RadioButton defaultSelect = findViewById(R.id.rbtn_welcome_seoul);
