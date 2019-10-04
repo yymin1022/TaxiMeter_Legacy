@@ -30,6 +30,10 @@
     <string name="meter_dialog_gps_unavailable_open_setting">Go to GPS Setting</string>
     <string name="meter_dialog_gps_unavailable_cancel">Cancel</string>
     <string name="meter_dialog_ok">OK</string>
+    <string name="meter_noti_channel_description">Shows when Meter is running.</string>
+    <string name="meter_noti_channel_name">Meter Runnning</string>
+    <string name="meter_noti_text">Taxi Meter is Running</string>
+    <string name="meter_noti_title">Taxi Meter</string>
     <string name="meter_toast_night_extra_disabled">Night Extra is Disabled</string>
     <string name="meter_toast_night_extra_enabled">Night Extra is Enabled and will be applied to Final Cost.</string>
     <string name="meter_toast_outcity_extra_disabled">Out City Extra is Disabled</string>

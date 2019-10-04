@@ -181,7 +181,7 @@ public class DonationActivity extends AppCompatActivity implements PurchasesUpda
     }
 
     public void queryPurchase(){
-        List<String> skuList = new ArrayList<String>();
+        List<String> skuList = new ArrayList<>();
         skuList.add(SKU_AD_REMOVE);
         skuList.add(SKU_DONATE_1);
         skuList.add(SKU_DONATE_2);
