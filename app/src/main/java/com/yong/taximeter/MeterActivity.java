@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
 import android.location.LocationManager;
@@ -22,7 +21,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -220,7 +218,6 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
         sumDistance += deltaDistance;
         sumTime += 1;
 
-        super.onBackPressed();
         // 이동거리가 기본요금 거리 이상인지 확인
         if(sumDistance > defaultCostDistance){
             // 속도에 따라 거리요금 / 시간요금 선택 적용
@@ -263,7 +260,6 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
         IntentFilter speedFilter = new IntentFilter();
         gpsStatusFiler.addAction("GPS_STATUS");
         speedFilter.addAction("CURRENT_SPEED");
-
         gpsStatusReceiver = new BroadcastReceiver(){
             @Override
             public void onReceive(Context context, Intent intent){
@@ -281,14 +277,13 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
         speedReceiver = new BroadcastReceiver(){
             @Override
             public void onReceive(Context context, Intent intent){
-                double receivedSpeed = intent.getDoubleExtra("curSpeed",0);
+                double receivedSpeed = intent.getDoubleExtra("curSpeed",0.0);
                 if(intent.getAction() != null && intent.getAction().equals("CURRENT_SPEED")){
                     carculate(receivedSpeed);
                 }
             }
         };
 
-        startService(new Intent(this, MeterService.class));
         try{
             registerReceiver(gpsStatusReceiver, gpsStatusFiler);
         }catch(Exception e){
@@ -299,6 +294,8 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
         }catch(Exception e){
             Log.e("ERROR", e.toString());
         }
+
+        startService(new Intent(this, MeterService.class));
     }
 
     public void stopCount(View v){

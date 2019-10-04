@@ -31,11 +31,8 @@ public class MeterService extends Service  implements LocationListener {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-            stopSelf();
-        }
+        ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000,0, this);
-
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
             NotificationChannel channel = new NotificationChannel("RunningBackground", getString(R.string.meter_noti_channel_name), NotificationManager.IMPORTANCE_MIN);
@@ -57,7 +54,6 @@ public class MeterService extends Service  implements LocationListener {
         if(notificationBuilder != null && notificationManager != null){
             startForeground(1379, notificationBuilder.build());
         }
-
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -65,7 +61,6 @@ public class MeterService extends Service  implements LocationListener {
     public void onDestroy() {
         super.onDestroy();
         stopForeground(true);
-
         try{
             locationManager.removeUpdates(this);
         }catch(NullPointerException e){
@@ -81,6 +76,7 @@ public class MeterService extends Service  implements LocationListener {
             Intent intent = new Intent("CURRENT_SPEED");
             intent.putExtra("curSpeed",getSpeed);
             sendBroadcast(intent);
+            Log.d("CURRENT_SPEED", String.valueOf(getSpeed));
         }
         mLastlocation = location;
     }
