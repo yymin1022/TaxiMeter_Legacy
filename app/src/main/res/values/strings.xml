@@ -41,6 +41,7 @@
     <string name="meter_noti_title">Taxi Meter</string>
     <string name="meter_toast_night_extra_disabled">Night Extra is Disabled</string>
     <string name="meter_toast_night_extra_enabled">Night Extra is Enabled and will be applied to Final Cost.</string>
+    <string name="meter_toast_onpause_warning">GPS might be unstable if you go to another screen.</string>
     <string name="meter_toast_outcity_extra_disabled">Out City Extra is Disabled</string>
     <string name="meter_toast_outcity_extra_enabled">Out City Extra is Enabled and will be applied to Final Cost.</string>
     <string name="meter_toast_start_first">Pleast press Start button first.</string>

@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        stopService(new Intent(this, MeterService.class));
 
         SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
         if(prefs.getBoolean("isFirst", true)){

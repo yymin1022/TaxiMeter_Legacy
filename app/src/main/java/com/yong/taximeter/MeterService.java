@@ -15,6 +15,7 @@ import android.location.LocationProvider;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.Log;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
@@ -54,7 +55,7 @@ public class MeterService extends Service  implements LocationListener {
                 .setAutoCancel(false);
         notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
         if(notificationBuilder != null && notificationManager != null){
-            notificationManager.notify(1379, notificationBuilder.build());
+            startForeground(1379, notificationBuilder.build());
         }
 
         return super.onStartCommand(intent, flags, startId);
@@ -63,8 +64,13 @@ public class MeterService extends Service  implements LocationListener {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        locationManager.removeUpdates(this);
-        notificationManager.cancel(1379);
+        stopForeground(true);
+
+        try{
+            locationManager.removeUpdates(this);
+        }catch(NullPointerException e){
+            Log.e("ERROR", e.toString());
+        }
     }
 
     @Override

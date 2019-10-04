@@ -41,6 +41,7 @@
     <string name="meter_noti_title">택시미터기</string>
     <string name="meter_toast_night_extra_disabled">심야할증이 비활성화되었습니다.</string>
     <string name="meter_toast_night_extra_enabled">최종요금에 심야할증이 적용됩니다.</string>
+    <string name="meter_toast_onpause_warning">미터기 화면을 벗어나는 경우 GPS 동작이 불안정할 수 있습니다.</string>
     <string name="meter_toast_outcity_extra_disabled">시외할증이 비활성화되었습니다.</string>
     <string name="meter_toast_outcity_extra_enabled">최종요금에 시외할증이 적용됩니다.</string>
     <string name="meter_toast_start_first">운행시작 버튼을 먼저 눌러주세요.</string>

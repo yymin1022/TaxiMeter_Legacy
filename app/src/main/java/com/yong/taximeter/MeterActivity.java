@@ -171,6 +171,43 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
         }
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Toast.makeText(getApplicationContext(), getString(R.string.meter_toast_onpause_warning), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ActivityManager manager = (ActivityManager)getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+        boolean isRunning = false;
+
+        if(manager != null){
+            for(ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE))
+            {
+                if(MeterService.class.getName().equals(service.service.getClassName())){
+                    isRunning = true;
+                    stopService(new Intent(this, MeterService.class));
+
+                    try{
+                        unregisterReceiver(gpsStatusReceiver);
+                    }catch(Exception e){
+                        Log.e("ERROR", e.toString());
+                    }
+                    try{
+                        unregisterReceiver(speedReceiver);
+                    }catch(Exception e){
+                        Log.e("ERROR", e.toString());
+                    }
+                }
+            }
+            if(!isRunning){
+                Toast.makeText(getApplicationContext(), getString(R.string.meter_toast_start_first), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
     public void carculate(double curSpeed){
         double deltaDistance;
         
