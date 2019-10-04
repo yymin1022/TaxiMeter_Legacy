@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -26,12 +25,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import static android.view.View.GONE;
+
 public class DonationActivity extends AppCompatActivity implements PurchasesUpdatedListener{
     static final String SKU_AD_REMOVE = "ad_remove";
-    static final String SKU_DONATE_1 = "donate_1000";
-    static final String SKU_DONATE_2 = "donate_5000";
-    static final String SKU_DONATE_3 = "donate_10000";
-    static final String SKU_DONATE_4 = "donate_50000";
+    static final String SKU_DONATE_1 = "donation_1000";
+    static final String SKU_DONATE_2 = "donation_5000";
+    static final String SKU_DONATE_3 = "donation_10000";
+    static final String SKU_DONATE_4 = "donation_50000";
 
     String priceAdRemove;
     String priceDonate1;
@@ -40,24 +41,18 @@ public class DonationActivity extends AppCompatActivity implements PurchasesUpda
     String priceDonate4;
 
     private BillingClient billingClient;
-    private LinearLayout btnAdRemove;
-    private LinearLayout btnDonate1;
-    private LinearLayout btnDonate2;
-    private LinearLayout btnDonate3;
-    private LinearLayout btnDonate4;
-    private LinearLayout btnDonateSelf;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donation);
 
-        btnAdRemove = findViewById(R.id.btn_donation_ad);
-        btnDonate1 = findViewById(R.id.btn_donation_1000);
-        btnDonate2 = findViewById(R.id.btn_donation_5000);
-        btnDonate3 = findViewById(R.id.btn_donation_10000);
-        btnDonate4 = findViewById(R.id.btn_donation_50000);
-        btnDonateSelf = findViewById(R.id.btn_donation_self);
+        LinearLayout btnAdRemove = findViewById(R.id.btn_donation_ad);
+        LinearLayout btnDonate1 = findViewById(R.id.btn_donation_1000);
+        LinearLayout btnDonate2 = findViewById(R.id.btn_donation_5000);
+        LinearLayout btnDonate3 = findViewById(R.id.btn_donation_10000);
+        LinearLayout btnDonate4 = findViewById(R.id.btn_donation_50000);
+        LinearLayout btnDonateSelf = findViewById(R.id.btn_donation_self);
 
         billingClient = BillingClient.newBuilder(DonationActivity.this).setListener(this).build();
         billingClient.startConnection(new BillingClientStateListener() {
@@ -136,6 +131,10 @@ public class DonationActivity extends AppCompatActivity implements PurchasesUpda
         btnDonate3.setOnClickListener(onClickListener);
         btnDonate4.setOnClickListener(onClickListener);
         btnDonateSelf.setOnClickListener(onClickListener);
+
+        if(!Locale.getDefault().toString().equals("ko_KR")){
+            btnDonateSelf.setVisibility(GONE);
+        }
     }
 
     @Override
@@ -150,7 +149,7 @@ public class DonationActivity extends AppCompatActivity implements PurchasesUpda
             //Successfully Purchased
             for(Purchase purchase : purchases){
                 if(purchase.getSku().equals(SKU_AD_REMOVE)){
-                    Toast.makeText(getApplicationContext(), "구매해주셔서 감사합니다. 애플리케이션을 다시 시작하시면 광고가 사라집니다.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.donation_toast_purchase_adremove), Toast.LENGTH_SHORT).show();
 
                     //Save SharedPreferences about Removing Advertisement
                     SharedPreferences prefs = getApplicationContext().getSharedPreferences("androesPrefName", MODE_PRIVATE);
@@ -159,7 +158,7 @@ public class DonationActivity extends AppCompatActivity implements PurchasesUpda
                     ed.putBoolean("ad_removed", true);
                     ed.apply();
                 }else{
-                    Toast.makeText(getApplicationContext(), "Thanks for Donation!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.donation_toast_purchase_thanks), Toast.LENGTH_LONG).show();
 
                     billingClient.consumeAsync(purchase.getPurchaseToken(), new ConsumeResponseListener() {
                         @Override
@@ -171,18 +170,18 @@ public class DonationActivity extends AppCompatActivity implements PurchasesUpda
             }
         } else if (responseCode == BillingClient.BillingResponse.USER_CANCELED){
             //User Canceled Puchase
-            Toast.makeText(getApplicationContext(), "사용자의 요청으로 취소되었습니디.", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.donation_toast_purchase_canceled), Toast.LENGTH_LONG).show();
         }else if(responseCode == BillingClient.BillingResponse.ITEM_ALREADY_OWNED){
             //Already Purchased Item
-            Toast.makeText(getApplicationContext(), "이미 구매된 항목입니다.", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.donation_toast_purchase_alreadyowned), Toast.LENGTH_LONG).show();
         }else{
             //Unknown Code
-            Toast.makeText(getApplicationContext(),  String.format(Locale.getDefault(), "%d : 알 수 없는 에러입니다.", responseCode), Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),  String.format(Locale.getDefault(), getString(R.string.donation_toast_purchase_unknown_error), responseCode), Toast.LENGTH_LONG).show();
         }
     }
 
     public void queryPurchase(){
-        List skuList = new ArrayList<>();
+        List<String> skuList = new ArrayList<String>();
         skuList.add(SKU_AD_REMOVE);
         skuList.add(SKU_DONATE_1);
         skuList.add(SKU_DONATE_2);

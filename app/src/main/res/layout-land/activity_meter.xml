@@ -18,7 +18,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/meter_tv_meter_info"
+            android:text="@string/meter_tv_info_press_start"
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:id="@+id/tvInfo" />
@@ -98,7 +98,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/tvType"
-                    android:text="@string/meter_tv_cost_mode"
+                    android:text="@string/meter_tv_cost_mode_default"
                     android:textSize="25sp"
                     android:textColor="#ffd3d3d3" />
 
@@ -186,7 +186,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/tvCost"
             android:gravity="end"
-            android:text="0"
+            android:text="@string/meter_tv_current_cost"
             android:textSize="80sp"
             android:textColor="#ffd3d3d3"/>
 

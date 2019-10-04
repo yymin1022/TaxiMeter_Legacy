@@ -53,7 +53,7 @@ public class MeterActivity extends AppCompatActivity{
     private TextView tvCost, tvDistance, tvInfo, tvSpeed, tvTime, tvType;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meter);
 
@@ -86,49 +86,63 @@ public class MeterActivity extends AppCompatActivity{
         tvTime.setTypeface(typeFace);
         tvType.setTypeface(typeFace);
 
-        tvCost.setText(String.format(Locale.getDefault(), "%d원", currentCost));
-        tvDistance.setText(String.format(Locale.getDefault(), "%.1fkm", sumDistance));
-        tvSpeed.setText("0.0km/s");
-        tvTime.setText(String.format(Locale.getDefault(), "%d초", sumTime));
-        tvType.setText("기본요금");
+        tvCost.setText(String.format(Locale.getDefault(), getString(R.string.meter_tv_current_cost_format), currentCost));
+        tvDistance.setText(String.format(Locale.getDefault(), getString(R.string.meter_tv_moving_distance_format), sumDistance));
+        tvSpeed.setText(getString(R.string.meter_tv_current_speed));
+        tvTime.setText(String.format(Locale.getDefault(), getString(R.string.meter_tv_moving_time_format), sumTime));
+        tvType.setText(getString(R.string.meter_tv_cost_mode_default));
 
-        isNightButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        isNightButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked){
                 if(isChecked){
-                    Toast.makeText(getApplicationContext(), "최종 금액에 심야할증이 적용됩니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.meter_toast_night_extra_enabled), Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(getApplicationContext(), "심야할증 적용이 해제됩니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.meter_toast_night_extra_disabled), Toast.LENGTH_SHORT).show();
                 }
                 isNight = isChecked;
             }
         });
-        isOutCityButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        isOutCityButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked){
                 if(isChecked){
-                    Toast.makeText(getApplicationContext(), "최종 금액에 시외할증이 적용됩니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.meter_toast_outcity_extra_enabled), Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(getApplicationContext(), "시외할증 적용이 해제됩니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.meter_toast_outcity_extra_disabled), Toast.LENGTH_SHORT).show();
                 }
                 isOutCity = isChecked;
             }
         });
 
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+        if(locationManager != null && !locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
             createGpsDisabledAlert();
         }
 
-        // FOR DEBUGGING ONLY : CURRENT TIME TEXT VIEW IS DISABLED FOR RELEASE MODE
+        // FOR DEBUGGING ONLY : CURRENT TIME TEXT VIEW IS DISABLED FOR RELEASE
         TextView tvTimeTitle = findViewById(R.id.tvTimeTitle);
         tvTime.setVisibility(View.GONE);
         tvTimeTitle.setVisibility(View.GONE);
     }
 
     @Override
-    public void onBackPressed() {
-        Toast.makeText(getApplicationContext(), "운행 종료를 먼저 눌러주세요.", Toast.LENGTH_SHORT).show();
+    public void onBackPressed(){
+        ActivityManager manager = (ActivityManager)getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+        boolean isRunning = false;
+
+        if(manager != null){
+            for(ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)){
+                if (MeterService.class.getName().equals(service.service.getClassName())) {
+                    isRunning = true;
+                }
+            }
+            if(isRunning){
+                Toast.makeText(getApplicationContext(), getString(R.string.meter_toast_stop_first), Toast.LENGTH_SHORT).show();
+            }else{
+                finish();
+            }
+        }
     }
 
     public void carculate(double curSpeed){
@@ -149,7 +163,7 @@ public class MeterActivity extends AppCompatActivity{
                 }else{
                     timeForAdding += 1;
                 }
-                tvType.setText("시간요금");
+                tvType.setText(getString(R.string.meter_tv_cost_mode_time));
             }else{
                 if(distanceForAdding >= runningCostDistance){
                     currentCost += runningCost * Math.round(distanceForAdding / runningCostDistance);
@@ -157,48 +171,48 @@ public class MeterActivity extends AppCompatActivity{
                 }else{
                     distanceForAdding += deltaDistance;
                 }
-                tvType.setText("주행요금");
+                tvType.setText(getString(R.string.meter_tv_cost_mode_distance));
             }
         }else{
-            tvType.setText("기본요금");
+            tvType.setText(getString(R.string.meter_tv_cost_mode_default));
         }
 
         currentCost = currentCost / 100 * 100;
-        tvCost.setText(String.format(Locale.getDefault(), "%d원", currentCost));
-        tvDistance.setText(String.format(Locale.getDefault(), "%.1fkm", sumDistance/1000));
-        tvSpeed.setText(String.format(Locale.getDefault(), "%.1fkm/s", curSpeed));
-        tvTime.setText(String.format(Locale.getDefault(), "%d초", sumTime));
+        tvCost.setText(String.format(Locale.getDefault(), getString(R.string.meter_tv_current_cost_format), currentCost));
+        tvDistance.setText(String.format(Locale.getDefault(), getString(R.string.meter_tv_moving_distance_format), sumDistance/1000));
+        tvSpeed.setText(String.format(Locale.getDefault(), getString(R.string.meter_tv_current_speed_format), curSpeed));
+        tvTime.setText(String.format(Locale.getDefault(), getString(R.string.meter_tv_moving_time_format), sumTime));
 
         runHorse(Math.round(curSpeed));
     }
 
     public void startCount(View v){
-        tvInfo.setText("운행중입니다.");
+        tvInfo.setText(getString(R.string.meter_tv_info_running));
 
         IntentFilter gpsStatusFiler = new IntentFilter();
         IntentFilter speedFilter = new IntentFilter();
         gpsStatusFiler.addAction("GPS_STATUS");
         speedFilter.addAction("CURRENT_SPEED");
 
-        gpsStatusReceiver = new BroadcastReceiver() {
+        gpsStatusReceiver = new BroadcastReceiver(){
             @Override
-            public void onReceive(Context context, Intent intent) {
+            public void onReceive(Context context, Intent intent){
                 boolean receivedStatus = intent.getBooleanExtra("curStatus", false);
-                if(intent.getAction().equals("GPS_STATUS")){
+                if(intent.getAction() != null && intent.getAction().equals("GPS_STATUS")){
                     if(receivedStatus){
-                        tvInfo.setText("운행중입니다.");
+                        tvInfo.setText(getString(R.string.meter_tv_info_running));
                     }else{
-                        tvInfo.setText("GPS를 일시적으로 사용할 수 없습니다.");
+                        tvInfo.setText(getString(R.string.meter_tv_info_gps_unavailable));
                     }
                 }
             }
         };
 
-        speedReceiver = new BroadcastReceiver() {
+        speedReceiver = new BroadcastReceiver(){
             @Override
-            public void onReceive(Context context, Intent intent) {
+            public void onReceive(Context context, Intent intent){
                 double receivedSpeed = intent.getDoubleExtra("curSpeed",0);
-                if(intent.getAction().equals("CURRENT_SPEED")){
+                if(intent.getAction() != null && intent.getAction().equals("CURRENT_SPEED")){
                     carculate(receivedSpeed);
                 }
             }
@@ -219,50 +233,54 @@ public class MeterActivity extends AppCompatActivity{
         }
     }
 
-    public void stopCount(View v) {
+    public void stopCount(View v){
         ActivityManager manager = (ActivityManager)getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
         boolean isRunning = false;
 
-        for(ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE))
-        {
-            if(MeterService.class.getName().equals(service.service.getClassName())){
-                isRunning = true;
-                stopService(new Intent(this, MeterService.class));
-                if(speedReceiver != null){
-                    unregisterReceiver(speedReceiver);
-                }
-
-                if (isOutCity) {
-                    Log.i("OutCity", "TRUE");
-                    currentCost = currentCost * (100 + addOutCity) / 100;
-                }
-                if (isNight) {
-                    Log.i("Night", "TRUE");
-                    currentCost = currentCost * (100 + addNight) / 100;
-                }
-                currentCost = (currentCost + 50) / 100 * 100;
-
-                AlertDialog.Builder stopDialog = new AlertDialog.Builder(this);
-                stopDialog.setTitle("운행이 종료되었습니다");
-                stopDialog.setMessage("총 요금 : " + currentCost + /* "\n운행 시간 : " + sumTime + */ "\n이동 거리 : " + sumDistance);
-                stopDialog.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        finish();
+        if(manager != null){
+            for(ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE))
+            {
+                if(MeterService.class.getName().equals(service.service.getClassName())){
+                    isRunning = true;
+                    stopService(new Intent(this, MeterService.class));
+                    if(speedReceiver != null){
+                        unregisterReceiver(speedReceiver);
                     }
-                });
-                stopDialog.show();
+
+                    if(isOutCity){
+                        currentCost = currentCost * (100 + addOutCity) / 100;
+                    }
+                    if(isNight){
+                        currentCost = currentCost * (100 + addNight) / 100;
+                    }
+                    currentCost = (currentCost + 50) / 100 * 100;
+
+                    AlertDialog.Builder stopDialog = new AlertDialog.Builder(this);
+                    stopDialog.setTitle(getString(R.string.meter_dialog_finish_title));
+                    stopDialog.setMessage(String.format(Locale.getDefault(), getString(R.string.meter_dialog_finish_message_debug), currentCost,  sumTime, sumDistance));
+                    stopDialog.setPositiveButton(getString(R.string.meter_dialog_ok), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i){
+                            try{
+                                unregisterReceiver(gpsStatusReceiver);
+                            }catch(Exception e){
+                                Log.e("ERROR", e.toString());
+                            }
+                            try{
+                                unregisterReceiver(speedReceiver);
+                            }catch(Exception e){
+                                Log.e("ERROR", e.toString());
+                            }
+                            finish();
+                        }
+                    });
+                    stopDialog.show();
+                }
+            }
+            if(!isRunning){
+                Toast.makeText(getApplicationContext(), getString(R.string.meter_toast_start_first), Toast.LENGTH_SHORT).show();
             }
         }
-        if(!isRunning){
-            Toast.makeText(getApplicationContext(), "운행을 아직 시작하지 않았습니다.", Toast.LENGTH_SHORT).show();
-        }
-        try{
-            unregisterReceiver(gpsStatusReceiver);
-        }catch(Exception e){}
-        try{
-            unregisterReceiver(speedReceiver);
-        }catch(Exception e){}
     }
 
     public void runHorse(long speed){
@@ -305,20 +323,20 @@ public class MeterActivity extends AppCompatActivity{
         animationDrawable.start();
     }
 
-    private void createGpsDisabledAlert() {
+    private void createGpsDisabledAlert(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("GPS 기능이 비활성화되었습니다.")
+        builder.setMessage(getString(R.string.meter_dialog_gps_unavailable))
                 .setCancelable(false)
-                .setPositiveButton("GPS 활성화하기",
+                .setPositiveButton(getString(R.string.meter_dialog_gps_unavailable_open_setting),
                         new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
+                            public void onClick(DialogInterface dialog, int id){
                                 Intent gpsOptionsIntent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                                 startActivity(gpsOptionsIntent);
                             }
                         })
-                .setNegativeButton("종료",
+                .setNegativeButton(getString(R.string.meter_dialog_gps_unavailable_cancel),
                         new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
+                            public void onClick(DialogInterface dialog, int id){
                                 finish();
                             }
                         });

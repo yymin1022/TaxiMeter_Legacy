@@ -2,12 +2,17 @@
     <string name="app_name">Taxi Meter</string>
     <string name="title_activity_welcome">WelcomeActivity</string>
 
-    <string name="donate_btn_1000">Energy Drink\n1 Bottle</string>
-    <string name="donate_btn_5000">Starbucks\n1 Glass</string>
-    <string name="donate_btn_10000">Hamburger\n1 Set</string>
-    <string name="donate_btn_50000">Full Course\nDinner</string>
-    <string name="donate_btn_adremove">Advertisement\nRemoval</string>
-    <string name="donate_btn_free">Bank\nAccount</string>
+    <string name="donation_btn_1000">Energy Drink\n1 Bottle</string>
+    <string name="donation_btn_5000">Starbucks\n1 Glass</string>
+    <string name="donation_btn_10000">Hamburger\n1 Set</string>
+    <string name="donation_btn_50000">Full Course\nDinner</string>
+    <string name="donation_btn_adremove">Advertisement\nRemoval</string>
+    <string name="donation_btn_free">Bank\nAccount</string>
+    <string name="donation_toast_purchase_adremove">Advertise removal has purchased. Restart application to remove advertisement.</string>
+    <string name="donation_toast_purchase_alreadyowned">Already Purchased Item.</string>
+    <string name="donation_toast_purchase_canceled">Purchase is canceled by user.</string>
+    <string name="donation_toast_purchase_thanks">Thanks for Donation!</string>
+    <string name="donation_toast_purchase_unknown_error">%d : Unknown Error</string>
 
     <string name="info_tv_name">Yongmin Yoo(a.k.a LR)</string>
     <string name="info_tv_school">Chung-Ang University Software Dept. 19</string>
@@ -18,18 +23,40 @@
 
     <string name="meter_btn_start">Start</string>
     <string name="meter_btn_stop">Stop</string>
+    <string name="meter_dialog_finish_message">Cost : %d\nDistance : %.1f</string>
+    <string name="meter_dialog_finish_message_debug">Cost : %d\nDistance : %.1f\nTime : %d</string>
+    <string name="meter_dialog_finish_title">Finished</string>
+    <string name="meter_dialog_gps_unavailable">GPS is currently unavailable</string>
+    <string name="meter_dialog_gps_unavailable_open_setting">Go to GPS Setting</string>
+    <string name="meter_dialog_gps_unavailable_cancel">Cancel</string>
+    <string name="meter_dialog_ok">OK</string>
+    <string name="meter_toast_night_extra_disabled">Night Extra is Disabled</string>
+    <string name="meter_toast_night_extra_enabled">Night Extra is Enabled and will be applied to Final Cost.</string>
+    <string name="meter_toast_outcity_extra_disabled">Out City Extra is Disabled</string>
+    <string name="meter_toast_outcity_extra_enabled">Out City Extra is Enabled and will be applied to Final Cost.</string>
+    <string name="meter_toast_start_first">Pleast press Start button first.</string>
+    <string name="meter_toast_stop_first">Please press Stop button first.</string>
     <string name="meter_toggle_night_disable">Night Extra Disabled</string>
     <string name="meter_toggle_night_enable">Night Extra Enabled</string>
     <string name="meter_toggle_outcity_disable">Out City Extra Disabled</string>
     <string name="meter_toggle_outcity_enable">Out City Extra Enabled</string>
-    <string name="meter_tv_cost_mode">Default Cost</string>
+    <string name="meter_tv_cost_mode_default">Default Cost</string>
+    <string name="meter_tv_cost_mode_distance">Cost per Distance</string>
+    <string name="meter_tv_cost_mode_time">Cost per Time</string>
     <string name="meter_tv_cost_mode_text">Cost Mode</string>
+    <string name="meter_tv_current_cost">0won</string>
+    <string name="meter_tv_current_cost_format">%dwon</string>
     <string name="meter_tv_current_speed">0.0km/s</string>
+    <string name="meter_tv_current_speed_format">%.1fkm/s</string>
     <string name="meter_tv_current_speed_text">Current Speed</string>
-    <string name="meter_tv_meter_info">Press Start Button</string>
+    <string name="meter_tv_info_gps_unavailable">GPS is currently unavailable</string>
+    <string name="meter_tv_info_press_start">Press Start Button</string>
+    <string name="meter_tv_info_running">Meter is Running</string>
     <string name="meter_tv_moving_distance">0.0km</string>
+    <string name="meter_tv_moving_distance_format">%.1fkm</string>
     <string name="meter_tv_moving_distance_text">Moved Distance</string>
     <string name="meter_tv_moving_time">0sec</string>
+    <string name="meter_tv_moving_time_format">%dsec</string>
     <string name="meter_tv_moving_time_text">Moved Time</string>
 
     <string name="setting_radio_seoul">Seoul</string>

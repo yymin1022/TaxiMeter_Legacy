@@ -1,4 +1,5 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -27,7 +28,7 @@
                 android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/donate_btn_1000"/>
+                android:text="@string/donation_btn_1000"/>
 
         </LinearLayout>
 
@@ -48,7 +49,7 @@
                 android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/donate_btn_5000"/>
+                android:text="@string/donation_btn_5000"/>
 
         </LinearLayout>
 
@@ -69,7 +70,7 @@
                 android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/donate_btn_10000"/>
+                android:text="@string/donation_btn_10000"/>
 
         </LinearLayout>
 
@@ -98,7 +99,7 @@
                 android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/donate_btn_50000"/>
+                android:text="@string/donation_btn_50000"/>
 
         </LinearLayout>
 
@@ -119,7 +120,7 @@
                 android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/donate_btn_adremove"/>
+                android:text="@string/donation_btn_adremove"/>
 
         </LinearLayout>
 
@@ -140,7 +141,7 @@
                 android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/donate_btn_free"/>
+                android:text="@string/donation_btn_free"/>
 
         </LinearLayout>
 
