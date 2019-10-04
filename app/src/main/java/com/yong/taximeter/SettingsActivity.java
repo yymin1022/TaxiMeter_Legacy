@@ -37,7 +37,9 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(getString(R.string.setting_title));
+        if(actionBar != null){
+            actionBar.setTitle(getString(R.string.setting_title));
+        }
         setContentView(R.layout.activity_settings);
 
         prefs = getSharedPreferences("prefs", MODE_PRIVATE);
