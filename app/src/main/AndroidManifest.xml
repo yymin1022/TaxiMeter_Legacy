@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.android.vending.BILLING" />
 
     <application
         android:allowBackup="true"
@@ -24,22 +25,26 @@
         <activity
             android:name=".InfoActivity"
             android:theme="@style/actionbarAppTheme" />
-        <activity android:name=".WelcomeActivity" />
-        <activity android:name=".MeterActivity" />
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".WelcomeActivity" />
+        <activity
+            android:name=".MeterActivity"
+            android:configChanges="keyboard|keyboardHidden|screenSize"/>
+        <activity
+            android:name=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action
+                    android:name="android.intent.action.MAIN" />
+                <action
+                    android:name="android.intent.action.VIEW" />
+                <category
+                    android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <service
             android:name=".MeterService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
     </application>
-    <uses-permission android:name="com.android.vending.BILLING" />
-
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
 </manifest>

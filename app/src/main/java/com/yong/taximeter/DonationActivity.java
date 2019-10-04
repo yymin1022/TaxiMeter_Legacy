@@ -152,7 +152,7 @@ public class DonationActivity extends AppCompatActivity implements PurchasesUpda
                     Toast.makeText(getApplicationContext(), getString(R.string.donation_toast_purchase_adremove), Toast.LENGTH_SHORT).show();
 
                     //Save SharedPreferences about Removing Advertisement
-                    SharedPreferences prefs = getApplicationContext().getSharedPreferences("androesPrefName", MODE_PRIVATE);
+                    SharedPreferences prefs = getApplicationContext().getSharedPreferences("prefs", MODE_PRIVATE);
                     SharedPreferences.Editor ed = prefs.edit();
                     ed.remove("ad_removed");
                     ed.putBoolean("ad_removed", true);

@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -22,9 +23,14 @@ import android.widget.ToggleButton;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.fsn.cauly.CaulyAdInfo;
+import com.fsn.cauly.CaulyAdInfoBuilder;
+import com.fsn.cauly.CaulyAdView;
+import com.fsn.cauly.CaulyAdViewListener;
+
 import java.util.Locale;
 
-public class MeterActivity extends AppCompatActivity{
+public class MeterActivity extends AppCompatActivity implements CaulyAdViewListener {
     int defaultCost = 3800;          // 기본요금
     int runningCost = 100;          // 주행요금
     int timeCost = 100;             // 시간요금 (시속 15km 이하)
@@ -44,6 +50,8 @@ public class MeterActivity extends AppCompatActivity{
 
     boolean isNight = false;
     boolean isOutCity = false;
+
+    String CAULY_KEY = BuildConfig.CAULY_KEY;
 
     BroadcastReceiver gpsStatusReceiver = null;
     BroadcastReceiver speedReceiver = null;
@@ -124,6 +132,24 @@ public class MeterActivity extends AppCompatActivity{
         TextView tvTimeTitle = findViewById(R.id.tvTimeTitle);
         tvTime.setVisibility(View.GONE);
         tvTimeTitle.setVisibility(View.GONE);
+
+        if(!prefs.getBoolean("ad_removed", false)){
+            CaulyAdInfo adInfo = new CaulyAdInfoBuilder(CAULY_KEY).
+                    effect("FadeIn").
+                    bannerHeight("Fixed_50").
+                    enableDefaultBannerAd(true).
+                    reloadInterval(20).
+                    build();
+
+            CaulyAdView javaAdView = new CaulyAdView(this);
+            javaAdView.setAdInfo(adInfo);
+            javaAdView.setAdViewListener(MeterActivity.this);
+
+            RelativeLayout rootView = findViewById(R.id.meter_cauly);
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+            rootView.addView(javaAdView, params);
+        }
     }
 
     @Override
@@ -339,5 +365,25 @@ public class MeterActivity extends AppCompatActivity{
                         });
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    @Override
+    public void onReceiveAd(CaulyAdView caulyAdView, boolean b) {
+
+    }
+
+    @Override
+    public void onFailedToReceiveAd(CaulyAdView caulyAdView, int i, String s) {
+
+    }
+
+    @Override
+    public void onShowLandingScreen(CaulyAdView caulyAdView) {
+
+    }
+
+    @Override
+    public void onCloseLandingScreen(CaulyAdView caulyAdView) {
+
     }
 }

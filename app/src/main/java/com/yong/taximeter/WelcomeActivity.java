@@ -134,7 +134,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
         final TextView tvCost = findViewById(R.id.tv_welcome_cost);
 
-        RadioGroup localSelect = findViewById(R.id.rgroup_welcome_local);
+        final RadioGroup localSelect = findViewById(R.id.rgroup_welcome_local);
         localSelect.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, @IdRes int id) {
@@ -211,6 +211,14 @@ public class WelcomeActivity extends AppCompatActivity {
                                     ed.putString("CURRENT_LOCATION", selectedCity);
                                     tvCost.setText(String.format(Locale.getDefault(),getString(R.string.welcome_tv_fee_info), defaultCost, defaultCostDistance, runningCost, runningCostDistance, timeCost, timeCostSecond, addNight, addOutCity));
                                 }
+                            }
+                        });
+                        builder.setNegativeButton(getString(R.string.welcome_dialog_cancel), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                                RadioButton seoulRadio = findViewById(R.id.rbtn_welcome_seoul);
+                                seoulRadio.setChecked(true);
                             }
                         });
                         builder.show();

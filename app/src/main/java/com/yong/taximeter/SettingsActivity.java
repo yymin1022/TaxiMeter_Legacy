@@ -138,7 +138,7 @@ public class SettingsActivity extends AppCompatActivity {
                         final EditText nightInput = view.findViewById(R.id.dialog_input_night);
                         final EditText outcityInput = view.findViewById(R.id.dialog_input_outcity);
                         builder.setView(view);
-                        builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                        builder.setPositiveButton(getString(R.string.setting_dialog_ok), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 if(defaultCostInput.getText().toString().equals("") ||
@@ -164,6 +164,14 @@ public class SettingsActivity extends AppCompatActivity {
                                     ed.putString("CURRENT_LOCATION", selectedCity);
                                     tvCost.setText(String.format(Locale.getDefault(), getString(R.string.setting_tv_fee_info), defaultCost, defaultCostDistance, runningCost, runningCostDistance, timeCost, timeCostSecond, addNight, addOutCity));
                                 }
+                            }
+                        });
+                        builder.setNegativeButton(getString(R.string.setting_dialog_cancel), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                                RadioButton seoulRadio = findViewById(R.id.rbtn_setting_seoul);
+                                seoulRadio.setChecked(true);
                             }
                         });
                         builder.show();

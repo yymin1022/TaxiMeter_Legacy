@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     public void start(View v){
         startActivity(new Intent(this, MeterActivity.class));
     }

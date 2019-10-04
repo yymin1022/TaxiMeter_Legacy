@@ -68,6 +68,8 @@
     <string name="meter_tv_moving_time_format">%d초</string>
     <string name="meter_tv_moving_time_text">총 이동시간</string>
 
+    <string name="setting_dialog_cancel">취소</string>
+    <string name="setting_dialog_ok">확인</string>
     <string name="setting_radio_busan">부산</string>
     <string name="setting_radio_daegu">대구</string>
     <string name="setting_radio_daejeon">대전</string>
@@ -88,6 +90,7 @@
     <string name="welcome_btn_done">완료</string>
     <string name="welcome_btn_gps_ok">확인</string>
     <string name="welcome_btn_location_grant">위치정보 사용 권한 허용하기</string>
+    <string name="welcome_dialog_cancel">취소</string>
     <string name="welcome_dialog_location_select">지역을 선택하거나 직접 입력해주세요.</string>
     <string name="welcome_dialog_ok">확인</string>
     <string name="welcome_radio_busan">부산</string>
