@@ -7,6 +7,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
 import android.location.LocationManager;
@@ -20,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -174,20 +177,25 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
     @Override
     protected void onPause() {
         super.onPause();
-        Toast.makeText(getApplicationContext(), getString(R.string.meter_toast_onpause_warning), Toast.LENGTH_SHORT).show();
+        ActivityManager manager = (ActivityManager)getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+        if(manager != null){
+            for(ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE))
+            {
+                if(MeterService.class.getName().equals(service.service.getClassName())){
+                    Toast.makeText(getApplicationContext(), getString(R.string.meter_toast_onpause_warning), Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         ActivityManager manager = (ActivityManager)getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
-        boolean isRunning = false;
-
         if(manager != null){
             for(ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE))
             {
                 if(MeterService.class.getName().equals(service.service.getClassName())){
-                    isRunning = true;
                     stopService(new Intent(this, MeterService.class));
 
                     try{
@@ -201,9 +209,6 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
                         Log.e("ERROR", e.toString());
                     }
                 }
-            }
-            if(!isRunning){
-                Toast.makeText(getApplicationContext(), getString(R.string.meter_toast_start_first), Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -250,6 +255,8 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
     }
 
     public void startCount(View v){
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
+
         tvInfo.setText(getString(R.string.meter_tv_info_running));
 
         IntentFilter gpsStatusFiler = new IntentFilter();

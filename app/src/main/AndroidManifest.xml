@@ -30,7 +30,7 @@
             android:name=".WelcomeActivity" />
         <activity
             android:name=".MeterActivity"
-            android:configChanges="keyboard|keyboardHidden|screenSize"/>
+            android:configChanges="keyboard|keyboardHidden"/>
         <activity
             android:name=".MainActivity">
             <intent-filter>
