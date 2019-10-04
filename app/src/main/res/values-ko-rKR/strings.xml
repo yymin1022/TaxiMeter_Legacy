@@ -28,8 +28,8 @@
 
     <string name="meter_btn_start">운행 시작</string>
     <string name="meter_btn_stop">운행 종료</string>
-    <string name="meter_dialog_finish_message">최종요금 : %d원\n이동거리 : %.1fkm</string>
-    <string name="meter_dialog_finish_message_debug">최종요금 : %d원\n이동초거리 : %.1fkm\n이동시간 : %d</string>
+    <string name="meter_dialog_finish_message">최종요금 : %d원\n이동거리 : %.1fm</string>
+    <string name="meter_dialog_finish_message_debug">최종요금 : %d원\n이동초거리 : %.1fm\n이동시간 : %d</string>
     <string name="meter_dialog_finish_title">운행이 종료되었습니다.</string>
     <string name="meter_dialog_gps_unavailable">GPS를 일시적으로 사용할 수 없습니다.</string>
     <string name="meter_dialog_gps_unavailable_cancel">취소</string>
