@@ -220,13 +220,11 @@ public class MeterActivity extends AppCompatActivity{
 
         startService(new Intent(this, MeterService.class));
         try{
-            unregisterReceiver(gpsStatusReceiver);
             registerReceiver(gpsStatusReceiver, gpsStatusFiler);
         }catch(Exception e){
             Log.e("ERROR", e.toString());
         }
         try{
-            unregisterReceiver(speedReceiver);
             registerReceiver(speedReceiver, speedFilter);
         }catch(Exception e){
             Log.e("ERROR", e.toString());
@@ -243,8 +241,16 @@ public class MeterActivity extends AppCompatActivity{
                 if(MeterService.class.getName().equals(service.service.getClassName())){
                     isRunning = true;
                     stopService(new Intent(this, MeterService.class));
-                    if(speedReceiver != null){
+
+                    try{
+                        unregisterReceiver(gpsStatusReceiver);
+                    }catch(Exception e){
+                        Log.e("ERROR", e.toString());
+                    }
+                    try{
                         unregisterReceiver(speedReceiver);
+                    }catch(Exception e){
+                        Log.e("ERROR", e.toString());
                     }
 
                     if(isOutCity){
@@ -257,20 +263,11 @@ public class MeterActivity extends AppCompatActivity{
 
                     AlertDialog.Builder stopDialog = new AlertDialog.Builder(this);
                     stopDialog.setTitle(getString(R.string.meter_dialog_finish_title));
-                    stopDialog.setMessage(String.format(Locale.getDefault(), getString(R.string.meter_dialog_finish_message_debug), currentCost,  sumTime, sumDistance));
+                    stopDialog.setMessage(String.format(Locale.getDefault(), getString(R.string.meter_dialog_finish_message), currentCost, sumDistance));
+//                    stopDialog.setMessage(String.format(Locale.getDefault(), getString(R.string.meter_dialog_finish_message_debug), currentCost,  sumTime, sumDistance));
                     stopDialog.setPositiveButton(getString(R.string.meter_dialog_ok), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i){
-                            try{
-                                unregisterReceiver(gpsStatusReceiver);
-                            }catch(Exception e){
-                                Log.e("ERROR", e.toString());
-                            }
-                            try{
-                                unregisterReceiver(speedReceiver);
-                            }catch(Exception e){
-                                Log.e("ERROR", e.toString());
-                            }
                             finish();
                         }
                     });
