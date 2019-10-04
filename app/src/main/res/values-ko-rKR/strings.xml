@@ -28,8 +28,8 @@
 
     <string name="meter_btn_start">운행 시작</string>
     <string name="meter_btn_stop">운행 종료</string>
-    <string name="meter_dialog_finish_message">최종요금 : %d원\\n이동거리 : %.1fkm</string>
-    <string name="meter_dialog_finish_message_debug">최종요금 : %d원\\n이동초거리 : %.1fkm\\n이동시간 : %d</string>
+    <string name="meter_dialog_finish_message">최종요금 : %d원\n이동거리 : %.1fkm</string>
+    <string name="meter_dialog_finish_message_debug">최종요금 : %d원\n이동초거리 : %.1fkm\n이동시간 : %d</string>
     <string name="meter_dialog_finish_title">운행이 종료되었습니다.</string>
     <string name="meter_dialog_gps_unavailable">GPS를 일시적으로 사용할 수 없습니다.</string>
     <string name="meter_dialog_gps_unavailable_cancel">취소</string>
@@ -81,7 +81,7 @@
     <string name="setting_toast_input_wrong">일부 입력란이 입력되지 않았습니다.</string>
     <string name="setting_toast_saved">저장되었습니다.</string>
     <string name="setting_tv_done">완료</string>
-    <string name="setting_tv_fee_info">기본요금 %d원\\n기본요금 주행거리 %dm\\n주행요금 %d원\\n주행요금 증가 기준거리%dm\\n시간요금 %d원\\n시간요금 증가 기준 시간 %d초\\n심야할증 비율 %d%%\\n시외할증 비율 %d%%</string>
+    <string name="setting_tv_fee_info">기본요금 %d원\n기본요금 주행거리 %dm\n주행요금 %d원\n주행요금 증가 기준거리%dm\n시간요금 %d원\n시간요금 증가 기준 시간 %d초\n심야할증 비율 %d%%\n시외할증 비율 %d%%</string>
     <string name="setting_tv_info">일반 중형택시 기준의 요금입니다. 대형 및 기타택시의 경우 기타 메뉴에서 직접 입력해주세요.</string>
     <string name="setting_tv_select">지역을 선택하세요.</string>
 
@@ -103,7 +103,7 @@
     <string name="welcome_toast_input_wrong">일부 입력란이 입력되지 않았습니다.</string>
     <string name="welcome_toast_location_granted">위치정보사용 권한이 허용되었습니다.</string>
     <string name="welcome_toast_location_not_granted">위치정보 사용 권한이 거부되었습니다. [설정] > [앱 ] > [택시미터기]로 이동하여 직접 허용해주세요.</string>
-    <string name="welcome_tv_fee_info">기본요금 %d원\\n기본요금 주행거리 %dm\\n주행요금 %d원\\n주행요금 증가 기준거리%dm\\n시간요금 %d원\\n시간요금 증가 기준 시간 %d초\\n심야할증 비율 %d%%\\n시외할증 비율 %d%%</string>
+    <string name="welcome_tv_fee_info">기본요금 %d원\n기본요금 주행거리 %dm\n주행요금 %d원\n주행요금 증가 기준거리%dm\n시간요금 %d원\n시간요금 증가 기준 시간 %d초\n심야할증 비율 %d%%\n시외할증 비율 %d%%</string>
     <string name="welcome_tv_gps_info">GPS 위성을 활용하는 앱의 특성상 GPS 위성 상태 및 주변 환경에 따라 GPS 정보가 올바르지 않을 수 있습니다. 이로 인해 택시미터기의 표시 요금에 차이가 생길 수 있으며, 이에 대한 책임은 사용자에게 있음을 미리 알립니다.</string>
     <string name="welcome_tv_location_info">애플리케이션이 올바르게 동작하기 위해 위치정보 사용 권한을 허용해주셔야 합니다.</string>
     <string name="welcome_tv_location_select">지역을 선택해주세요.</string>
