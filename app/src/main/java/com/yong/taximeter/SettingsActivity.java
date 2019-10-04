@@ -37,7 +37,7 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("설정");
+        actionBar.setTitle(getString(R.string.setting_title));
         setContentView(R.layout.activity_settings);
 
         prefs = getSharedPreferences("prefs", MODE_PRIVATE);
@@ -147,7 +147,7 @@ public class SettingsActivity extends AppCompatActivity {
                                         timeCostSecondInput.getText().toString().equals("") ||
                                         nightInput.getText().toString().equals("") ||
                                         outcityInput.getText().toString().equals("")){
-                                    Toast.makeText(SettingsActivity.this, "모든 칸을 입력하지 않았습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(SettingsActivity.this, getString(R.string.setting_toast_input_wrong), Toast.LENGTH_SHORT).show();
                                 }else{
                                     defaultCost = Integer.valueOf(defaultCostInput.getText().toString());
                                     defaultCostDistance = Integer.valueOf(defaultCostDistanceInput.getText().toString());
@@ -160,7 +160,7 @@ public class SettingsActivity extends AppCompatActivity {
                                     selectedCity = "ETC";
 
                                     ed.putString("CURRENT_LOCATION", selectedCity);
-                                    tvCost.setText(String.format(Locale.getDefault(),"기본요금 %d원\n기본요금 주행거리 %dm\n주행요금 %d원\n주행요금 추가기준거리 %dm\n시간요금 %d원\n시간요즘 추가기준시간 %d초\n심야할증 비율 %d%%\n시외할증 비율 %d%%", defaultCost, defaultCostDistance, runningCost, runningCostDistance, timeCost, timeCostSecond, addNight, addOutCity));
+                                    tvCost.setText(String.format(Locale.getDefault(), getString(R.string.setting_tv_fee_info), defaultCost, defaultCostDistance, runningCost, runningCostDistance, timeCost, timeCostSecond, addNight, addOutCity));
                                 }
                             }
                         });
@@ -221,11 +221,9 @@ public class SettingsActivity extends AppCompatActivity {
                         addOutCity = 30;
                         selectedCity = "ULSAN";
                         break;
-                    default:
-                        Toast.makeText(getApplicationContext(), "오류가 발생하였습니다.", Toast.LENGTH_SHORT).show();
                 }
                 ed.putString("CURRENT_LOCATION", selectedCity);
-                tvCost.setText(String.format(Locale.getDefault(),"기본요금 %d원\n기본요금 주행거리 %dm\n주행요금 %d원\n주행요금 추가기준거리 %dm\n시간요금 %d원\n시간요즘 추가기준시간 %d초\n심야할증 비율 %d%%\n시외할증 비율 %d%%", defaultCost, defaultCostDistance, runningCost, runningCostDistance, timeCost, timeCostSecond, addNight, addOutCity));
+                tvCost.setText(String.format(Locale.getDefault(), getString(R.string.setting_tv_fee_info), defaultCost, defaultCostDistance, runningCost, runningCostDistance, timeCost, timeCostSecond, addNight, addOutCity));
             }
         });
 
@@ -243,7 +241,7 @@ public class SettingsActivity extends AppCompatActivity {
                 ed.putInt("addOutCity", addOutCity);
                 ed.putBoolean("isFirst", false);
                 ed.apply();
-                Toast.makeText(getApplicationContext(), "저장되었습니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), getString(R.string.setting_toast_saved), Toast.LENGTH_SHORT).show();
 
                 finish();
             }

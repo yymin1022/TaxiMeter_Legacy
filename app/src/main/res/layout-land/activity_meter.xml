@@ -18,7 +18,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="운행 시작 버튼을 눌러주세요."
+            android:text="@string/meter_tv_meter_info"
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:id="@+id/tvInfo" />
@@ -42,7 +42,7 @@
                     android:layout_margin="3dp"
                     android:background="@drawable/btn_meter_start"
                     android:onClick="startCount"
-                    android:text="운행 시작"
+                    android:text="@string/meter_btn_start"
                     android:textSize="15sp"/>
 
                 <Button
@@ -51,7 +51,7 @@
                     android:layout_margin="3dp"
                     android:background="@drawable/btn_meter_stop"
                     android:onClick="stopCount"
-                    android:text="운행 종료"
+                    android:text="@string/meter_btn_stop"
                     android:textSize="15sp"/>
 
                 <ToggleButton
@@ -61,8 +61,8 @@
                     android:background="@drawable/btn_meter_outcity"
                     android:gravity="center"
                     android:id="@+id/isOuterCity"
-                    android:textOff="시외할증 미적용"
-                    android:textOn="시외할증 적용"
+                    android:textOff="@string/meter_toggle_outcity_disable"
+                    android:textOn="@string/meter_toggle_outcity_enable"
                     android:textSize="15sp"
                     android:textColor="#ff000000" />
 
@@ -73,8 +73,8 @@
                     android:background="@drawable/btn_meter_night"
                     android:gravity="center"
                     android:id="@+id/isNight"
-                    android:textOff="심야할증 미적용"
-                    android:textOn="심야할증 적용"
+                    android:textOff="@string/meter_toggle_night_disable"
+                    android:textOn="@string/meter_toggle_night_enable"
                     android:textSize="15sp"
                     android:textColor="#ff000000" />
 
@@ -90,7 +90,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="요금 방식"
+                    android:text="@string/meter_tv_cost_mode_text"
                     android:textSize="25sp"
                     android:textColor="#ffd3d3d3" />
 
@@ -98,7 +98,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/tvType"
-                    android:text="기본요금"
+                    android:text="@string/meter_tv_cost_mode"
                     android:textSize="25sp"
                     android:textColor="#ffd3d3d3" />
 
@@ -109,7 +109,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="현재 속도"
+                    android:text="@string/meter_tv_current_speed_text"
                     android:textSize="25sp"
                     android:textColor="#ffd3d3d3"/>
 
@@ -117,7 +117,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/tvSpeed"
-                    android:text="0"
+                    android:text="@string/meter_tv_current_speed"
                     android:textSize="25sp"
                     android:textColor="#ffd3d3d3" />
 
@@ -129,7 +129,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/tvTimeTitle"
-                    android:text="이동 시간"
+                    android:text="@string/meter_tv_moving_time_text"
                     android:textSize="25sp"
                     android:textColor="#ffd3d3d3" />
 
@@ -137,7 +137,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/tvTime"
-                    android:text="0"
+                    android:text="@string/meter_tv_moving_time"
                     android:textSize="25sp"
                     android:textColor="#ffd3d3d3" />
 
@@ -148,7 +148,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="이동 거리"
+                    android:text="@string/meter_tv_moving_distance_text"
                     android:textSize="25sp"
                     android:textColor="#ffd3d3d3" />
 
@@ -156,7 +156,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/tvDistance"
-                    android:text="0"
+                    android:text="@string/meter_tv_moving_distance"
                     android:textSize="25sp"
                     android:textColor="#ffd3d3d3" />
 

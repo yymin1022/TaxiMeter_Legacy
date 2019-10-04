@@ -16,6 +16,22 @@
     <string name="main_tv_start">Touch to Start</string>
     <string name="main_tv_taxi">Taxi</string>
 
+    <string name="meter_btn_start">Start</string>
+    <string name="meter_btn_stop">Stop</string>
+    <string name="meter_toggle_night_disable">Night Extra Disabled</string>
+    <string name="meter_toggle_night_enable">Night Extra Enabled</string>
+    <string name="meter_toggle_outcity_disable">Out City Extra Disabled</string>
+    <string name="meter_toggle_outcity_enable">Out City Extra Enabled</string>
+    <string name="meter_tv_cost_mode">Default Cost</string>
+    <string name="meter_tv_cost_mode_text">Cost Mode</string>
+    <string name="meter_tv_current_speed">0.0km/s</string>
+    <string name="meter_tv_current_speed_text">Current Speed</string>
+    <string name="meter_tv_meter_info">Press Start Button</string>
+    <string name="meter_tv_moving_distance">0.0km</string>
+    <string name="meter_tv_moving_distance_text">Moved Distance</string>
+    <string name="meter_tv_moving_time">0sec</string>
+    <string name="meter_tv_moving_time_text">Moved Time</string>
+
     <string name="setting_radio_seoul">Seoul</string>
     <string name="setting_radio_gyeonggi">Gyeonggi</string>
     <string name="setting_radio_busan">Busan</string>
@@ -25,7 +41,11 @@
     <string name="setting_radio_daejeon">Daejeon</string>
     <string name="setting_radio_ulsan">Ulsan</string>
     <string name="setting_radio_etc">ETC</string>
+    <string name="setting_title">Settings</string>
+    <string name="setting_toast_input_wrong">Some input is empty.</string>
+    <string name="setting_toast_saved">Successfully Saved</string>
     <string name="setting_tv_done">Done</string>
+    <string name="setting_tv_fee_info">Default Fee %dWon\nDefault Fee Distance %dm\nRunning Cost %dWon\nRunning Cost Standard %dm\nTime Cost %dWon\nTime Cost Standard %dsec\nNight Adding Percentage %d%%\nOuter City Adding Percentage %d%%</string>
     <string name="setting_tv_info">Fee is about Default Taxi, if you want Smaller or Larger Taxi, you can input Fee by your selft with ETC.</string>
     <string name="setting_tv_select">Select your Location.</string>
 
@@ -47,7 +67,7 @@
     <string name="welcome_toast_input_wrong">Some input is empty.</string>
     <string name="welcome_toast_location_granted">Location Permission has been Granted</string>
     <string name="welcome_toast_location_not_granted">Location Permission has been refused. Go to [Settings] > [Applications] > [TaxiMeter] and grant please.</string>
-    <string name="welcome_tv_fee_info">Default Fee %d원\nDefault Fee Distance %dm\nRunning Cost %d원\nRunning Cost Standard %dm\nTime Cost %d원\nTime Cost Standard %d초\nNight Adding Percentage %d%%\nOuter City Adding Percentage %d%%</string>
+    <string name="welcome_tv_fee_info">Default Fee %dWon\nDefault Fee Distance %dm\nRunning Cost %dWon\nRunning Cost Standard %dm\nTime Cost %dWon\nTime Cost Standard %dsec\nNight Adding Percentage %d%%\nOuter City Adding Percentage %d%%</string>
     <string name="welcome_tv_gps_info">GPS Runtime might be wrong about the GPS satellite status and your environment. About this, the Taxi Fee mighe has some error with real Taxi Fee. All of the responsibility for these Fee Problem is on User, not Developer.</string>
     <string name="welcome_tv_location_info">You must grant Location Permission to Application works properly.</string>
     <string name="welcome_tv_location_select_info">Fee is about Default Taxi, if you want Smaller or Larger Taxi, you can input Fee by your selft with ETC.</string>

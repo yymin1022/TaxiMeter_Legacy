@@ -138,6 +138,7 @@ public class MeterActivity extends AppCompatActivity{
         sumDistance += deltaDistance;
         sumTime += 1;
 
+        super.onBackPressed();
         // 이동거리가 기본요금 거리 이상인지 확인
         if(sumDistance > defaultCostDistance){
             // 속도에 따라 거리요금 / 시간요금 선택 적용
@@ -204,8 +205,18 @@ public class MeterActivity extends AppCompatActivity{
         };
 
         startService(new Intent(this, MeterService.class));
-        registerReceiver(gpsStatusReceiver, gpsStatusFiler);
-        registerReceiver(speedReceiver, speedFilter);
+        try{
+            unregisterReceiver(gpsStatusReceiver);
+            registerReceiver(gpsStatusReceiver, gpsStatusFiler);
+        }catch(Exception e){
+            Log.e("ERROR", e.toString());
+        }
+        try{
+            unregisterReceiver(speedReceiver);
+            registerReceiver(speedReceiver, speedFilter);
+        }catch(Exception e){
+            Log.e("ERROR", e.toString());
+        }
     }
 
     public void stopCount(View v) {
@@ -246,6 +257,12 @@ public class MeterActivity extends AppCompatActivity{
         if(!isRunning){
             Toast.makeText(getApplicationContext(), "운행을 아직 시작하지 않았습니다.", Toast.LENGTH_SHORT).show();
         }
+        try{
+            unregisterReceiver(gpsStatusReceiver);
+        }catch(Exception e){}
+        try{
+            unregisterReceiver(speedReceiver);
+        }catch(Exception e){}
     }
 
     public void runHorse(long speed){
