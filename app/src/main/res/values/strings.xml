@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Taxi Meter</string>
-    <string name="title_activity_welcome">WelcomeActivity</string>
+    <string name="title_activity_welcome">Welcome</string>
 
     <string name="donation_btn_1000">Energy Drink\n1 Bottle</string>
     <string name="donation_btn_5000">Starbucks\n1 Glass</string>
@@ -27,8 +27,8 @@
 
     <string name="meter_btn_start">Start</string>
     <string name="meter_btn_stop">Stop</string>
-    <string name="meter_dialog_finish_message">Cost : %d\nDistance : %.1f</string>
-    <string name="meter_dialog_finish_message_debug">Cost : %d\nDistance : %.1f\nTime : %d</string>
+    <string name="meter_dialog_finish_message">Cost : %dwon\\nDistance : %.1fkm</string>
+    <string name="meter_dialog_finish_message_debug">Cost : %dwon\\nDistance : %.1f km\\nTime : %dsec</string>
     <string name="meter_dialog_finish_title">Finished</string>
     <string name="meter_dialog_gps_unavailable">GPS is currently unavailable</string>
     <string name="meter_dialog_gps_unavailable_open_setting">Go to GPS Setting</string>
@@ -54,8 +54,8 @@
     <string name="meter_tv_cost_mode_text">Cost Mode</string>
     <string name="meter_tv_current_cost">0won</string>
     <string name="meter_tv_current_cost_format">%dwon</string>
-    <string name="meter_tv_current_speed">0.0km/s</string>
-    <string name="meter_tv_current_speed_format">%.1fkm/s</string>
+    <string name="meter_tv_current_speed">0.0km/h</string>
+    <string name="meter_tv_current_speed_format">%.1fkm/h</string>
     <string name="meter_tv_current_speed_text">Current Speed</string>
     <string name="meter_tv_info_gps_unavailable">GPS is currently unavailable</string>
     <string name="meter_tv_info_press_start">Press Start Button</string>
@@ -80,7 +80,7 @@
     <string name="setting_toast_input_wrong">Some input is empty.</string>
     <string name="setting_toast_saved">Successfully Saved</string>
     <string name="setting_tv_done">Done</string>
-    <string name="setting_tv_fee_info">Default Fee %dWon\nDefault Fee Distance %dm\nRunning Cost %dWon\nRunning Cost Standard %dm\nTime Cost %dWon\nTime Cost Standard %dsec\nNight Adding Percentage %d%%\nOuter City Adding Percentage %d%%</string>
+    <string name="setting_tv_fee_info">Default Fee %dWon Default Fee Distance %dm Running Cost %dWon Running Cost Standard %dm Time Cost %dWon Time Cost Standard %dsec Night Adding Percentage %d%% Outer City Adding Percentage %d%%</string>
     <string name="setting_tv_info">Fee is about Default Taxi, if you want Smaller or Larger Taxi, you can input Fee by your selft with ETC.</string>
     <string name="setting_tv_select">Select your Location.</string>
 
@@ -103,7 +103,7 @@
     <string name="welcome_toast_location_granted">Location Permission has been Granted</string>
     <string name="welcome_toast_location_not_granted">Location Permission has been refused. Go to [Settings] > [Applications] > [TaxiMeter] and grant please.</string>
     <string name="welcome_tv_fee_info">Default Fee %dWon\nDefault Fee Distance %dm\nRunning Cost %dWon\nRunning Cost Standard %dm\nTime Cost %dWon\nTime Cost Standard %dsec\nNight Adding Percentage %d%%\nOuter City Adding Percentage %d%%</string>
-    <string name="welcome_tv_gps_info">GPS Runtime might be wrong about the GPS satellite status and your environment. About this, the Taxi Fee mighe has some error with real Taxi Fee. All of the responsibility for these Fee Problem is on User, not Developer.</string>
+    <string name="welcome_tv_gps_info">GPS Runtime might be wrong about the GPS satellite status and your environment. About this, the Taxi Fee might has some error with real Taxi Fee. All of the responsibility for these Fee Problem is on User, not Developer.</string>
     <string name="welcome_tv_location_info">You must grant Location Permission to Application works properly.</string>
     <string name="welcome_tv_location_select_info">Fee is about Default Taxi, if you want Smaller or Larger Taxi, you can input Fee by your selft with ETC.</string>
     <string name="welcome_tv_location_select">Select your Location.</string>
