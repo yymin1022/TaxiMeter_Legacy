@@ -135,6 +135,7 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
         tvTimeTitle.setVisibility(View.GONE);
 
         if(!prefs.getBoolean("ad_removed", false)){
+            Log.d("CAULY", CAULY_KEY);
             CaulyAdInfo adInfo = new CaulyAdInfoBuilder(CAULY_KEY).
                     effect("FadeIn").
                     bannerHeight("Fixed_50").
@@ -410,12 +411,12 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
 
     @Override
     public void onReceiveAd(CaulyAdView caulyAdView, boolean b) {
-
+        Log.d("CAULY", "OK");
     }
 
     @Override
     public void onFailedToReceiveAd(CaulyAdView caulyAdView, int i, String s) {
-
+        Log.d("CAULY ERROR", s + " : " + i);
     }
 
     @Override
