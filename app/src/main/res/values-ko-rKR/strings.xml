@@ -103,7 +103,7 @@
     <string name="welcome_radio_incheon">인천</string>
     <string name="welcome_radio_seoul">서울</string>
     <string name="welcome_radio_ulsan">울산</string>
-    <string name="welcome_toast_done">초기설저이 완료되었습니다.</string>
+    <string name="welcome_toast_done">초기설정이 완료되었습니다.</string>
     <string name="welcome_toast_input_wrong">일부 입력란이 입력되지 않았습니다.</string>
     <string name="welcome_toast_location_granted">위치정보사용 권한이 허용되었습니다.</string>
     <string name="welcome_toast_location_not_granted">위치정보 사용 권한이 거부되었습니다. [설정] > [앱 ] > [택시미터기]로 이동하여 직접 허용해주세요.</string>

@@ -221,7 +221,7 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
         // 이동거리가 기본요금 거리 이상인지 확인
         if(sumDistance > defaultCostDistance){
             // 속도에 따라 거리요금 / 시간요금 선택 적용
-            if(curSpeed < 15){
+            if(curSpeed < (15.0 / 3.6)){
                 if(timeForAdding >= timeCostSecond){
                     currentCost += timeCost * Math.round(timeForAdding / timeCostSecond);
                     timeForAdding = 0;
@@ -244,8 +244,8 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
 
         currentCost = currentCost / 100 * 100;
         tvCost.setText(String.format(Locale.getDefault(), getString(R.string.meter_tv_current_cost_format), currentCost));
-        tvDistance.setText(String.format(Locale.getDefault(), getString(R.string.meter_tv_moving_distance_format), sumDistance/1000));
-        tvSpeed.setText(String.format(Locale.getDefault(), getString(R.string.meter_tv_current_speed_format), curSpeed));
+        tvDistance.setText(String.format(Locale.getDefault(), getString(R.string.meter_tv_moving_distance_format), sumDistance / 1000));
+        tvSpeed.setText(String.format(Locale.getDefault(), getString(R.string.meter_tv_current_speed_format), curSpeed * 3.6));
         tvTime.setText(String.format(Locale.getDefault(), getString(R.string.meter_tv_moving_time_format), sumTime));
 
         runHorse(Math.round(curSpeed));
