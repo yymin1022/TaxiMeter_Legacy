@@ -12,6 +12,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -56,6 +57,8 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
 
     BroadcastReceiver gpsStatusReceiver = null;
     BroadcastReceiver speedReceiver = null;
+    PowerManager powerManager;
+    PowerManager.WakeLock wakeLock;
     SharedPreferences prefs;
 
     private ImageView ivHorse;
@@ -155,6 +158,16 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        powerManager = (PowerManager)getSystemService(Context.POWER_SERVICE);
+        if(powerManager != null){
+            wakeLock = powerManager.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.ON_AFTER_RELEASE, "METER:WAKELOCK");
+            wakeLock.acquire();
+        }
+    }
+
+    @Override
     public void onBackPressed(){
         ActivityManager manager = (ActivityManager)getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
         boolean isRunning = false;
@@ -185,6 +198,8 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
                 }
             }
         }
+
+        wakeLock.release();
     }
 
     @Override
