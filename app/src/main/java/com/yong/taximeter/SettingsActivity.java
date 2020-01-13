@@ -104,7 +104,7 @@ public class SettingsActivity extends AppCompatActivity {
                         selectedCity = "BUSAN";
                         break;
                     case R.id.rbtn_setting_daegu:
-                        defaultCost = 3800;
+                        defaultCost = 3300;
                         defaultCostDistance = 2000;
                         runningCost = 100;
                         runningCostDistance = 134;

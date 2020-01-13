@@ -71,7 +71,6 @@ public class MeterService extends Service  implements LocationListener {
     @Override
     public void onLocationChanged(Location location) {
         double getSpeed = (Double.parseDouble(String.format(Locale.getDefault(), "%.3f", location.getSpeed())));  // m/s
-
         if(mLastlocation != null) {
             Intent intent = new Intent("CURRENT_SPEED");
             intent.putExtra("curSpeed",getSpeed);
