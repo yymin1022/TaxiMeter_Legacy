@@ -110,13 +110,15 @@ public class DonationActivity extends AppCompatActivity implements PurchasesUpda
                             strSKU = SKU_AD_REMOVE;
                             break;
                     }
-                    
+
                     for(SkuDetails skuDetails : skuDetailsList){
                         if(skuDetails.getSku().equals(strSKU)){
                             BillingFlowParams flowParams = BillingFlowParams.newBuilder()
                                     .setSkuDetails(skuDetails)
                                     .build();
                             billingClient.launchBillingFlow(DonationActivity.this, flowParams);
+
+                            break;
                         }
                     }
                 }
