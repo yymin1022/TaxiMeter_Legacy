@@ -37,7 +37,7 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
     int runningCost = 100;          // 주행요금
     int timeCost = 100;             // 시간요금 (시속 15km 이하)
     int defaultCostDistance = 2000;  // 기본요금 주행 거리
-    int runningCostDistance = 132;  // 주행요금 추가 기준 거리
+    int runningCostDistance = 132;  // 주행   요금 추가 기준 거리
     int timeCostSecond = 31;       // 시간요금 추가 기준 시간
     int currentCost = 0;    // 계산된 최종 요금
 
