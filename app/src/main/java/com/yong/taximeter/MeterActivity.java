@@ -1,5 +1,6 @@
 package com.yong.taximeter;
 
+import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -96,7 +97,6 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
         tvDistance.setTypeface(typeFace);
         tvSpeed.setTypeface(typeFace);
         tvTime.setTypeface(typeFace);
-        tvType.setTypeface(typeFace);
 
         tvCost.setText(String.format(Locale.getDefault(), getString(R.string.meter_tv_current_cost_format), currentCost));
         tvDistance.setText(String.format(Locale.getDefault(), getString(R.string.meter_tv_moving_distance_format), sumDistance));
@@ -363,6 +363,7 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
         }
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     public void runHorse(long speed){
         AnimationDrawable animationDrawable = new AnimationDrawable();
 
@@ -376,8 +377,8 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
         }else if(speed > 40){
             for(int i = 0; i < 5; i++){
                 animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_1), 66);
-                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_2), 66);
-                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_3), 68);
+                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_2), 67);
+                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_3), 67);
                 animationDrawable.setOneShot(true);
             }
         }else if(speed > 20){
@@ -390,8 +391,8 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
         }else if(speed > 0){
             for(int i = 0; i < 2; i++){
                 animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_1), 166);
-                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_2), 166);
-                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_3), 168);
+                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_2), 167);
+                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_3), 167);
                 animationDrawable.setOneShot(true);
             }
         }else{

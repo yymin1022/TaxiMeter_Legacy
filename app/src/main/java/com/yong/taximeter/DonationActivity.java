@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.android.billingclient.api.AcknowledgePurchaseParams;
+import com.android.billingclient.api.AcknowledgePurchaseResponseListener;
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
 import com.android.billingclient.api.BillingFlowParams;
@@ -157,6 +159,17 @@ public class DonationActivity extends AppCompatActivity implements PurchasesUpda
                     ed.remove("ad_removed");
                     ed.putBoolean("ad_removed", true);
                     ed.apply();
+
+                    AcknowledgePurchaseParams acknowledgePurchaseParams = AcknowledgePurchaseParams.newBuilder()
+                            .setPurchaseToken(purchase.getPurchaseToken())
+                            .build();
+
+                    billingClient.acknowledgePurchase(acknowledgePurchaseParams, new AcknowledgePurchaseResponseListener() {
+                        @Override
+                        public void onAcknowledgePurchaseResponse(@NonNull BillingResult billingResult) {
+
+                        }
+                    });
                 }else{
                     Toast.makeText(getApplicationContext(), getString(R.string.donation_toast_purchase_thanks), Toast.LENGTH_LONG).show();
 
