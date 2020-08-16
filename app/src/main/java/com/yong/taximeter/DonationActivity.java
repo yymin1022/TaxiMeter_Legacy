@@ -3,6 +3,7 @@ package com.yong.taximeter;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -10,6 +11,8 @@ import android.widget.Toast;
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
 import com.android.billingclient.api.BillingFlowParams;
+import com.android.billingclient.api.BillingResult;
+import com.android.billingclient.api.ConsumeParams;
 import com.android.billingclient.api.ConsumeResponseListener;
 import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.PurchasesUpdatedListener;
@@ -21,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,6 +44,7 @@ public class DonationActivity extends AppCompatActivity implements PurchasesUpda
     String priceDonate3;
     String priceDonate4;
 
+    List<SkuDetails> skuDetailsList = new ArrayList<>();
     private BillingClient billingClient;
 
     @Override
@@ -54,11 +59,14 @@ public class DonationActivity extends AppCompatActivity implements PurchasesUpda
         LinearLayout btnDonate4 = findViewById(R.id.btn_donation_50000);
         LinearLayout btnDonateSelf = findViewById(R.id.btn_donation_self);
 
-        billingClient = BillingClient.newBuilder(DonationActivity.this).setListener(this).build();
+        billingClient = BillingClient.newBuilder(DonationActivity.this)
+                .enablePendingPurchases()
+                .setListener(this)
+                .build();
         billingClient.startConnection(new BillingClientStateListener() {
             @Override
-            public void onBillingSetupFinished(int responseCode) {
-                if(responseCode == BillingClient.BillingResponse.OK){
+            public void onBillingSetupFinished(@NonNull BillingResult billingResult) {
+                if(billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK){
                     //Start Quering to Google Play
                     queryPurchase();
                 }
@@ -74,41 +82,58 @@ public class DonationActivity extends AppCompatActivity implements PurchasesUpda
             @Override
             public void onClick(View v) {
                 BillingFlowParams flowParams;
+
                 switch(v.getId()){
                     case R.id.btn_donation_1000:
-                        flowParams = BillingFlowParams.newBuilder()
-                                .setSku(SKU_DONATE_1)
-                                .setType(BillingClient.SkuType.INAPP)
-                                .build();
-                        billingClient.launchBillingFlow(DonationActivity.this, flowParams);
+                        for(SkuDetails skuDetails : skuDetailsList){
+                            Log.d("SKU", skuDetails.toString());
+                            if(skuDetails.getSku().equals(SKU_DONATE_1)){
+                                flowParams = BillingFlowParams.newBuilder()
+                                        .setSkuDetails(skuDetails)
+                                        .build();
+                                billingClient.launchBillingFlow(DonationActivity.this, flowParams);
+                            }
+                        }
                         break;
                     case R.id.btn_donation_5000:
-                        flowParams = BillingFlowParams.newBuilder()
-                                .setSku(SKU_DONATE_2)
-                                .setType(BillingClient.SkuType.INAPP)
-                                .build();
-                        billingClient.launchBillingFlow(DonationActivity.this, flowParams);
+                        for(SkuDetails skuDetails : skuDetailsList){
+                            if(skuDetails.getSku().equals(SKU_DONATE_2)){
+                                flowParams = BillingFlowParams.newBuilder()
+                                        .setSkuDetails(skuDetails)
+                                        .build();
+                                billingClient.launchBillingFlow(DonationActivity.this, flowParams);
+                            }
+                        }
                         break;
                     case R.id.btn_donation_10000:
-                        flowParams = BillingFlowParams.newBuilder()
-                                .setSku(SKU_DONATE_3)
-                                .setType(BillingClient.SkuType.INAPP)
-                                .build();
-                        billingClient.launchBillingFlow(DonationActivity.this, flowParams);
+                        for(SkuDetails skuDetails : skuDetailsList){
+                            if(skuDetails.getSku().equals(SKU_DONATE_3)){
+                                flowParams = BillingFlowParams.newBuilder()
+                                        .setSkuDetails(skuDetails)
+                                        .build();
+                                billingClient.launchBillingFlow(DonationActivity.this, flowParams);
+                            }
+                        }
                         break;
                     case R.id.btn_donation_50000:
-                        flowParams = BillingFlowParams.newBuilder()
-                                .setSku(SKU_DONATE_4)
-                                .setType(BillingClient.SkuType.INAPP)
-                                .build();
-                        billingClient.launchBillingFlow(DonationActivity.this, flowParams);
+                        for(SkuDetails skuDetails : skuDetailsList){
+                            if(skuDetails.getSku().equals(SKU_DONATE_4)){
+                                flowParams = BillingFlowParams.newBuilder()
+                                        .setSkuDetails(skuDetails)
+                                        .build();
+                                billingClient.launchBillingFlow(DonationActivity.this, flowParams);
+                            }
+                        }
                         break;
                     case R.id.btn_donation_ad:
-                        flowParams = BillingFlowParams.newBuilder()
-                                .setSku(SKU_AD_REMOVE)
-                                .setType(BillingClient.SkuType.INAPP)
-                                .build();
-                        billingClient.launchBillingFlow(DonationActivity.this, flowParams);
+                        for(SkuDetails skuDetails : skuDetailsList){
+                            if(skuDetails.getSku().equals(SKU_AD_REMOVE)){
+                                flowParams = BillingFlowParams.newBuilder()
+                                        .setSkuDetails(skuDetails)
+                                        .build();
+                                billingClient.launchBillingFlow(DonationActivity.this, flowParams);
+                            }
+                        }
                         break;
                     case R.id.btn_donation_self:
                         AlertDialog.Builder builder = new AlertDialog.Builder(DonationActivity.this);
@@ -144,8 +169,8 @@ public class DonationActivity extends AppCompatActivity implements PurchasesUpda
     }
 
     @Override
-    public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases) {
-        if(responseCode == BillingClient.BillingResponse.OK && purchases != null){
+    public void onPurchasesUpdated(@NonNull BillingResult billingResult, @Nullable List<Purchase> purchases) {
+        if(billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK && purchases != null){
             //Successfully Purchased
             for(Purchase purchase : purchases){
                 if(purchase.getSku().equals(SKU_AD_REMOVE)){
@@ -160,23 +185,27 @@ public class DonationActivity extends AppCompatActivity implements PurchasesUpda
                 }else{
                     Toast.makeText(getApplicationContext(), getString(R.string.donation_toast_purchase_thanks), Toast.LENGTH_LONG).show();
 
-                    billingClient.consumeAsync(purchase.getPurchaseToken(), new ConsumeResponseListener() {
+                    ConsumeParams consumeParams = ConsumeParams.newBuilder()
+                            .setPurchaseToken(purchase.getPurchaseToken())
+                            .build();
+
+                    billingClient.consumeAsync(consumeParams, new ConsumeResponseListener() {
                         @Override
-                        public void onConsumeResponse(int responseCode, String purchaseToken) {
+                        public void onConsumeResponse(@NonNull BillingResult billingResult, @NonNull String s) {
 
                         }
                     });
                 }
             }
-        } else if (responseCode == BillingClient.BillingResponse.USER_CANCELED){
+        } else if(billingResult.getResponseCode() == BillingClient.BillingResponseCode.USER_CANCELED){
             //User Canceled Puchase
             Toast.makeText(getApplicationContext(), getString(R.string.donation_toast_purchase_canceled), Toast.LENGTH_LONG).show();
-        }else if(responseCode == BillingClient.BillingResponse.ITEM_ALREADY_OWNED){
+        }else if(billingResult.getResponseCode() == BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED){
             //Already Purchased Item
             Toast.makeText(getApplicationContext(), getString(R.string.donation_toast_purchase_alreadyowned), Toast.LENGTH_LONG).show();
         }else{
             //Unknown Code
-            Toast.makeText(getApplicationContext(),  String.format(Locale.getDefault(), getString(R.string.donation_toast_purchase_unknown_error), responseCode), Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),  String.format(Locale.getDefault(), getString(R.string.donation_toast_purchase_unknown_error), billingResult.getResponseCode()), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -195,8 +224,9 @@ public class DonationActivity extends AppCompatActivity implements PurchasesUpda
         billingClient.querySkuDetailsAsync(params.build(),
                 new SkuDetailsResponseListener() {
                     @Override
-                    public void onSkuDetailsResponse(int responseCode, List<SkuDetails> skuDetailsList) {
-                        if(responseCode == BillingClient.BillingResponse.OK && skuDetailsList != null){
+                    public void onSkuDetailsResponse(@NonNull BillingResult billingResult, @Nullable List<SkuDetails> skuDetailsList) {
+                        DonationActivity.this.skuDetailsList = skuDetailsList;
+                        if(billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK && skuDetailsList != null){
                             for (Object skuDetailsObject : skuDetailsList) {
                                 SkuDetails skuDetails = (SkuDetails)skuDetailsObject;
                                 String sku = skuDetails.getSku();
