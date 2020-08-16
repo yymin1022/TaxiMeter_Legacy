@@ -3,7 +3,6 @@ package com.yong.taximeter;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -44,8 +43,8 @@ public class DonationActivity extends AppCompatActivity implements PurchasesUpda
     String priceDonate3;
     String priceDonate4;
 
+    BillingClient billingClient;
     List<SkuDetails> skuDetailsList = new ArrayList<>();
-    private BillingClient billingClient;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,6 +62,7 @@ public class DonationActivity extends AppCompatActivity implements PurchasesUpda
                 .enablePendingPurchases()
                 .setListener(this)
                 .build();
+
         billingClient.startConnection(new BillingClientStateListener() {
             @Override
             public void onBillingSetupFinished(@NonNull BillingResult billingResult) {
@@ -81,71 +81,44 @@ public class DonationActivity extends AppCompatActivity implements PurchasesUpda
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BillingFlowParams flowParams;
-
-                switch(v.getId()){
-                    case R.id.btn_donation_1000:
-                        for(SkuDetails skuDetails : skuDetailsList){
-                            Log.d("SKU", skuDetails.toString());
-                            if(skuDetails.getSku().equals(SKU_DONATE_1)){
-                                flowParams = BillingFlowParams.newBuilder()
-                                        .setSkuDetails(skuDetails)
-                                        .build();
-                                billingClient.launchBillingFlow(DonationActivity.this, flowParams);
-                            }
+                if(v.getId() == R.id.btn_donation_self){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(DonationActivity.this);
+                    builder.setMessage("은행 계좌입금을 통해 원하시는 만큼 기부해주실 수 있습니다.\n\n우리은행 1002-357-339255\n카카오뱅크 3333-12-7882414");
+                    builder.setPositiveButton("닫기", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
                         }
-                        break;
-                    case R.id.btn_donation_5000:
-                        for(SkuDetails skuDetails : skuDetailsList){
-                            if(skuDetails.getSku().equals(SKU_DONATE_2)){
-                                flowParams = BillingFlowParams.newBuilder()
-                                        .setSkuDetails(skuDetails)
-                                        .build();
-                                billingClient.launchBillingFlow(DonationActivity.this, flowParams);
-                            }
+                    });
+                    builder.show();
+                }else{
+                    String strSKU = "";
+                    switch(v.getId()){
+                        case R.id.btn_donation_1000:
+                            strSKU = SKU_DONATE_1;
+                            break;
+                        case R.id.btn_donation_5000:
+                            strSKU = SKU_DONATE_2;
+                            break;
+                        case R.id.btn_donation_10000:
+                            strSKU = SKU_DONATE_3;
+                            break;
+                        case R.id.btn_donation_50000:
+                            strSKU = SKU_DONATE_4;
+                            break;
+                        case R.id.btn_donation_ad:
+                            strSKU = SKU_AD_REMOVE;
+                            break;
+                    }
+                    
+                    for(SkuDetails skuDetails : skuDetailsList){
+                        if(skuDetails.getSku().equals(strSKU)){
+                            BillingFlowParams flowParams = BillingFlowParams.newBuilder()
+                                    .setSkuDetails(skuDetails)
+                                    .build();
+                            billingClient.launchBillingFlow(DonationActivity.this, flowParams);
                         }
-                        break;
-                    case R.id.btn_donation_10000:
-                        for(SkuDetails skuDetails : skuDetailsList){
-                            if(skuDetails.getSku().equals(SKU_DONATE_3)){
-                                flowParams = BillingFlowParams.newBuilder()
-                                        .setSkuDetails(skuDetails)
-                                        .build();
-                                billingClient.launchBillingFlow(DonationActivity.this, flowParams);
-                            }
-                        }
-                        break;
-                    case R.id.btn_donation_50000:
-                        for(SkuDetails skuDetails : skuDetailsList){
-                            if(skuDetails.getSku().equals(SKU_DONATE_4)){
-                                flowParams = BillingFlowParams.newBuilder()
-                                        .setSkuDetails(skuDetails)
-                                        .build();
-                                billingClient.launchBillingFlow(DonationActivity.this, flowParams);
-                            }
-                        }
-                        break;
-                    case R.id.btn_donation_ad:
-                        for(SkuDetails skuDetails : skuDetailsList){
-                            if(skuDetails.getSku().equals(SKU_AD_REMOVE)){
-                                flowParams = BillingFlowParams.newBuilder()
-                                        .setSkuDetails(skuDetails)
-                                        .build();
-                                billingClient.launchBillingFlow(DonationActivity.this, flowParams);
-                            }
-                        }
-                        break;
-                    case R.id.btn_donation_self:
-                        AlertDialog.Builder builder = new AlertDialog.Builder(DonationActivity.this);
-                        builder.setMessage("은행 계좌입금을 통해 원하시는 만큼 기부해주실 수 있습니다.\n\n우리은행 1002-357-339255\n카카오뱅크 3333-12-7882414");
-                        builder.setPositiveButton("닫기", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel();
-                            }
-                        });
-                        builder.show();
-                        break;
+                    }
                 }
             }
         };
