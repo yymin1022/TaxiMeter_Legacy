@@ -6,6 +6,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -26,6 +27,7 @@ public class SettingsActivity extends AppCompatActivity {
     int defaultCostDistance = 2000;  // 기본요금 주행 거리
     int runningCostDistance = 132;  // 주행요금 추가 기준 거리
     int timeCostSecond = 31;       // 시간요금 추가 기준 시간
+    int addBoth = 40;                 // 복합할증 비율
     int addNight = 20;                // 심야할증 비율
     int addOutCity = 20;              // 시외할증 비율
     String selectedCity = "";
@@ -99,8 +101,9 @@ public class SettingsActivity extends AppCompatActivity {
                         runningCostDistance = 133;
                         timeCost = 100;
                         timeCostSecond = 34;
+                        addBoth = 40;
                         addNight = 20;
-                        addOutCity = 20;
+                        addOutCity = 30;
                         selectedCity = "BUSAN";
                         break;
                     case R.id.rbtn_setting_daegu:
@@ -110,8 +113,9 @@ public class SettingsActivity extends AppCompatActivity {
                         runningCostDistance = 134;
                         timeCost = 100;
                         timeCostSecond = 32;
-                        addNight = 40;
-                        addOutCity = 40;
+                        addBoth = 40;
+                        addNight = 20;
+                        addOutCity = 20;
                         selectedCity = "DAEGU";
                         break;
                     case R.id.rbtn_setting_daejeon:
@@ -121,6 +125,7 @@ public class SettingsActivity extends AppCompatActivity {
                         runningCostDistance = 133;
                         timeCost = 100;
                         timeCostSecond = 34;
+                        addBoth = 40;
                         addNight = 20;
                         addOutCity = 30;
                         selectedCity = "DAEJEON";
@@ -135,6 +140,7 @@ public class SettingsActivity extends AppCompatActivity {
                         final EditText runningCostDistanceInput = view.findViewById(R.id.dialog_input_running_distance);
                         final EditText timeCostInput = view.findViewById(R.id.dialog_input_time);
                         final EditText timeCostSecondInput = view.findViewById(R.id.dialog_input_time_second);
+                        final EditText bothInput = view.findViewById(R.id.dialog_input_both);
                         final EditText nightInput = view.findViewById(R.id.dialog_input_night);
                         final EditText outcityInput = view.findViewById(R.id.dialog_input_outcity);
                         builder.setView(view);
@@ -147,22 +153,24 @@ public class SettingsActivity extends AppCompatActivity {
                                         runningCostDistanceInput.getText().toString().equals("") ||
                                         timeCostInput.getText().toString().equals("") ||
                                         timeCostSecondInput.getText().toString().equals("") ||
+                                        bothInput.getText().toString().equals("") ||
                                         nightInput.getText().toString().equals("") ||
                                         outcityInput.getText().toString().equals("")){
                                     Toast.makeText(SettingsActivity.this, getString(R.string.setting_toast_input_wrong), Toast.LENGTH_SHORT).show();
                                 }else{
-                                    defaultCost = Integer.valueOf(defaultCostInput.getText().toString());
-                                    defaultCostDistance = Integer.valueOf(defaultCostDistanceInput.getText().toString());
-                                    runningCost = Integer.valueOf(runningCostInput.getText().toString());
-                                    runningCostDistance = Integer.valueOf(runningCostDistanceInput.getText().toString());
-                                    timeCost = Integer.valueOf(timeCostInput.getText().toString());
-                                    timeCostSecond = Integer.valueOf(timeCostSecondInput.getText().toString());
-                                    addNight = Integer.valueOf(nightInput.getText().toString());
-                                    addOutCity = Integer.valueOf(outcityInput.getText().toString());
+                                    defaultCost = Integer.parseInt(defaultCostInput.getText().toString());
+                                    defaultCostDistance = Integer.parseInt(defaultCostDistanceInput.getText().toString());
+                                    runningCost = Integer.parseInt(runningCostInput.getText().toString());
+                                    runningCostDistance = Integer.parseInt(runningCostDistanceInput.getText().toString());
+                                    timeCost = Integer.parseInt(timeCostInput.getText().toString());
+                                    timeCostSecond = Integer.parseInt(timeCostSecondInput.getText().toString());
+                                    addBoth = Integer.parseInt(bothInput.getText().toString());
+                                    addNight = Integer.parseInt(nightInput.getText().toString());
+                                    addOutCity = Integer.parseInt(outcityInput.getText().toString());
                                     selectedCity = "ETC";
 
                                     ed.putString("CURRENT_LOCATION", selectedCity);
-                                    tvCost.setText(String.format(Locale.getDefault(), getString(R.string.setting_tv_fee_info), defaultCost, defaultCostDistance, runningCost, runningCostDistance, timeCost, timeCostSecond, addNight, addOutCity));
+                                    tvCost.setText(String.format(Locale.getDefault(), getString(R.string.setting_tv_fee_info), defaultCost, defaultCostDistance, runningCost, runningCostDistance, timeCost, timeCostSecond, addBoth, addNight, addOutCity));
                                 }
                             }
                         });
@@ -183,6 +191,7 @@ public class SettingsActivity extends AppCompatActivity {
                         runningCostDistance = 134;
                         timeCost = 100;
                         timeCostSecond = 32;
+                        addBoth = 40;
                         addNight = 20;
                         addOutCity = 35;
                         selectedCity = "GWANGJU";
@@ -194,6 +203,7 @@ public class SettingsActivity extends AppCompatActivity {
                         runningCostDistance = 135;
                         timeCost = 100;
                         timeCostSecond = 33;
+                        addBoth = 50;
                         addNight = 20;
                         addOutCity = 30;
                         selectedCity = "INCHEON";
@@ -205,6 +215,7 @@ public class SettingsActivity extends AppCompatActivity {
                         runningCostDistance = 132;
                         timeCost = 100;
                         timeCostSecond = 31;
+                        addBoth = 40;
                         addNight = 20;
                         addOutCity = 20;
                         selectedCity = "GYEONGGI";
@@ -216,6 +227,7 @@ public class SettingsActivity extends AppCompatActivity {
                         runningCostDistance = 132;
                         timeCost = 100;
                         timeCostSecond = 31;
+                        addBoth = 40;
                         addNight = 20;
                         addOutCity = 20;
                         selectedCity = "SEOUL";
@@ -227,13 +239,14 @@ public class SettingsActivity extends AppCompatActivity {
                         runningCostDistance = 125;
                         timeCost = 100;
                         timeCostSecond = 30;
+                        addBoth = 50;
                         addNight = 20;
                         addOutCity = 30;
                         selectedCity = "ULSAN";
                         break;
                 }
                 ed.putString("CURRENT_LOCATION", selectedCity);
-                tvCost.setText(String.format(Locale.getDefault(), getString(R.string.setting_tv_fee_info), defaultCost, defaultCostDistance, runningCost, runningCostDistance, timeCost, timeCostSecond, addNight, addOutCity));
+                tvCost.setText(String.format(Locale.getDefault(), getString(R.string.setting_tv_fee_info), defaultCost, defaultCostDistance, runningCost, runningCostDistance, timeCost, timeCostSecond, addBoth, addNight, addOutCity));
             }
         });
 
@@ -247,6 +260,7 @@ public class SettingsActivity extends AppCompatActivity {
                 ed.putInt("runningCostDistance", runningCostDistance);
                 ed.putInt("timeCost", timeCost);
                 ed.putInt("timeCostSecond", timeCostSecond);
+                ed.putInt("addBoth", addBoth);
                 ed.putInt("addNight", addNight);
                 ed.putInt("addOutCity", addOutCity);
                 ed.putBoolean("isFirst", false);

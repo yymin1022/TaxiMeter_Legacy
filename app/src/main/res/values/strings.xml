@@ -83,7 +83,7 @@
     <string name="setting_toast_input_wrong">Some input is empty.</string>
     <string name="setting_toast_saved">Successfully Saved</string>
     <string name="setting_tv_done">Done</string>
-    <string name="setting_tv_fee_info">Default Fee %dWon\nDefault Fee Distance %dm\nRunning Cost %dWon\nRunning Cost Standard %dm\nTime Cost %dWon\nTime Cost Standard %dsec\nNight Adding Percentage %d%%\nOuter City Adding Percentage %d%%</string>
+    <string name="setting_tv_fee_info">Default Fee %dWon\nDefault Fee Distance %dm\nRunning Cost %dWon\nRunning Cost Standard %dm\nTime Cost %dWon\nTime Cost Standard %dsec\nNight/Outer City Both Adding Percentage %d%%\nNight Adding Percentage %d%%\nOuter City Adding Percentage %d%%</string>
     <string name="setting_tv_info">Fee is about Default Taxi, if you want Smaller or Larger Taxi, you can input Fee by your selft with ETC.</string>
     <string name="setting_tv_select">Select your Location.</string>
 

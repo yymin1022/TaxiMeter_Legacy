@@ -137,6 +137,25 @@
                 android:text="심야할증 비율(%)" />
 
             <EditText
+                android:id="@+id/dialog_input_both"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
+                android:inputType="number"
+                android:hint="20"
+                android:text="20"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
+                android:text="심야할증 비율(%)" />
+
+            <EditText
                 android:id="@+id/dialog_input_night"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

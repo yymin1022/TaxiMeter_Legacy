@@ -82,7 +82,7 @@
     <string name="setting_toast_input_wrong">일부 입력란이 입력되지 않았습니다.</string>
     <string name="setting_toast_saved">저장되었습니다.</string>
     <string name="setting_tv_done">완료</string>
-    <string name="setting_tv_fee_info">기본요금 %d원\n기본요금 주행거리 %dm\n주행요금 %d원\n주행요금 증가 기준거리%dm\n시간요금 %d원\n시간요금 증가 기준 시간 %d초\n심야할증 비율 %d%%\n시외할증 비율 %d%%</string>
+    <string name="setting_tv_fee_info">기본요금 %d원\n기본요금 주행거리 %dm\n주행요금 %d원\n주행요금 증가 기준거리%dm\n시간요금 %d원\n시간요금 증가 기준 시간 %d초\n심야 시외 복합할증 비율%d%%\n심야할증 비율 %d%%\n시외할증 비율 %d%%</string>
     <string name="setting_tv_info">일반 중형택시 기준의 요금입니다. 대형 및 기타택시의 경우 기타 메뉴에서 직접 입력해주세요.</string>
     <string name="setting_tv_select">지역을 선택하세요.</string>
 

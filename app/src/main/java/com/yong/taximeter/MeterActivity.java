@@ -46,7 +46,7 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
             if(intent.getAction() != null && intent.getAction().equals("CURRENT_SPEED")){
                 int curMode = intent.getIntExtra("curCostMode", 0);
                 double curSpeed = intent.getDoubleExtra("curSpeed",0.0);
-                
+
                 curCost = intent.getIntExtra("curCost", 0);
                 curDistance = intent.getDoubleExtra("curDistance", 0.0);
                 curTime = intent.getStringExtra("curTime");
