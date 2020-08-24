@@ -12,6 +12,7 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
 import android.location.LocationManager;
+import android.location.LocationProvider;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.util.Log;
@@ -33,31 +34,56 @@ import com.fsn.cauly.CaulyAdViewListener;
 
 import java.util.Locale;
 
-public class MeterActivity extends AppCompatActivity implements CaulyAdViewListener {
-    int defaultCost = 3800;          // 기본요금
-    int runningCost = 100;          // 주행요금
-    int timeCost = 100;             // 시간요금 (시속 15km 이하)
-    int defaultCostDistance = 2000;  // 기본요금 주행 거리
-    int runningCostDistance = 132;  // 주행   요금 추가 기준 거리
-    int timeCostSecond = 31;       // 시간요금 추가 기준 시간
-    int currentCost = 0;    // 계산된 최종 요금
-
-    double distanceForAdding = 0;
-    double timeForAdding = 0;
-
-    double sumDistance = 0;          // 총 이동거리
-    int sumTime = 0;              // 총 이동시간
-
-    int addNight = 20;                // 심야할증 비율
-    int addOutCity = 20;              // 시외할증 비율
-
-    boolean isNight = false;
-    boolean isOutCity = false;
-
+public class MeterActivity extends AppCompatActivity implements CaulyAdViewListener{
     String CAULY_KEY = BuildConfig.CAULY_KEY;
 
-    BroadcastReceiver gpsStatusReceiver = null;
-    BroadcastReceiver speedReceiver = null;
+    BroadcastReceiver speedReceiver = new BroadcastReceiver(){
+        @Override
+        public void onReceive(Context context, Intent intent){
+            if(intent.getAction() != null && intent.getAction().equals("CURRENT_SPEED")){
+                double curSpeed = intent.getDoubleExtra("curSpeed",0.0);
+                int curCost = intent.getIntExtra("curCost", 0);
+                double curDistance = intent.getDoubleExtra("curDistance", 0.0);
+                int curMode = intent.getIntExtra("curCostMode", 0);
+                int curTime = intent.getIntExtra("curTime", 0);
+
+                Log.d("STATUS", String.format("%d %.1f %.2f %d %d", curCost, curSpeed, curDistance, curMode, curTime));
+
+                tvCost.setText(String.format(Locale.getDefault(), getString(R.string.meter_tv_current_cost_format), curCost));
+                tvDistance.setText(String.format(Locale.getDefault(), getString(R.string.meter_tv_moving_distance_format), curDistance));
+                tvSpeed.setText(String.format(Locale.getDefault(), getString(R.string.meter_tv_current_speed_format), curSpeed));
+//                    tvTime.setText(String.format(Locale.getDefault(), getString(R.string.meter_tv_moving_time_format), curTime));
+
+                switch(curMode){
+                    case 0:
+                        //기본요금
+                        tvType.setText(getString(R.string.meter_tv_cost_mode_default));
+                        break;
+                    case 1:
+                        //거리요금
+                        tvType.setText(getString(R.string.meter_tv_cost_mode_distance));
+                        break;
+                    case 2:
+                        //시간요금
+                        tvType.setText(getString(R.string.meter_tv_cost_mode_time));
+                        break;
+                }
+            }
+        }
+    };
+    BroadcastReceiver gpsStatusReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if(intent.getAction() != null && intent.getAction().equals("GPS_STATUS")){
+                boolean isGPS = intent.getBooleanExtra("curStatus", true);
+                if(isGPS){
+                    tvInfo.setText(getString(R.string.meter_tv_info_running));
+                }else{
+                    tvInfo.setText(getString(R.string.meter_tv_info_gps_unavailable));
+                }
+            }
+        }
+    };
     PowerManager powerManager;
     PowerManager.WakeLock wakeLock;
     SharedPreferences prefs;
@@ -71,16 +97,6 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
         setContentView(R.layout.activity_meter);
 
         prefs = getSharedPreferences("prefs", MODE_PRIVATE);
-
-        defaultCost = prefs.getInt("defaultCost", 3800);
-        runningCost = prefs.getInt("runningCost", 100);
-        timeCost = prefs.getInt("timeCost", 100);
-        defaultCostDistance = prefs.getInt("defaultCostDistance", 2000);
-        runningCostDistance = prefs.getInt("runningCostDistance", 132);
-        timeCostSecond = prefs.getInt("timeCostSecond", 32);
-        addNight = prefs.getInt("addNight", 20);
-        addOutCity = prefs.getInt("addOutCity", 20);
-        currentCost = defaultCost;
 
         ivHorse = findViewById(R.id.meter_image_horse);
         tvCost = findViewById(R.id.tvCost);
@@ -98,12 +114,6 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
         tvSpeed.setTypeface(typeFace);
         tvTime.setTypeface(typeFace);
 
-        tvCost.setText(String.format(Locale.getDefault(), getString(R.string.meter_tv_current_cost_format), currentCost));
-        tvDistance.setText(String.format(Locale.getDefault(), getString(R.string.meter_tv_moving_distance_format), sumDistance));
-        tvSpeed.setText(getString(R.string.meter_tv_current_speed));
-        tvTime.setText(String.format(Locale.getDefault(), getString(R.string.meter_tv_moving_time_format), sumTime));
-        tvType.setText(getString(R.string.meter_tv_cost_mode_default));
-
         isNightButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked){
@@ -112,7 +122,10 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
                 }else{
                     Toast.makeText(getApplicationContext(), getString(R.string.meter_toast_night_extra_disabled), Toast.LENGTH_SHORT).show();
                 }
-                isNight = isChecked;
+                Intent intent = new Intent("ADD_ENABLE");
+                intent.putExtra("addType", "NIGHT");
+                intent.putExtra("enable", isChecked);
+                sendBroadcast(intent);
             }
         });
         isOutCityButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
@@ -123,7 +136,10 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
                 }else{
                     Toast.makeText(getApplicationContext(), getString(R.string.meter_toast_outcity_extra_disabled), Toast.LENGTH_SHORT).show();
                 }
-                isOutCity = isChecked;
+                Intent intent = new Intent("ADD_ENABLE");
+                intent.putExtra("addType", "OUTCITY");
+                intent.putExtra("enable", isChecked);
+                sendBroadcast(intent);
             }
         });
 
@@ -227,84 +243,14 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
         }
     }
 
-    public void carculate(double curSpeed){
-        double deltaDistance;
-        
-        deltaDistance = curSpeed;
-        sumDistance += deltaDistance;
-        sumTime += 1;
-
-        // 이동거리가 기본요금 거리 이상인지 확인
-        if(sumDistance > defaultCostDistance){
-            // 속도에 따라 거리요금 / 시간요금 선택 적용
-            if(curSpeed < (15.0 / 3.6)){
-                if(timeForAdding >= timeCostSecond){
-                    currentCost += timeCost * Math.round(timeForAdding / timeCostSecond);
-                    timeForAdding = 0;
-                }else{
-                    timeForAdding += 1;
-                }
-                tvType.setText(getString(R.string.meter_tv_cost_mode_time));
-            }else{
-                if(distanceForAdding >= runningCostDistance){
-                    currentCost += runningCost * Math.round(distanceForAdding / runningCostDistance);
-                    distanceForAdding = 0;
-                }else{
-                    distanceForAdding += deltaDistance;
-                }
-                tvType.setText(getString(R.string.meter_tv_cost_mode_distance));
-            }
-        }else{
-            tvType.setText(getString(R.string.meter_tv_cost_mode_default));
-        }
-
-        currentCost = currentCost / 100 * 100;
-        tvCost.setText(String.format(Locale.getDefault(), getString(R.string.meter_tv_current_cost_format), currentCost));
-        tvDistance.setText(String.format(Locale.getDefault(), getString(R.string.meter_tv_moving_distance_format), sumDistance / 1000));
-        tvSpeed.setText(String.format(Locale.getDefault(), getString(R.string.meter_tv_current_speed_format), curSpeed * 3.6));
-        tvTime.setText(String.format(Locale.getDefault(), getString(R.string.meter_tv_moving_time_format), sumTime));
-
-        runHorse(Math.round(curSpeed));
-    }
-
     public void startCount(View v){
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
 
         tvInfo.setText(getString(R.string.meter_tv_info_running));
 
-        IntentFilter gpsStatusFiler = new IntentFilter();
         IntentFilter speedFilter = new IntentFilter();
-        gpsStatusFiler.addAction("GPS_STATUS");
         speedFilter.addAction("CURRENT_SPEED");
-        gpsStatusReceiver = new BroadcastReceiver(){
-            @Override
-            public void onReceive(Context context, Intent intent){
-                boolean receivedStatus = intent.getBooleanExtra("curStatus", false);
-                if(intent.getAction() != null && intent.getAction().equals("GPS_STATUS")){
-                    if(receivedStatus){
-                        tvInfo.setText(getString(R.string.meter_tv_info_running));
-                    }else{
-                        tvInfo.setText(getString(R.string.meter_tv_info_gps_unavailable));
-                    }
-                }
-            }
-        };
 
-        speedReceiver = new BroadcastReceiver(){
-            @Override
-            public void onReceive(Context context, Intent intent){
-                double receivedSpeed = intent.getDoubleExtra("curSpeed",0.0);
-                if(intent.getAction() != null && intent.getAction().equals("CURRENT_SPEED")){
-                    carculate(receivedSpeed);
-                }
-            }
-        };
-
-        try{
-            registerReceiver(gpsStatusReceiver, gpsStatusFiler);
-        }catch(Exception e){
-            Log.e("ERROR", e.toString());
-        }
         try{
             registerReceiver(speedReceiver, speedFilter);
         }catch(Exception e){
@@ -326,27 +272,14 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
                     stopService(new Intent(this, MeterService.class));
 
                     try{
-                        unregisterReceiver(gpsStatusReceiver);
-                    }catch(Exception e){
-                        Log.e("ERROR", e.toString());
-                    }
-                    try{
                         unregisterReceiver(speedReceiver);
                     }catch(Exception e){
                         Log.e("ERROR", e.toString());
                     }
 
-                    if(isOutCity){
-                        currentCost = currentCost * (100 + addOutCity) / 100;
-                    }
-                    if(isNight){
-                        currentCost = currentCost * (100 + addNight) / 100;
-                    }
-                    currentCost = (currentCost + 50) / 100 * 100;
-
                     AlertDialog.Builder stopDialog = new AlertDialog.Builder(this);
                     stopDialog.setTitle(getString(R.string.meter_dialog_finish_title));
-                    stopDialog.setMessage(String.format(Locale.getDefault(), getString(R.string.meter_dialog_finish_message), currentCost, sumDistance));
+//                    stopDialog.setMessage(String.format(Locale.getDefault(), getString(R.string.meter_dialog_finish_message), currentCost, sumDistance));
 //                    stopDialog.setMessage(String.format(Locale.getDefault(), getString(R.string.meter_dialog_finish_message_debug), currentCost,  sumTime, sumDistance));
                     stopDialog.setPositiveButton(getString(R.string.meter_dialog_ok), new DialogInterface.OnClickListener() {
                         @Override

@@ -4,8 +4,11 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.location.Location;
@@ -21,12 +24,55 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 
 import java.util.Locale;
+import java.util.Objects;
 
 public class MeterService extends Service  implements LocationListener {
+    int defaultCost = 3800;          // 기본요금
+    int runningCost = 100;          // 주행요금
+    int timeCost = 100;             // 시간요금 (시속 15km 이하)
+    int defaultCostDistance = 2000;  // 기본요금 주행 거리
+    int runningCostDistance = 132;  // 주행   요금 추가 기준 거리
+    int timeCostSecond = 31;       // 시간요금 추가 기준 시간
+    int currentCost = 0;    // 계산된 최종 요금
+
+    int costMode = 0; // 0 : 기본요금, 1 : 거리요금, 2 : 시간요금
+
+    double distanceForAdding = 0;
+    double timeForAdding = 0;
+
+    int sumDistance = 0;          // 총 이동거리
+    int sumTime = 0;              // 총 이동시간
+
+    int addBoth = 40;
+    int addNight = 20;                // 심야할증 비율
+    int addOutCity = 20;              // 시외할증 비율
+
+    boolean isNight = false;
+    boolean isOutCity = false;
+
     NotificationCompat.Builder notificationBuilder;
     NotificationManager notificationManager;
+    SharedPreferences prefs;
     private LocationManager locationManager;
     private Location mLastlocation = null;
+
+    BroadcastReceiver addCostEnable = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if(intent.getAction() != null && intent.getAction().equals("ADD_ENABLE")){
+                switch(Objects.requireNonNull(intent.getStringExtra("addType"))){
+                    case "NIGHT":
+                        isNight = intent.getBooleanExtra("enable", false);
+                        Log.d("ADDING", "NIGHT status " + isNight);
+                        break;
+                    case "OUTCITY":
+                        isOutCity = intent.getBooleanExtra("enable", false);
+                        Log.d("ADDING", "NIGHT status " + isOutCity);
+                        break;
+                }
+            }
+        }
+    };
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -54,6 +100,24 @@ public class MeterService extends Service  implements LocationListener {
         if(notificationBuilder != null && notificationManager != null){
             startForeground(1379, notificationBuilder.build());
         }
+
+        prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+
+        defaultCost = prefs.getInt("defaultCost", 3800);
+        runningCost = prefs.getInt("runningCost", 100);
+        timeCost = prefs.getInt("timeCost", 100);
+        defaultCostDistance = prefs.getInt("defaultCostDistance", 2000);
+        runningCostDistance = prefs.getInt("runningCostDistance", 132);
+        timeCostSecond = prefs.getInt("timeCostSecond", 32);
+        addBoth = prefs.getInt("addBoth", 40);
+        addNight = prefs.getInt("addNight", 20);
+        addOutCity = prefs.getInt("addOutCity", 20);
+        currentCost = defaultCost;
+
+        IntentFilter addEnableFilter = new IntentFilter();
+        addEnableFilter.addAction("ADD_ENABLE");
+        registerReceiver(addCostEnable, addEnableFilter);
+
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -66,16 +130,28 @@ public class MeterService extends Service  implements LocationListener {
         }catch(NullPointerException e){
             Log.e("ERROR", e.toString());
         }
+        try{
+            unregisterReceiver(addCostEnable);
+        }catch(Exception e){
+            Log.e("ERROR", e.toString());
+        }
     }
 
     @Override
     public void onLocationChanged(Location location) {
-        double getSpeed = (Double.parseDouble(String.format(Locale.getDefault(), "%.3f", location.getSpeed())));  // m/s
+        double getSpeed = Double.parseDouble(String.format(Locale.getDefault(), "%.1f", location.getSpeed()));  // m/s
+
         if(mLastlocation != null) {
+            carculate(getSpeed);
+
             Intent intent = new Intent("CURRENT_SPEED");
-            intent.putExtra("curSpeed",getSpeed);
+            intent.putExtra("curCost", currentCost);
+            intent.putExtra("curCostMode", costMode);
+            intent.putExtra("curDistance", (double)sumDistance / 1000);
+            intent.putExtra("curSpeed", getSpeed * 3.6);
+            intent.putExtra("curTime", sumTime);
+
             sendBroadcast(intent);
-            Log.d("CURRENT_SPEED", String.valueOf(getSpeed));
         }
         mLastlocation = location;
     }
@@ -113,4 +189,54 @@ public class MeterService extends Service  implements LocationListener {
         return null;
     }
 
+    public void carculate(double curSpeed){
+        double deltaDistance;
+        int costForAdd = 0;
+
+        deltaDistance = curSpeed;
+        sumDistance += deltaDistance;
+        sumTime += 1;
+
+        // 이동거리가 기본요금 거리 이상인지 확인
+        if(sumDistance > defaultCostDistance){
+            // 속도에 따라 거리요금 / 시간요금 선택 적용
+            if(curSpeed < (15.0 / 3.6)){
+                // 시간요금
+                costMode = 2;
+                if(timeForAdding >= timeCostSecond){
+                    costForAdd = timeCost * (int)Math.round(timeForAdding / timeCostSecond);
+                    timeForAdding = 0;
+                }else{
+                    timeForAdding += 1;
+                }
+            }else{
+                // 거리요금
+                costMode = 1;
+                if(distanceForAdding >= runningCostDistance){
+                    costForAdd = runningCost * (int)Math.round(distanceForAdding / runningCostDistance);
+                    distanceForAdding = 0;
+                }else{
+                    distanceForAdding += deltaDistance;
+                }
+            }
+
+            if(isNight && isOutCity){
+                //복합할증
+                costForAdd *= (double)(addBoth + 100) / 100;
+            }else if(isNight){
+                //야간할증
+                costForAdd *= (double)(addNight + 100) / 100;
+            }else if(isOutCity){
+                //시외할증
+                costForAdd *= (double)(addOutCity + 100) / 100;
+            }
+
+            currentCost += costForAdd;
+        }else{
+            // 기본요금
+            costMode = 0;
+//            tvType.setText(getString(R.string.meter_tv_cost_mode_default));
+        }
+//        currentCost = currentCost / 100 * 100;
+    }
 }

@@ -63,7 +63,7 @@
     <string name="meter_tv_info_press_start">Press Start Button</string>
     <string name="meter_tv_info_running">Meter is Running</string>
     <string name="meter_tv_moving_distance">0.0km</string>
-    <string name="meter_tv_moving_distance_format">%.1fkm</string>
+    <string name="meter_tv_moving_distance_format">%.2fkm</string>
     <string name="meter_tv_moving_distance_text">Moved Distance</string>
     <string name="meter_tv_moving_time">0sec</string>
     <string name="meter_tv_moving_time_format">%dsec</string>
