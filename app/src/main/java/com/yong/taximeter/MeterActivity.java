@@ -68,6 +68,8 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
                         tvType.setText(getString(R.string.meter_tv_cost_mode_time));
                         break;
                 }
+                
+                runHorse((long)curSpeed);
             }
         }
     };

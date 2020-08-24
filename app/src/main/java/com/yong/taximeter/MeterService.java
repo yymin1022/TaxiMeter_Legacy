@@ -30,12 +30,13 @@ public class MeterService extends Service  implements LocationListener {
     int defaultCost = 3800;          // 기본요금
     int runningCost = 100;          // 주행요금
     int timeCost = 100;             // 시간요금 (시속 15km 이하)
+
     int defaultCostDistance = 2000;  // 기본요금 주행 거리
     int runningCostDistance = 132;  // 주행   요금 추가 기준 거리
     int timeCostSecond = 31;       // 시간요금 추가 기준 시간
-    int currentCost = 0;    // 계산된 최종 요금
 
     int costMode = 0; // 0 : 기본요금, 1 : 거리요금, 2 : 시간요금
+    int currentCost = 0;    // 계산된 최종 요금
 
     double distanceForAdding = 0;
     double timeForAdding = 0;
@@ -106,12 +107,15 @@ public class MeterService extends Service  implements LocationListener {
         defaultCost = prefs.getInt("defaultCost", 3800);
         runningCost = prefs.getInt("runningCost", 100);
         timeCost = prefs.getInt("timeCost", 100);
+
         defaultCostDistance = prefs.getInt("defaultCostDistance", 2000);
         runningCostDistance = prefs.getInt("runningCostDistance", 132);
         timeCostSecond = prefs.getInt("timeCostSecond", 32);
+
         addBoth = prefs.getInt("addBoth", 40);
         addNight = prefs.getInt("addNight", 20);
         addOutCity = prefs.getInt("addOutCity", 20);
+
         currentCost = defaultCost;
 
         IntentFilter addEnableFilter = new IntentFilter();
@@ -235,8 +239,6 @@ public class MeterService extends Service  implements LocationListener {
         }else{
             // 기본요금
             costMode = 0;
-//            tvType.setText(getString(R.string.meter_tv_cost_mode_default));
         }
-//        currentCost = currentCost / 100 * 100;
     }
 }
