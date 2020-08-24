@@ -12,7 +12,6 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
 import android.location.LocationManager;
-import android.location.LocationProvider;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.util.Log;
@@ -35,6 +34,9 @@ import com.fsn.cauly.CaulyAdViewListener;
 import java.util.Locale;
 
 public class MeterActivity extends AppCompatActivity implements CaulyAdViewListener{
+    int curCost = 0;
+    double curDistance = 0.0;
+
     String CAULY_KEY = BuildConfig.CAULY_KEY;
 
     BroadcastReceiver speedReceiver = new BroadcastReceiver(){
@@ -42,8 +44,8 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
         public void onReceive(Context context, Intent intent){
             if(intent.getAction() != null && intent.getAction().equals("CURRENT_SPEED")){
                 double curSpeed = intent.getDoubleExtra("curSpeed",0.0);
-                int curCost = intent.getIntExtra("curCost", 0);
-                double curDistance = intent.getDoubleExtra("curDistance", 0.0);
+                curCost = intent.getIntExtra("curCost", 0);
+                curDistance = intent.getDoubleExtra("curDistance", 0.0);
                 int curMode = intent.getIntExtra("curCostMode", 0);
                 int curTime = intent.getIntExtra("curTime", 0);
 
@@ -52,7 +54,7 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
                 tvCost.setText(String.format(Locale.getDefault(), getString(R.string.meter_tv_current_cost_format), curCost));
                 tvDistance.setText(String.format(Locale.getDefault(), getString(R.string.meter_tv_moving_distance_format), curDistance));
                 tvSpeed.setText(String.format(Locale.getDefault(), getString(R.string.meter_tv_current_speed_format), curSpeed));
-//                    tvTime.setText(String.format(Locale.getDefault(), getString(R.string.meter_tv_moving_time_format), curTime));
+                tvTime.setText(String.format(Locale.getDefault(), getString(R.string.meter_tv_moving_time_format), curTime));
 
                 switch(curMode){
                     case 0:
@@ -68,11 +70,12 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
                         tvType.setText(getString(R.string.meter_tv_cost_mode_time));
                         break;
                 }
-                
+
                 runHorse((long)curSpeed);
             }
         }
     };
+
     BroadcastReceiver gpsStatusReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -86,6 +89,7 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
             }
         }
     };
+
     PowerManager powerManager;
     PowerManager.WakeLock wakeLock;
     SharedPreferences prefs;
@@ -223,26 +227,6 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ActivityManager manager = (ActivityManager)getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
-        if(manager != null){
-            for(ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE))
-            {
-                if(MeterService.class.getName().equals(service.service.getClassName())){
-                    stopService(new Intent(this, MeterService.class));
-
-                    try{
-                        unregisterReceiver(gpsStatusReceiver);
-                    }catch(Exception e){
-                        Log.e("ERROR", e.toString());
-                    }
-                    try{
-                        unregisterReceiver(speedReceiver);
-                    }catch(Exception e){
-                        Log.e("ERROR", e.toString());
-                    }
-                }
-            }
-        }
     }
 
     public void startCount(View v){
@@ -274,6 +258,11 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
                     stopService(new Intent(this, MeterService.class));
 
                     try{
+                        unregisterReceiver(gpsStatusReceiver);
+                    }catch(Exception e){
+                        Log.e("ERROR", e.toString());
+                    }
+                    try{
                         unregisterReceiver(speedReceiver);
                     }catch(Exception e){
                         Log.e("ERROR", e.toString());
@@ -281,7 +270,7 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
 
                     AlertDialog.Builder stopDialog = new AlertDialog.Builder(this);
                     stopDialog.setTitle(getString(R.string.meter_dialog_finish_title));
-//                    stopDialog.setMessage(String.format(Locale.getDefault(), getString(R.string.meter_dialog_finish_message), currentCost, sumDistance));
+                    stopDialog.setMessage(String.format(Locale.getDefault(), getString(R.string.meter_dialog_finish_message), curCost, curDistance));
 //                    stopDialog.setMessage(String.format(Locale.getDefault(), getString(R.string.meter_dialog_finish_message_debug), currentCost,  sumTime, sumDistance));
                     stopDialog.setPositiveButton(getString(R.string.meter_dialog_ok), new DialogInterface.OnClickListener() {
                         @Override

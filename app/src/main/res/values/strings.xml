@@ -28,8 +28,8 @@
 
     <string name="meter_btn_start">Start</string>
     <string name="meter_btn_stop">Stop</string>
-    <string name="meter_dialog_finish_message">Cost : %dwon\nDistance : %.1fm</string>
-    <string name="meter_dialog_finish_message_debug">Cost : %dwon\nDistance : %.1fm\nTime : %dsec</string>
+    <string name="meter_dialog_finish_message">Cost : %dwon Distance : %.2fkm</string>
+    <string name="meter_dialog_finish_message_debug">Cost : %dwon\nDistance : %.2fkm\nTime : %dsec</string>
     <string name="meter_dialog_finish_title">Finished</string>
     <string name="meter_dialog_gps_unavailable">GPS is currently unavailable</string>
     <string name="meter_dialog_gps_unavailable_open_setting">Go to GPS Setting</string>
