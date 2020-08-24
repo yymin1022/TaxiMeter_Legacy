@@ -47,14 +47,14 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
                 curCost = intent.getIntExtra("curCost", 0);
                 curDistance = intent.getDoubleExtra("curDistance", 0.0);
                 int curMode = intent.getIntExtra("curCostMode", 0);
-                int curTime = intent.getIntExtra("curTime", 0);
+                String curTime = intent.getStringExtra("curTime");
 
-                Log.d("STATUS", String.format("%d %.1f %.2f %d %d", curCost, curSpeed, curDistance, curMode, curTime));
+                Log.d("STATUS", String.format("%d %.1f %.2f %d %s", curCost, curSpeed, curDistance, curMode, curTime));
 
                 tvCost.setText(String.format(Locale.getDefault(), getString(R.string.meter_tv_current_cost_format), curCost));
                 tvDistance.setText(String.format(Locale.getDefault(), getString(R.string.meter_tv_moving_distance_format), curDistance));
                 tvSpeed.setText(String.format(Locale.getDefault(), getString(R.string.meter_tv_current_speed_format), curSpeed));
-                tvTime.setText(String.format(Locale.getDefault(), getString(R.string.meter_tv_moving_time_format), curTime));
+                tvTime.setText(curTime);
 
                 switch(curMode){
                     case 0:
@@ -155,9 +155,9 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
         }
 
         // FOR DEBUGGING ONLY : CURRENT TIME TEXT VIEW IS DISABLED FOR RELEASE
-        TextView tvTimeTitle = findViewById(R.id.tvTimeTitle);
-        tvTime.setVisibility(View.GONE);
-        tvTimeTitle.setVisibility(View.GONE);
+//        TextView tvTimeTitle = findViewById(R.id.tvTimeTitle);
+//        tvTime.setVisibility(View.GONE);
+//        tvTimeTitle.setVisibility(View.GONE);
 
         if(!prefs.getBoolean("ad_removed", false)){
             Log.d("CAULY", CAULY_KEY);

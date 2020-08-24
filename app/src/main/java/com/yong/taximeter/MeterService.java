@@ -130,15 +130,16 @@ public class MeterService extends Service  implements LocationListener {
 
             double curDistance = (double)sumDistance / 1000;
             double curSpeed = getSpeed * 3.6;
+            String curTime = getTimeFormat(sumTime);
 
             Intent intent = new Intent("CURRENT_SPEED");
             intent.putExtra("curCost", currentCost);
             intent.putExtra("curCostMode", costMode);
             intent.putExtra("curDistance",curDistance);
             intent.putExtra("curSpeed", curSpeed);
-            intent.putExtra("curTime", sumTime);
+            intent.putExtra("curTime", curTime);
 
-            updateServiceNotification(String.format(Locale.getDefault(), getString(R.string.meter_noti_text_running), currentCost, curSpeed, curDistance));
+            updateServiceNotification(String.format(Locale.getDefault(), getString(R.string.meter_noti_text_running), currentCost, curSpeed, curDistance, curTime));
 
             sendBroadcast(intent);
         }
@@ -225,6 +226,16 @@ public class MeterService extends Service  implements LocationListener {
             // 기본요금
             costMode = 0;
         }
+    }
+
+    private String getTimeFormat(int timeSecond){
+        int hour, minute, second;
+        minute = timeSecond / 60;
+        hour = minute / 60;
+        second = timeSecond % 60;
+        minute = minute % 60;
+
+        return String.format(Locale.getDefault(), "%02d:%02d:%02d", hour, minute, second);
     }
 
     private Notification getServiceNotification(String notiText){
