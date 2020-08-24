@@ -66,7 +66,7 @@
     <string name="meter_tv_moving_distance">0.0km</string>
     <string name="meter_tv_moving_distance_format">%.2fkm</string>
     <string name="meter_tv_moving_distance_text">Moved Distance</string>
-    <string name="meter_tv_moving_time">00:00:00</string>
+    <string name="meter_tv_moving_time" translatable="false">00:00:00</string>
     <string name="meter_tv_moving_time_text">Moved Time</string>
 
     <string name="setting_dialog_cancel">Cancel</string>
