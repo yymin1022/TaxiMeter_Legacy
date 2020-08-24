@@ -36,6 +36,7 @@ import java.util.Locale;
 public class MeterActivity extends AppCompatActivity implements CaulyAdViewListener{
     int curCost = 0;
     double curDistance = 0.0;
+    String curTime = "00:00:00";
 
     String CAULY_KEY = BuildConfig.CAULY_KEY;
 
@@ -43,11 +44,12 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
         @Override
         public void onReceive(Context context, Intent intent){
             if(intent.getAction() != null && intent.getAction().equals("CURRENT_SPEED")){
+                int curMode = intent.getIntExtra("curCostMode", 0);
                 double curSpeed = intent.getDoubleExtra("curSpeed",0.0);
+                
                 curCost = intent.getIntExtra("curCost", 0);
                 curDistance = intent.getDoubleExtra("curDistance", 0.0);
-                int curMode = intent.getIntExtra("curCostMode", 0);
-                String curTime = intent.getStringExtra("curTime");
+                curTime = intent.getStringExtra("curTime");
 
                 Log.d("STATUS", String.format("%d %.1f %.2f %d %s", curCost, curSpeed, curDistance, curMode, curTime));
 
@@ -270,7 +272,7 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
 
                     AlertDialog.Builder stopDialog = new AlertDialog.Builder(this);
                     stopDialog.setTitle(getString(R.string.meter_dialog_finish_title));
-                    stopDialog.setMessage(String.format(Locale.getDefault(), getString(R.string.meter_dialog_finish_message), curCost, curDistance));
+                    stopDialog.setMessage(String.format(Locale.getDefault(), getString(R.string.meter_dialog_finish_message), curCost, curDistance, curTime));
 //                    stopDialog.setMessage(String.format(Locale.getDefault(), getString(R.string.meter_dialog_finish_message_debug), currentCost,  sumTime, sumDistance));
                     stopDialog.setPositiveButton(getString(R.string.meter_dialog_ok), new DialogInterface.OnClickListener() {
                         @Override
