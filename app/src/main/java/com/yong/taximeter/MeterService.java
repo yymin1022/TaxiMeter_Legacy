@@ -3,6 +3,7 @@ package com.yong.taximeter;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -51,8 +52,6 @@ public class MeterService extends Service  implements LocationListener {
     boolean isNight = false;
     boolean isOutCity = false;
 
-    NotificationCompat.Builder notificationBuilder;
-    NotificationManager notificationManager;
     SharedPreferences prefs;
     private LocationManager locationManager;
     private Location mLastlocation = null;
@@ -80,27 +79,6 @@ public class MeterService extends Service  implements LocationListener {
         locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
         ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000,0, this);
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-            NotificationChannel channel = new NotificationChannel("RunningBackground", getString(R.string.meter_noti_channel_name), NotificationManager.IMPORTANCE_MIN);
-            channel.setImportance(NotificationManager.IMPORTANCE_DEFAULT);
-            channel.setDescription(getString(R.string.meter_noti_channel_description));
-            if(notificationManager != null) {
-                notificationManager.createNotificationChannel(channel);
-            }
-        }
-        notificationBuilder = new NotificationCompat.Builder(getApplicationContext(), "RunningBackground")
-                .setSmallIcon(R.drawable.btn_main_taxi)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.drawable.btn_main_taxi))
-                .setContentTitle(getString(R.string.meter_noti_title))
-                .setContentText(getString(R.string.meter_noti_text))
-                .setOngoing(true)
-                .setPriority(Notification.PRIORITY_DEFAULT)
-                .setAutoCancel(false);
-        notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-        if(notificationBuilder != null && notificationManager != null){
-            startForeground(1379, notificationBuilder.build());
-        }
 
         prefs = getSharedPreferences("prefs", MODE_PRIVATE);
 
@@ -121,6 +99,8 @@ public class MeterService extends Service  implements LocationListener {
         IntentFilter addEnableFilter = new IntentFilter();
         addEnableFilter.addAction("ADD_ENABLE");
         registerReceiver(addCostEnable, addEnableFilter);
+
+        startForeground(1379, getServiceNotification(getString(R.string.meter_noti_text_default)));
 
         return super.onStartCommand(intent, flags, startId);
     }
@@ -148,12 +128,17 @@ public class MeterService extends Service  implements LocationListener {
         if(mLastlocation != null) {
             carculate(getSpeed);
 
+            double curDistance = (double)sumDistance / 1000;
+            double curSpeed = getSpeed * 3.6;
+
             Intent intent = new Intent("CURRENT_SPEED");
             intent.putExtra("curCost", currentCost);
             intent.putExtra("curCostMode", costMode);
-            intent.putExtra("curDistance", (double)sumDistance / 1000);
-            intent.putExtra("curSpeed", getSpeed * 3.6);
+            intent.putExtra("curDistance",curDistance);
+            intent.putExtra("curSpeed", curSpeed);
             intent.putExtra("curTime", sumTime);
+
+            updateServiceNotification(String.format(Locale.getDefault(), getString(R.string.meter_noti_text_running), currentCost, curSpeed, curDistance));
 
             sendBroadcast(intent);
         }
@@ -240,5 +225,38 @@ public class MeterService extends Service  implements LocationListener {
             // 기본요금
             costMode = 0;
         }
+    }
+
+    private Notification getServiceNotification(String notiText){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationChannel channel = new NotificationChannel("RunningBackground", getString(R.string.meter_noti_channel_name), NotificationManager.IMPORTANCE_MIN);
+            channel.setImportance(NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription(getString(R.string.meter_noti_channel_description));
+            if(notificationManager != null) {
+                notificationManager.createNotificationChannel(channel);
+            }
+        }
+
+        PendingIntent contentIntent = PendingIntent.getActivity(this,0, new Intent(this, MeterActivity.class),0);
+
+        return new NotificationCompat.Builder(getApplicationContext(), "RunningBackground")
+                .setAutoCancel(false)
+                .setContentIntent(contentIntent)
+                .setContentText(notiText)
+                .setContentTitle(getString(R.string.meter_noti_title))
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.drawable.btn_main_taxi))
+                .setOngoing(true)
+                .setOnlyAlertOnce(true)
+                .setPriority(Notification.PRIORITY_DEFAULT)
+                .setSmallIcon(R.drawable.btn_main_taxi)
+                .build();
+    }
+
+    private void updateServiceNotification(String notiText){
+        Notification notification = getServiceNotification(notiText);
+
+        NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(1379, notification);
     }
 }
