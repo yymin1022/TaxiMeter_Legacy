@@ -37,7 +37,7 @@
     <string name="meter_noti_channel_description">미터기가 실행중일 때 표시됩니다.</string>
     <string name="meter_noti_channel_name">실행 중 알림</string>
     <string name="meter_noti_text_default">택시미터기가 실행중입니다.</string>
-    <string name="meter_noti_text_running">현재 요금 : %d원, 현재 속도 : %.1fkm/h, 이동 거리 : %.2fkm, 이동 시간 : %s</string>
+    <string name="meter_noti_text_running">현재 요금 : %d원, 현재 속도 : %.1fkm/h, 이동 시간 : %s</string>
     <string name="meter_noti_title">택시미터기</string>
     <string name="meter_toast_night_extra_disabled">심야할증이 비활성화되었습니다.</string>
     <string name="meter_toast_night_extra_enabled">최종요금에 심야할증이 적용됩니다.</string>

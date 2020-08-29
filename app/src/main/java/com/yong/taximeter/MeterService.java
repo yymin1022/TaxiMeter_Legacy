@@ -139,7 +139,7 @@ public class MeterService extends Service  implements LocationListener {
             intent.putExtra("curSpeed", curSpeed);
             intent.putExtra("curTime", curTime);
 
-            updateServiceNotification(String.format(Locale.getDefault(), getString(R.string.meter_noti_text_running), currentCost, curSpeed, curDistance, curTime));
+            updateServiceNotification(String.format(Locale.getDefault(), getString(R.string.meter_noti_text_running), currentCost, curSpeed, curTime));
 
             sendBroadcast(intent);
         }

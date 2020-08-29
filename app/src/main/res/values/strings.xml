@@ -37,7 +37,7 @@
     <string name="meter_noti_channel_description">Shows when Meter is running.</string>
     <string name="meter_noti_channel_name">Meter Runnning</string>
     <string name="meter_noti_text_default">Taxi Meter is Running</string>
-    <string name="meter_noti_text_running">Total Cost : \\%d, Current Speed : %.1fkm/h, Total Distance : %.2fkm, Total Time : %s</string>
+    <string name="meter_noti_text_running">Total Cost : \\%d, Current Speed : %.1fkm/h, Total Time : %s</string>
     <string name="meter_noti_title">Taxi Meter</string>
     <string name="meter_toast_night_extra_disabled">Night Extra is Disabled</string>
     <string name="meter_toast_night_extra_enabled">Night Extra is Enabled and will be applied to Final Cost.</string>
