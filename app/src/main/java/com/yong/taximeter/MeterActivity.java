@@ -184,6 +184,16 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
     @Override
     protected void onResume() {
         super.onResume();
+
+        IntentFilter speedFilter = new IntentFilter();
+        speedFilter.addAction("CURRENT_SPEED");
+
+        try{
+            registerReceiver(speedReceiver, speedFilter);
+        }catch(Exception e){
+            Log.e("ERROR", e.toString());
+        }
+
         powerManager = (PowerManager)getSystemService(Context.POWER_SERVICE);
         if(powerManager != null){
             wakeLock = powerManager.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.ON_AFTER_RELEASE, "METER:WAKELOCK");
@@ -213,6 +223,18 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
     @Override
     protected void onPause() {
         super.onPause();
+
+        try{
+            unregisterReceiver(gpsStatusReceiver);
+        }catch(Exception e){
+            Log.e("ERROR", e.toString());
+        }
+        try{
+            unregisterReceiver(speedReceiver);
+        }catch(Exception e){
+            Log.e("ERROR", e.toString());
+        }
+
         ActivityManager manager = (ActivityManager)getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
         if(manager != null){
             for(ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE))
@@ -236,15 +258,6 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
 
         tvInfo.setText(getString(R.string.meter_tv_info_running));
 
-        IntentFilter speedFilter = new IntentFilter();
-        speedFilter.addAction("CURRENT_SPEED");
-
-        try{
-            registerReceiver(speedReceiver, speedFilter);
-        }catch(Exception e){
-            Log.e("ERROR", e.toString());
-        }
-
         startService(new Intent(this, MeterService.class));
     }
 
@@ -258,17 +271,6 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
                 if(MeterService.class.getName().equals(service.service.getClassName())){
                     isRunning = true;
                     stopService(new Intent(this, MeterService.class));
-
-                    try{
-                        unregisterReceiver(gpsStatusReceiver);
-                    }catch(Exception e){
-                        Log.e("ERROR", e.toString());
-                    }
-                    try{
-                        unregisterReceiver(speedReceiver);
-                    }catch(Exception e){
-                        Log.e("ERROR", e.toString());
-                    }
 
                     AlertDialog.Builder stopDialog = new AlertDialog.Builder(this);
                     stopDialog.setTitle(getString(R.string.meter_dialog_finish_title));
