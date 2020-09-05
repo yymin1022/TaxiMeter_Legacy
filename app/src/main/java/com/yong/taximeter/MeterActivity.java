@@ -254,8 +254,6 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
     }
 
     public void startCount(View v){
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
-
         tvInfo.setText(getString(R.string.meter_tv_info_running));
 
         startService(new Intent(this, MeterService.class));
