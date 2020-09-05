@@ -156,11 +156,6 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
             createGpsDisabledAlert();
         }
 
-        // FOR DEBUGGING ONLY : CURRENT TIME TEXT VIEW IS DISABLED FOR RELEASE
-//        TextView tvTimeTitle = findViewById(R.id.tvTimeTitle);
-//        tvTime.setVisibility(View.GONE);
-//        tvTimeTitle.setVisibility(View.GONE);
-
         if(!prefs.getBoolean("ad_removed", false)){
             Log.d("CAULY", CAULY_KEY);
             CaulyAdInfo adInfo = new CaulyAdInfoBuilder(CAULY_KEY).
@@ -273,7 +268,6 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
                     AlertDialog.Builder stopDialog = new AlertDialog.Builder(this);
                     stopDialog.setTitle(getString(R.string.meter_dialog_finish_title));
                     stopDialog.setMessage(String.format(Locale.getDefault(), getString(R.string.meter_dialog_finish_message), curCost, curDistance, curTime));
-//                    stopDialog.setMessage(String.format(Locale.getDefault(), getString(R.string.meter_dialog_finish_message_debug), currentCost,  sumTime, sumDistance));
                     stopDialog.setPositiveButton(getString(R.string.meter_dialog_ok), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i){
