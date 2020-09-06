@@ -100,6 +100,8 @@ public class SettingsActivity extends AppCompatActivity {
                     case R.id.rbtn_setting_circle:
                         ed.putInt("animType", 1);
                 }
+
+                ed.apply();
             }
         });
 
