@@ -126,7 +126,7 @@ public class MeterService extends Service  implements LocationListener {
         double getSpeed = Double.parseDouble(String.format(Locale.getDefault(), "%.1f", location.getSpeed()));  // m/s
 
         if(mLastlocation != null) {
-            carculate(getSpeed);
+            calculate(getSpeed);
 
             double curDistance = (double)sumDistance / 1000;
             double curSpeed = getSpeed * 3.6;
@@ -179,7 +179,7 @@ public class MeterService extends Service  implements LocationListener {
         return null;
     }
 
-    public void carculate(double curSpeed){
+    public void calculate(double curSpeed){
         double deltaDistance;
         int costForAdd = 0;
 
