@@ -89,6 +89,20 @@ public class SettingsActivity extends AppCompatActivity {
                 break;
         }
 
+        RadioGroup animSelect = findViewById(R.id.rgroup_setting_anim);
+        animSelect.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, @IdRes int id) {
+                switch(id){
+                    case R.id.rbtn_setting_horse:
+                        ed.putInt("animType", 0);
+                        break;
+                    case R.id.rbtn_setting_circle:
+                        ed.putInt("animType", 1);
+                }
+            }
+        });
+
         RadioGroup localSelect = findViewById(R.id.rgroup_setting_local);
         localSelect.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override

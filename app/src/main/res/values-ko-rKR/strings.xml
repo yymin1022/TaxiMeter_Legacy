@@ -69,6 +69,8 @@
 
     <string name="setting_dialog_cancel">취소</string>
     <string name="setting_dialog_ok">확인</string>
+    <string name="setting_radio_circle">원</string>
+    <string name="setting_radio_horse">말</string>
     <string name="setting_radio_busan">부산</string>
     <string name="setting_radio_daegu">대구</string>
     <string name="setting_radio_daejeon">대전</string>

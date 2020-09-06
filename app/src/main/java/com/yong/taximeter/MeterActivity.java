@@ -156,6 +156,9 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
         }
 
         animType = prefs.getInt("animType", 0);
+        if(animType == 1){
+            ivHorse.setImageDrawable(getDrawable(R.drawable.ic_circle_1));
+        }
 
         if(!prefs.getBoolean("ad_removed", false)){
             Log.d("CAULY", CAULY_KEY);

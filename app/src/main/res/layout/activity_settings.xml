@@ -6,6 +6,25 @@
     android:layout_margin="10dp"
     android:orientation="vertical"
     android:gravity="center">
+    
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rgroup_setting_anim">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/setting_radio_horse"
+            android:id="@+id/rbtn_setting_horse"/>
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/setting_radio_circle"
+            android:id="@+id/rbtn_setting_circle"/>
+
+    </RadioGroup>
 
     <LinearLayout
         android:layout_width="match_parent"

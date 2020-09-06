@@ -70,6 +70,8 @@
 
     <string name="setting_dialog_cancel">Cancel</string>
     <string name="setting_dialog_ok">OK</string>
+    <string name="setting_radio_circle">Circle</string>
+    <string name="setting_radio_horse">Horse</string>
     <string name="setting_radio_seoul">Seoul</string>
     <string name="setting_radio_gyeonggi">Gyeonggi</string>
     <string name="setting_radio_busan">Busan</string>
