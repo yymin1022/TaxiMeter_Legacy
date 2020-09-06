@@ -33,10 +33,10 @@ import com.fsn.cauly.CaulyAdViewListener;
 import java.util.Locale;
 
 public class MeterActivity extends AppCompatActivity implements CaulyAdViewListener{
+    int animType = 0; // 0 is Horse, 1 is Circle
     int curCost = 0;
     double curDistance = 0.0;
     String curTime = "00:00:00";
-
     String CAULY_KEY = BuildConfig.CAULY_KEY;
 
     BroadcastReceiver speedReceiver = new BroadcastReceiver(){
@@ -154,6 +154,8 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
         if(locationManager != null && !locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
             createGpsDisabledAlert();
         }
+
+        animType = prefs.getInt("animType", 0);
 
         if(!prefs.getBoolean("ad_removed", false)){
             Log.d("CAULY", CAULY_KEY);
@@ -286,72 +288,127 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
     public void runHorse(long speed){
         AnimationDrawable animationDrawable = new AnimationDrawable();
 
-        if(speed > 90){
-            for(int i = 0; i < 10; i++){
-                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_1), 33);
-                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_2), 33);
-                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_3), 34);
-                animationDrawable.setOneShot(true);
-            }
-        }else if(speed > 80){
-            for(int i = 0; i < 9; i++){
-                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_1), 37);
-                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_2), 37);
-                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_3), 37);
-                animationDrawable.setOneShot(true);
-            }
-        }else if(speed > 70){
-            for(int i = 0; i < 8; i++){
-                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_1), 41);
-                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_2), 42);
-                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_3), 42);
-                animationDrawable.setOneShot(true);
-            }
-        }else if(speed > 60){
-            for(int i = 0; i < 7; i++){
-                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_1), 47);
-                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_2), 47);
-                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_3), 48);
-                animationDrawable.setOneShot(true);
-            }
-        }else if(speed > 50){
-            for(int i = 0; i < 6; i++){
-                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_1), 55);
-                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_2), 55);
-                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_3), 56);
-                animationDrawable.setOneShot(true);
-            }
-        }else if(speed > 40){
-            for(int i = 0; i < 5; i++){
-                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_1), 66);
-                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_2), 67);
-                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_3), 67);
-                animationDrawable.setOneShot(true);
-            }
-        }else if(speed > 30){
-            for(int i = 0; i < 4; i++){
-                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_1), 83);
-                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_2), 83);
-                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_3), 84);
-                animationDrawable.setOneShot(true);
-            }
-        }else if(speed > 20){
-            for(int i = 0; i < 3; i++){
-                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_1), 111);
-                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_2), 111);
-                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_3), 111);
-                animationDrawable.setOneShot(true);
-            }
-        }else if(speed > 0) {
-            for (int i = 0; i < 2; i++) {
-                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_1), 166);
-                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_2), 166);
-                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_3), 167);
+        if(animType == 0){
+            if(speed > 90){
+                for(int i = 0; i < 10; i++){
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_1), 33);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_2), 33);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_3), 34);
+                    animationDrawable.setOneShot(true);
+                }
+            }else if(speed > 80){
+                for(int i = 0; i < 9; i++){
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_1), 37);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_2), 37);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_3), 37);
+                    animationDrawable.setOneShot(true);
+                }
+            }else if(speed > 70){
+                for(int i = 0; i < 8; i++){
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_1), 41);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_2), 42);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_3), 42);
+                    animationDrawable.setOneShot(true);
+                }
+            }else if(speed > 60){
+                for(int i = 0; i < 7; i++){
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_1), 47);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_2), 47);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_3), 48);
+                    animationDrawable.setOneShot(true);
+                }
+            }else if(speed > 50){
+                for(int i = 0; i < 6; i++){
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_1), 55);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_2), 55);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_3), 56);
+                    animationDrawable.setOneShot(true);
+                }
+            }else if(speed > 40){
+                for(int i = 0; i < 5; i++){
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_1), 66);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_2), 67);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_3), 67);
+                    animationDrawable.setOneShot(true);
+                }
+            }else if(speed > 30){
+                for(int i = 0; i < 4; i++){
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_1), 83);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_2), 83);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_3), 84);
+                    animationDrawable.setOneShot(true);
+                }
+            }else if(speed > 20){
+                for(int i = 0; i < 3; i++){
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_1), 111);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_2), 111);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_3), 111);
+                    animationDrawable.setOneShot(true);
+                }
+            }else if(speed > 0) {
+                for (int i = 0; i < 2; i++) {
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_1), 166);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_2), 166);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_3), 167);
+                    animationDrawable.setOneShot(true);
+                }
+            }else{
+                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_2), 1000);
                 animationDrawable.setOneShot(true);
             }
         }else{
-            animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_2), 1000);
-            animationDrawable.setOneShot(true);
+            if(speed > 80){
+                for(int i = 0; i < 10; i++){
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_1), 12);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_2), 12);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_3), 12);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_4), 12);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_5), 13);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_6), 13);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_7), 13);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_8), 13);
+                    animationDrawable.setOneShot(true);
+                }
+            }else if(speed > 50){
+                for(int i = 0; i < 7; i++){
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_1), 20);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_2), 20);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_3), 21);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_4), 21);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_5), 21);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_6), 21);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_7), 21);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_8), 21);
+                    animationDrawable.setOneShot(true);
+                }
+            }else if(speed > 20){
+                for(int i = 0; i < 3; i++){
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_1), 41);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_2), 41);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_3), 41);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_4), 42);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_5), 42);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_6), 42);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_7), 42);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_8), 42);
+                    animationDrawable.setOneShot(true);
+                }
+            }else if(speed > 0){
+                for(int i = 0; i < 1; i++){
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_1), 125);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_2), 125);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_3), 125);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_4), 125);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_5), 125);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_6), 125);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_7), 125);
+                    animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_8), 125);
+                    animationDrawable.setOneShot(true);
+                }
+            }else{
+                animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_1), 125);
+                animationDrawable.setOneShot(true);
+            }
         }
 
         ivHorse.setBackground(animationDrawable);
