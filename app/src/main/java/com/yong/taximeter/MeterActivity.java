@@ -24,6 +24,7 @@ import android.widget.ToggleButton;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.fsn.cauly.CaulyAdInfo;
 import com.fsn.cauly.CaulyAdInfoBuilder;
@@ -156,8 +157,10 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
         }
 
         animType = prefs.getInt("animType", 0);
-        if(animType == 1){
-            ivHorse.setImageDrawable(getDrawable(R.drawable.ic_circle_1));
+        if(animType == 0){
+            ivHorse.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_horse_1));
+        }else{
+            ivHorse.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_circle_1));
         }
 
         if(!prefs.getBoolean("ad_removed", false)){
