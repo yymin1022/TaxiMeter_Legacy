@@ -21,6 +21,7 @@ import android.widget.Toast;
 import java.util.Locale;
 
 public class SettingsActivity extends AppCompatActivity {
+    boolean isSeoul = true;
     int defaultCost = 3800;          // 기본요금
     int runningCost = 100;          // 주행요금
     int timeCost = 100;             // 시간요금 (시속 15km 이하)
@@ -109,6 +110,7 @@ public class SettingsActivity extends AppCompatActivity {
         localSelect.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, @IdRes int id) {
+                isSeoul = false;
                 switch(id){
                     case R.id.rbtn_setting_busan:
                         defaultCost = 3300;
@@ -237,6 +239,7 @@ public class SettingsActivity extends AppCompatActivity {
                         selectedCity = "GYEONGGI";
                         break;
                     case R.id.rbtn_setting_seoul:
+                        isSeoul = true;
                         defaultCost = 3800;
                         defaultCostDistance = 2000;
                         runningCost = 100;
