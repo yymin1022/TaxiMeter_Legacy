@@ -287,6 +287,7 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
     @SuppressLint("UseCompatLoadingForDrawables")
     public void runHorse(long speed){
         AnimationDrawable animationDrawable = new AnimationDrawable();
+        animationDrawable.setOneShot(true);
 
         if(animType == 0){
             if(speed > 90){
@@ -294,67 +295,57 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
                     animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_1), 33);
                     animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_2), 33);
                     animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_3), 34);
-                    animationDrawable.setOneShot(true);
                 }
             }else if(speed > 80){
                 for(int i = 0; i < 9; i++){
                     animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_1), 37);
                     animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_2), 37);
                     animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_3), 37);
-                    animationDrawable.setOneShot(true);
                 }
             }else if(speed > 70){
                 for(int i = 0; i < 8; i++){
                     animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_1), 41);
                     animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_2), 42);
                     animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_3), 42);
-                    animationDrawable.setOneShot(true);
                 }
             }else if(speed > 60){
                 for(int i = 0; i < 7; i++){
                     animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_1), 47);
                     animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_2), 47);
                     animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_3), 48);
-                    animationDrawable.setOneShot(true);
                 }
             }else if(speed > 50){
                 for(int i = 0; i < 6; i++){
                     animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_1), 55);
                     animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_2), 55);
                     animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_3), 56);
-                    animationDrawable.setOneShot(true);
                 }
             }else if(speed > 40){
                 for(int i = 0; i < 5; i++){
                     animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_1), 66);
                     animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_2), 67);
                     animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_3), 67);
-                    animationDrawable.setOneShot(true);
                 }
             }else if(speed > 30){
                 for(int i = 0; i < 4; i++){
                     animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_1), 83);
                     animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_2), 83);
                     animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_3), 84);
-                    animationDrawable.setOneShot(true);
                 }
             }else if(speed > 20){
                 for(int i = 0; i < 3; i++){
                     animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_1), 111);
                     animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_2), 111);
                     animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_3), 111);
-                    animationDrawable.setOneShot(true);
                 }
             }else if(speed > 0) {
                 for (int i = 0; i < 2; i++) {
                     animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_1), 166);
                     animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_2), 166);
                     animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_3), 167);
-                    animationDrawable.setOneShot(true);
                 }
             }else{
                 animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_2), 1000);
-                animationDrawable.setOneShot(true);
             }
         }else{
             if(speed > 80){
@@ -367,7 +358,6 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
                     animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_6), 13);
                     animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_7), 13);
                     animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_8), 13);
-                    animationDrawable.setOneShot(true);
                 }
             }else if(speed > 50){
                 for(int i = 0; i < 7; i++){
@@ -379,7 +369,6 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
                     animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_6), 21);
                     animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_7), 21);
                     animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_8), 21);
-                    animationDrawable.setOneShot(true);
                 }
             }else if(speed > 20){
                 for(int i = 0; i < 3; i++){
@@ -391,7 +380,6 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
                     animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_6), 42);
                     animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_7), 42);
                     animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_8), 42);
-                    animationDrawable.setOneShot(true);
                 }
             }else if(speed > 0){
                 for(int i = 0; i < 1; i++){
@@ -403,11 +391,9 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
                     animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_6), 125);
                     animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_7), 125);
                     animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_8), 125);
-                    animationDrawable.setOneShot(true);
                 }
             }else{
                 animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_circle_1), 125);
-                animationDrawable.setOneShot(true);
             }
         }
 
