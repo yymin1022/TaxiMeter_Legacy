@@ -72,7 +72,7 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
                         break;
                 }
 
-                runHorse((long)curSpeed);
+                runAnim((long)curSpeed);
             }
         }
     };
@@ -285,7 +285,7 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    public void runHorse(long speed){
+    public void runAnim(long speed){
         AnimationDrawable animationDrawable = new AnimationDrawable();
         animationDrawable.setOneShot(true);
 
