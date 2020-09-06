@@ -50,6 +50,7 @@
     <string name="meter_toggle_night_enable">심야할증 적용</string>
     <string name="meter_toggle_outcity_disable">시외할증 미적용</string>
     <string name="meter_toggle_outcity_enable">시외할증 적용</string>
+    <string name="meter_tv_cost_mode_both">거리비례 시간비례 동시병산</string>
     <string name="meter_tv_cost_mode_default">기본요금</string>
     <string name="meter_tv_cost_mode_distance">거리비례 요금</string>
     <string name="meter_tv_cost_mode_text">요금 방식</string>

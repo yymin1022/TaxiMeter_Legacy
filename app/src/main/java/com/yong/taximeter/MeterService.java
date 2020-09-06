@@ -36,7 +36,7 @@ public class MeterService extends Service  implements LocationListener {
     int runningCostDistance = 132;  // 주행   요금 추가 기준 거리
     int timeCostSecond = 31;       // 시간요금 추가 기준 시간
 
-    int costMode = 0; // 0 : 기본요금, 1 : 거리요금, 2 : 시간요금
+    int costMode = 0; // 0 : 기본요금, 1 : 거리요금, 2 : 시간요금, 3 : 서울시 동시병산
     int currentCost = 0;    // 계산된 최종 요금
 
     double distanceForAdding = 0;
@@ -190,16 +190,8 @@ public class MeterService extends Service  implements LocationListener {
         // 이동거리가 기본요금 거리 이상인지 확인
         if(sumDistance > defaultCostDistance){
             // 속도에 따라 거리요금 / 시간요금 선택 적용
-            if(curSpeed < (15.0 / 3.6)){
-                // 시간요금
-                costMode = 2;
-                if(timeForAdding >= timeCostSecond){
-                    costForAdd = timeCost * (int)Math.round(timeForAdding / timeCostSecond);
-                    timeForAdding = 0;
-                }else{
-                    timeForAdding += 1;
-                }
-            }else{
+            // 서울은 저속 주행시 동시병산
+            if(prefs.getBoolean("isSeoul", true)){
                 // 거리요금
                 costMode = 1;
                 if(distanceForAdding >= runningCostDistance){
@@ -207,6 +199,36 @@ public class MeterService extends Service  implements LocationListener {
                     distanceForAdding = 0;
                 }else{
                     distanceForAdding += deltaDistance;
+                }
+                if(curSpeed < (15.0 / 3.6)){
+                    // 시간요금 동시병산
+                    costMode = 3;
+                    if(timeForAdding >= timeCostSecond){
+                        costForAdd += timeCost * (int)Math.round(timeForAdding / timeCostSecond);
+                        timeForAdding = 0;
+                    }else{
+                        timeForAdding += 1;
+                    }
+                }
+            }else{
+                if(curSpeed < (15.0 / 3.6)){
+                    // 시간요금 동시병산
+                    costMode = 2;
+                    if(timeForAdding >= timeCostSecond){
+                        costForAdd = timeCost * (int)Math.round(timeForAdding / timeCostSecond);
+                        timeForAdding = 0;
+                    }else{
+                        timeForAdding += 1;
+                    }
+                }else{
+                    // 거리요금
+                    costMode = 1;
+                    if(distanceForAdding >= runningCostDistance){
+                        costForAdd = runningCost * (int)Math.round(distanceForAdding / runningCostDistance);
+                        distanceForAdding = 0;
+                    }else{
+                        distanceForAdding += deltaDistance;
+                    }
                 }
             }
 

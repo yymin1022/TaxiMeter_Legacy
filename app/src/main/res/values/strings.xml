@@ -50,6 +50,7 @@
     <string name="meter_toggle_night_enable">Night Extra Enabled</string>
     <string name="meter_toggle_outcity_disable">Out City Extra Disabled</string>
     <string name="meter_toggle_outcity_enable">Out City Extra Enabled</string>
+    <string name="meter_tv_cost_mode_both">Cost per Distanct / Cost per Time Both</string>
     <string name="meter_tv_cost_mode_default">Default Cost</string>
     <string name="meter_tv_cost_mode_distance">Cost per Distance</string>
     <string name="meter_tv_cost_mode_time">Cost per Time</string>
