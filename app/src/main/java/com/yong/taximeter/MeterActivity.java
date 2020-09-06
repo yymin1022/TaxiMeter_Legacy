@@ -406,7 +406,7 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
             }
         }
 
-        ivHorse.setBackground(animationDrawable);
+        ivHorse.setImageDrawable(animationDrawable);
         animationDrawable.start();
     }
 
