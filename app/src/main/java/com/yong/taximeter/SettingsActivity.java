@@ -6,7 +6,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Locale;
+import java.util.Objects;
 
 public class SettingsActivity extends AppCompatActivity {
     boolean isSeoul = true;
@@ -51,7 +51,7 @@ public class SettingsActivity extends AppCompatActivity {
         final TextView tvCost = findViewById(R.id.tv_setting_cost);
 
         RadioButton defaultSelect;
-        switch(prefs.getString("CURRENT_LOCATION", "SEOUL")){
+        switch(Objects.requireNonNull(prefs.getString("CURRENT_LOCATION", "SEOUL"))){
             case "BUSAN":
                 defaultSelect = findViewById(R.id.rbtn_setting_busan);
                 defaultSelect.setChecked(true);
