@@ -11,17 +11,24 @@ import android.view.View;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+    String curLocation = "";
+    String curTheme = "";
+
+    SharedPreferences prefs;
+    SharedPreferences.Editor ed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        stopService(new Intent(this, MeterService.class));
 
-        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+        prefs = getSharedPreferences("prefs", MODE_PRIVATE);
         if(prefs.getBoolean("isFirst", true)){
             startActivity(new Intent(this, WelcomeActivity.class));
         }
+
+        curLocation = prefs.getString("CURRENT_LOCATION", "Seoul");
+        curTheme = prefs.getString("CURRENT_THEME", "Horse");
     }
 
 
