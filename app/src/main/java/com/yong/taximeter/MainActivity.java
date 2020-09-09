@@ -2,14 +2,17 @@ package com.yong.taximeter;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.helper.widget.Layer;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -34,6 +37,11 @@ public class MainActivity extends AppCompatActivity {
 
         curLocation = prefs.getString("CURRENT_LOCATION", "SEOUL");
         curTheme = prefs.getString("CURRENT_THEME", "HORSE");
+
+        if((int)(Math.random() * 10) > 6){
+            TextView mainText = findViewById(R.id.main_tv_info);
+            mainText.setText(R.string.main_tv_info);
+        }
     }
 
 
