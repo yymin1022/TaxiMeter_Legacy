@@ -51,6 +51,7 @@ public class MeterService extends Service  implements LocationListener {
 
     boolean isNight = false;
     boolean isOutCity = false;
+    boolean isSeoul = true;
 
     SharedPreferences prefs;
     private LocationManager locationManager;
@@ -93,6 +94,8 @@ public class MeterService extends Service  implements LocationListener {
         addBoth = prefs.getInt("addBoth", 40);
         addNight = prefs.getInt("addNight", 20);
         addOutCity = prefs.getInt("addOutCity", 20);
+
+        isSeoul = prefs.getBoolean("isSeoul", true);
 
         currentCost = defaultCost;
 
@@ -191,7 +194,7 @@ public class MeterService extends Service  implements LocationListener {
         if(sumDistance > defaultCostDistance){
             // 속도에 따라 거리요금 / 시간요금 선택 적용
             // 서울은 저속 주행시 동시병산
-            if(prefs.getBoolean("isSeoul", true)){
+            if(isSeoul){
                 // 거리요금
                 costMode = 1;
                 if(distanceForAdding >= runningCostDistance){
