@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(this, WelcomeActivity.class));
         }
 
-        curLocation = prefs.getString("CURRENT_LOCATION", "Seoul");
+        curLocation = prefs.getString("CURRENT_LOCATION", "SEOUL");
         curTheme = prefs.getString("CURRENT_THEME", "Horse");
     }
 
@@ -48,7 +48,44 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void location(View v){
-        startActivity(new Intent(this, SettingsActivity.class));
+        final String[] locationStrList = {getString(R.string.setting_radio_seoul),
+                getString(R.string.setting_radio_gyeonggi),
+                getString(R.string.setting_radio_busan),
+                getString(R.string.setting_radio_daegu),
+                getString(R.string.setting_radio_incheon),
+                getString(R.string.setting_radio_gwangju),
+                getString(R.string.setting_radio_daejeon),
+                getString(R.string.setting_radio_ulsan),
+                getString(R.string.setting_radio_etc)};
+        final String[] locationList = {"SEOUL", "GYEONGGI", "BUSAN", "DAEGU", "INCHEON", "GWANGJU", "DAEJEON", "ULSAN", "ETC"};
+        final int[] selectedItem = {0};
+
+        for(int i = 0; i < locationList.length; i++){
+            if(locationList[i].equals(curLocation)){
+                selectedItem[0] = i;
+            }
+        }
+
+        AlertDialog.Builder themeDialog = new AlertDialog.Builder(MainActivity.this);
+        themeDialog.setTitle("Set Location");
+        themeDialog.setSingleChoiceItems(locationStrList, selectedItem[0], new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int index) {
+                selectedItem[0] = index;
+            }
+        });
+        themeDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                curLocation = locationList[selectedItem[0]];
+
+                ed.putString("CURRENT_LOCATION", curLocation);
+                ed.apply();
+
+                dialogInterface.dismiss();
+            }
+        });
+        themeDialog.create().show();
     }
 
     public void theme(View v){
