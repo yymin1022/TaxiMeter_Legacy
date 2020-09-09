@@ -98,6 +98,7 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
     PowerManager powerManager;
     PowerManager.WakeLock wakeLock;
     SharedPreferences prefs;
+    SharedPreferences.Editor ed;
 
     private ImageView ivHorse;
     private TextView tvCost, tvDistance, tvInfo, tvSpeed, tvTime, tvType;
@@ -164,6 +165,26 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
             ivHorse.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_horse_1));
         }else{
             ivHorse.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_circle_1));
+        }
+
+        if(!prefs.getBoolean("NeverSeeCaution", false)){
+            AlertDialog.Builder cautionDialog = new AlertDialog.Builder(MeterActivity.this);
+            cautionDialog.setTitle("CAUTION");
+            cautionDialog.setMessage("CAUTION");
+            cautionDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            });
+            cautionDialog.setNeutralButton("Nerver See Again", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    ed = prefs.edit();
+                    ed.putBoolean("NeverSeeCaution", true);
+                    ed.apply();
+                }
+            });
         }
 
         if(!prefs.getBoolean("ad_removed", false)){
