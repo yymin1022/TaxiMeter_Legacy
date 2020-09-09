@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void theme(View v){
         final String[] themeStrList = {getString(R.string.setting_radio_horse), getString(R.string.setting_radio_circle)};
-        final String[] themeList = {"Horse", "Circle"};
+        final String[] themeList = {"HORSE", "CIRCLE"};
         final int[] selectedItem = {0};
 
         for(int i = 0; i < themeList.length; i++){
@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 curTheme = themeList[selectedItem[0]];
+
                 ed.putString("CURRENT_THEME", curTheme);
                 ed.apply();
 

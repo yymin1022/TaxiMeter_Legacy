@@ -34,9 +34,9 @@ import com.fsn.cauly.CaulyAdViewListener;
 import java.util.Locale;
 
 public class MeterActivity extends AppCompatActivity implements CaulyAdViewListener{
-    int animType = 0; // 0 is Horse, 1 is Circle
     int curCost = 0;
     double curDistance = 0.0;
+    String curAnim = "HORSE";
     String curTime = "00:00:00";
     String CAULY_KEY = BuildConfig.CAULY_KEY;
 
@@ -159,8 +159,8 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
             createGpsDisabledAlert();
         }
 
-        animType = prefs.getInt("animType", 0);
-        if(animType == 0){
+        curAnim = prefs.getString("CURRENT_THEME", "HORSE");
+        if(curAnim != null && curAnim.equals("HORSE")){
             ivHorse.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_horse_1));
         }else{
             ivHorse.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_circle_1));
@@ -298,7 +298,7 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
         AnimationDrawable animationDrawable = new AnimationDrawable();
         animationDrawable.setOneShot(true);
 
-        if(animType == 0){
+        if(curAnim.equals("HORSE")){
             if(speed > 90){
                 for(int i = 0; i < 10; i++){
                     animationDrawable.addFrame(getResources().getDrawable(R.drawable.ic_horse_1), 33);
