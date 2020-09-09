@@ -111,4 +111,8 @@
     <string name="main_dialog_title_locaion">Select Location</string>
     <string name="main_dialog_title_theme">Select Theme</string>
     <string name="main_dialog_ok">OK</string>
+    <string name="meter_dialog_caution_title">CAUTION</string>
+    <string name="meter_dialog_caution_content">If driver costs Taxi Fee to Passenger with this application, driver might be punished by Korean Law(PASSENGER TRANSPORT SERVICE ACT).</string>
+    <string name="meter_dialog_caution_ok">OK</string>
+    <string name="meter_dialog_caution_never">Never Show Again</string>
 </resources>

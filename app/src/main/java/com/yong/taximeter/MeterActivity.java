@@ -169,15 +169,15 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
 
         if(!prefs.getBoolean("NeverSeeCaution", false)){
             AlertDialog.Builder cautionDialog = new AlertDialog.Builder(MeterActivity.this);
-            cautionDialog.setTitle("CAUTION");
-            cautionDialog.setMessage("CAUTION");
-            cautionDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            cautionDialog.setTitle(getString(R.string.meter_dialog_caution_title));
+            cautionDialog.setMessage(getString(R.string.meter_dialog_caution_content));
+            cautionDialog.setPositiveButton(getString(R.string.meter_dialog_caution_ok), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     dialogInterface.dismiss();
                 }
             });
-            cautionDialog.setNeutralButton("Nerver See Again", new DialogInterface.OnClickListener() {
+            cautionDialog.setNeutralButton(getString(R.string.meter_dialog_caution_never), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     ed = prefs.edit();
@@ -185,6 +185,7 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
                     ed.apply();
                 }
             });
+            cautionDialog.create().show();
         }
 
         if(!prefs.getBoolean("ad_removed", false)){
