@@ -20,7 +20,7 @@
     <string name="info_dialog_ok">확인</string>
     <string name="info_title">개발자 정보</string>
     <string name="info_tv_name">유용민(a.k.a LR)</string>
-    <string name="info_tv_school">중앙대학교 소프트웨어학부 19학번</string>
+    <string name="info_tv_school">중앙대학교 소프트웨어학부 19학번\n군복무 진행중(2020. 10. ~)</string>
 
     <string name="main_tv_meter">미터기</string>
     <string name="main_tv_start">터치하여 시작하기</string>

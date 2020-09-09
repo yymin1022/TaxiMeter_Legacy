@@ -22,7 +22,8 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
-            android:name=".MainActivity">
+            android:name=".MainActivity"
+            android:theme="@style/mainAppTheme">
             <intent-filter>
                 <action
                     android:name="android.intent.action.MAIN" />
