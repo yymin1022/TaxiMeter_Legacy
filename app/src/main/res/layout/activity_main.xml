@@ -8,41 +8,6 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="end">
-
-        <ImageButton
-            android:layout_width="40sp"
-            android:layout_height="40sp"
-            android:layout_margin="10dp"
-            android:background="@drawable/btn_main_donation"
-            android:onClick="donation" />
-
-        <ImageButton
-            android:layout_width="40sp"
-            android:layout_height="40sp"
-            android:layout_margin="10dp"
-            android:background="@drawable/btn_main_location"
-            android:onClick="location" />
-
-        <ImageButton
-            android:layout_width="40sp"
-            android:layout_height="40sp"
-            android:layout_margin="10dp"
-            android:background="@drawable/btn_main_theme"
-            android:onClick="theme" />
-
-        <ImageButton
-            android:layout_width="40sp"
-            android:layout_height="40sp"
-            android:layout_margin="10dp"
-            android:background="@drawable/btn_main_info"
-            android:onClick="info" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
         android:orientation="vertical"
@@ -83,6 +48,72 @@
             android:gravity="center"
             android:text="@string/main_tv_start"
             android:textSize="15sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:onClick="location">
+
+            <ImageView
+                android:layout_width="40sp"
+                android:layout_height="40sp"
+                android:background="@drawable/btn_main_location" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:onClick="theme">
+
+            <ImageView
+                android:layout_width="40sp"
+                android:layout_height="40sp"
+                android:background="@drawable/btn_main_theme" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:onClick="donation">
+
+            <ImageView
+                android:layout_width="40sp"
+                android:layout_height="40sp"
+                android:background="@drawable/btn_main_donation" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:onClick="info">
+
+            <ImageView
+                android:layout_width="40sp"
+                android:layout_height="40sp"
+                android:background="@drawable/btn_main_info" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
