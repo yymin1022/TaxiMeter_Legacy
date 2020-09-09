@@ -171,6 +171,7 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
             AlertDialog.Builder cautionDialog = new AlertDialog.Builder(MeterActivity.this);
             cautionDialog.setTitle(getString(R.string.meter_dialog_caution_title));
             cautionDialog.setMessage(getString(R.string.meter_dialog_caution_content));
+            cautionDialog.setCancelable(false);
             cautionDialog.setPositiveButton(getString(R.string.meter_dialog_caution_ok), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
