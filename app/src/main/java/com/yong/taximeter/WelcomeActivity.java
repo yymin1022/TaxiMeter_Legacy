@@ -141,7 +141,7 @@ public class WelcomeActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, @IdRes int id) {
                 switch(id){
-                    case R.id.rbtn_setting_busan:
+                    case R.id.rbtn_welcome_busan:
                         defaultCost = 3300;
                         defaultCostDistance = 2000;
                         runningCost = 100;
@@ -153,7 +153,7 @@ public class WelcomeActivity extends AppCompatActivity {
                         addOutCity = 30;
                         selectedCity = "BUSAN";
                         break;
-                    case R.id.rbtn_setting_daegu:
+                    case R.id.rbtn_welcome_daegu:
                         defaultCost = 3300;
                         defaultCostDistance = 2000;
                         runningCost = 100;
@@ -165,7 +165,7 @@ public class WelcomeActivity extends AppCompatActivity {
                         addOutCity = 20;
                         selectedCity = "DAEGU";
                         break;
-                    case R.id.rbtn_setting_daejeon:
+                    case R.id.rbtn_welcome_daejeon:
                         defaultCost = 3300;
                         defaultCostDistance = 2000;
                         runningCost = 100;
@@ -177,7 +177,7 @@ public class WelcomeActivity extends AppCompatActivity {
                         addOutCity = 30;
                         selectedCity = "DAEJEON";
                         break;
-                    case R.id.rbtn_setting_etc:
+                    case R.id.rbtn_welcome_etc:
                         AlertDialog.Builder builder = new AlertDialog.Builder(WelcomeActivity.this);
                         LayoutInflater inflater = getLayoutInflater();
                         final View view = inflater.inflate(R.layout.dialog_welcome_custom, null);
@@ -191,7 +191,7 @@ public class WelcomeActivity extends AppCompatActivity {
                         final EditText nightInput = view.findViewById(R.id.dialog_input_night);
                         final EditText outcityInput = view.findViewById(R.id.dialog_input_outcity);
                         builder.setView(view);
-                        builder.setPositiveButton(getString(R.string.setting_dialog_ok), new DialogInterface.OnClickListener() {
+                        builder.setPositiveButton(getString(R.string.welcome_dialog_ok), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 if(defaultCostInput.getText().toString().equals("") ||
@@ -203,7 +203,7 @@ public class WelcomeActivity extends AppCompatActivity {
                                         bothInput.getText().toString().equals("") ||
                                         nightInput.getText().toString().equals("") ||
                                         outcityInput.getText().toString().equals("")){
-                                    Toast.makeText(WelcomeActivity.this, getString(R.string.setting_toast_input_wrong), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(WelcomeActivity.this, getString(R.string.welcome_toast_input_wrong), Toast.LENGTH_SHORT).show();
                                 }else{
                                     defaultCost = Integer.parseInt(defaultCostInput.getText().toString());
                                     defaultCostDistance = Integer.parseInt(defaultCostDistanceInput.getText().toString());
@@ -217,21 +217,21 @@ public class WelcomeActivity extends AppCompatActivity {
                                     selectedCity = "ETC";
 
                                     ed.putString("CURRENT_LOCATION", selectedCity);
-                                    tvCost.setText(String.format(Locale.getDefault(), getString(R.string.setting_tv_fee_info), defaultCost, defaultCostDistance, runningCost, runningCostDistance, timeCost, timeCostSecond, addBoth, addNight, addOutCity));
+                                    tvCost.setText(String.format(Locale.getDefault(), getString(R.string.welcome_tv_fee_info), defaultCost, defaultCostDistance, runningCost, runningCostDistance, timeCost, timeCostSecond, addBoth, addNight, addOutCity));
                                 }
                             }
                         });
-                        builder.setNegativeButton(getString(R.string.setting_dialog_cancel), new DialogInterface.OnClickListener() {
+                        builder.setNegativeButton(getString(R.string.welcome_dialog_cancel), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.cancel();
-                                RadioButton seoulRadio = findViewById(R.id.rbtn_setting_seoul);
+                                RadioButton seoulRadio = findViewById(R.id.rbtn_welcome_seoul);
                                 seoulRadio.setChecked(true);
                             }
                         });
                         builder.show();
                         break;
-                    case R.id.rbtn_setting_gwangju:
+                    case R.id.rbtn_welcome_gwangju:
                         defaultCost = 3300;
                         defaultCostDistance = 2000;
                         runningCost = 100;
@@ -243,7 +243,7 @@ public class WelcomeActivity extends AppCompatActivity {
                         addOutCity = 35;
                         selectedCity = "GWANGJU";
                         break;
-                    case R.id.rbtn_setting_incheon:
+                    case R.id.rbtn_welcome_incheon:
                         defaultCost = 3800;
                         defaultCostDistance = 2000;
                         runningCost = 100;
@@ -255,7 +255,7 @@ public class WelcomeActivity extends AppCompatActivity {
                         addOutCity = 30;
                         selectedCity = "INCHEON";
                         break;
-                    case R.id.rbtn_setting_kyunggi:
+                    case R.id.rbtn_welcome_kyunggi:
                         defaultCost = 3800;
                         defaultCostDistance = 2000;
                         runningCost = 100;
@@ -267,7 +267,7 @@ public class WelcomeActivity extends AppCompatActivity {
                         addOutCity = 20;
                         selectedCity = "GYEONGGI";
                         break;
-                    case R.id.rbtn_setting_seoul:
+                    case R.id.rbtn_welcome_seoul:
                         defaultCost = 3800;
                         defaultCostDistance = 2000;
                         runningCost = 100;
@@ -279,7 +279,7 @@ public class WelcomeActivity extends AppCompatActivity {
                         addOutCity = 20;
                         selectedCity = "SEOUL";
                         break;
-                    case R.id.rbtn_setting_ulsan:
+                    case R.id.rbtn_welcome_ulsan:
                         defaultCost = 3300;
                         defaultCostDistance = 2000;
                         runningCost = 100;

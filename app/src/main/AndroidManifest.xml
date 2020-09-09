@@ -43,9 +43,6 @@
             android:name=".MeterActivity"
             android:configChanges="keyboard|keyboardHidden"/>
         <activity
-            android:name=".SettingsActivity"
-            android:theme="@style/actionbarAppTheme" />
-        <activity
             android:name=".WelcomeActivity" />
 
         <service
