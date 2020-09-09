@@ -187,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
                 final EditText outcityInput = view.findViewById(R.id.dialog_input_outcity);
 
                 builder.setView(view);
-                builder.setPositiveButton(getString(R.string.setting_dialog_ok), new DialogInterface.OnClickListener() {
+                builder.setPositiveButton(getString(R.string.main_dialog_ok), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if(defaultCostInput.getText().toString().equals("") ||
