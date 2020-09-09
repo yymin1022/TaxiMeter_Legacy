@@ -7,14 +7,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.Toast;
-
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     String curLocation = "";
@@ -37,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         curLocation = prefs.getString("CURRENT_LOCATION", "SEOUL");
-        curTheme = prefs.getString("CURRENT_THEME", "Horse");
+        curTheme = prefs.getString("CURRENT_THEME", "HORSE");
     }
 
 
@@ -72,15 +68,15 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        AlertDialog.Builder themeDialog = new AlertDialog.Builder(MainActivity.this);
-        themeDialog.setTitle("Set Location");
-        themeDialog.setSingleChoiceItems(locationStrList, selectedItem[0], new DialogInterface.OnClickListener() {
+        AlertDialog.Builder locationDialog = new AlertDialog.Builder(MainActivity.this);
+        locationDialog.setTitle(getString(R.string.main_dialog_title_locaion));
+        locationDialog.setSingleChoiceItems(locationStrList, selectedItem[0], new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int index) {
                 selectedItem[0] = index;
             }
         });
-        themeDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        locationDialog.setPositiveButton(getString(R.string.main_dialog_ok), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 curLocation = locationList[selectedItem[0]];
@@ -93,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                 dialogInterface.dismiss();
             }
         });
-        themeDialog.create().show();
+        locationDialog.create().show();
     }
 
     public void theme(View v){
@@ -108,14 +104,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
         AlertDialog.Builder themeDialog = new AlertDialog.Builder(MainActivity.this);
-        themeDialog.setTitle("Set Theme");
+        themeDialog.setTitle(getString(R.string.main_dialog_title_theme));
         themeDialog.setSingleChoiceItems(themeStrList, selectedItem[0], new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int index) {
                 selectedItem[0] = index;
             }
         });
-        themeDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        themeDialog.setPositiveButton(getString(R.string.main_dialog_ok), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 curTheme = themeList[selectedItem[0]];
@@ -130,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void updateCostData(String curLocation){
-        boolean isSeoul = true;
+        boolean isSeoul = false;
         int defaultCost = 3800;          // 기본요금
         int runningCost = 100;          // 주행요금
         int timeCost = 100;             // 시간요금 (시속 15km 이하)
@@ -141,7 +137,6 @@ public class MainActivity extends AppCompatActivity {
         int addNight = 20;                // 심야할증 비율
         int addOutCity = 20;              // 시외할증 비율
 
-        isSeoul = false;
         switch(curLocation){
             case "BUSAN":
                 defaultCost = 3300;

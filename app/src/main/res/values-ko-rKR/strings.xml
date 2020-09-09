@@ -113,4 +113,7 @@
     <string name="welcome_tv_location_info">애플리케이션이 올바르게 동작하기 위해 위치정보 사용 권한을 허용해주셔야 합니다.</string>
     <string name="welcome_tv_location_select">지역을 선택해주세요.</string>
     <string name="welcome_tv_location_select_info">일반 중형택시 기준의 요금입니다. 대형 및 기타택시의 경우 기타 메뉴에서 직접 입력해주세요.</string>
+    <string name="main_dialog_title_locaion">지역 선택</string>
+    <string name="main_dialog_title_theme">테마 선택</string>
+    <string name="main_dialog_ok">확인</string>
 </resources>

@@ -22,14 +22,14 @@
             android:layout_width="40sp"
             android:layout_height="40sp"
             android:layout_margin="10dp"
-            android:background="@drawable/btn_main_setting"
+            android:background="@drawable/btn_main_location"
             android:onClick="location" />
 
         <ImageButton
             android:layout_width="40sp"
             android:layout_height="40sp"
             android:layout_margin="10dp"
-            android:background="@drawable/btn_main_setting"
+            android:background="@drawable/btn_main_theme"
             android:onClick="theme" />
 
         <ImageButton

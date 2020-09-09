@@ -114,4 +114,7 @@
     <string name="welcome_tv_location_info">You must grant Location Permission to Application works properly.</string>
     <string name="welcome_tv_location_select_info">Fee is about Default Taxi, if you want Smaller or Larger Taxi, you can input Fee by your selft with ETC.</string>
     <string name="welcome_tv_location_select">Select your Location.</string>
+    <string name="main_dialog_title_locaion">Select Location</string>
+    <string name="main_dialog_title_theme">Select Theme</string>
+    <string name="main_dialog_ok">OK</string>
 </resources>
