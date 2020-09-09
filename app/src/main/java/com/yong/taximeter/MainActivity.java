@@ -7,8 +7,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     String curLocation = "";
@@ -23,6 +23,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+        ed = prefs.edit();
+        ed.apply();
+
         if(prefs.getBoolean("isFirst", true)){
             startActivity(new Intent(this, WelcomeActivity.class));
         }
@@ -52,9 +55,15 @@ public class MainActivity extends AppCompatActivity {
         final String[] themeList = {"Horse", "Circle"};
         final int[] selectedItem = {0};
 
+        for(int i = 0; i < themeList.length; i++){
+            if(themeList[i].equals(curTheme)){
+                selectedItem[0] = i;
+            }
+        }
+
         AlertDialog.Builder themeDialog = new AlertDialog.Builder(MainActivity.this);
         themeDialog.setTitle("Set Theme");
-        themeDialog.setSingleChoiceItems(themeList, 0, new DialogInterface.OnClickListener() {
+        themeDialog.setSingleChoiceItems(themeList, selectedItem[0], new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int index) {
                 selectedItem[0] = index;
@@ -63,7 +72,10 @@ public class MainActivity extends AppCompatActivity {
         themeDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(getApplicationContext(), String.valueOf(selectedItem[0]), Toast.LENGTH_LONG).show();
+                curTheme = themeList[selectedItem[0]];
+                ed.putString("CURRENT_THEME", curTheme);
+                ed.apply();
+
                 dialogInterface.dismiss();
             }
         });
