@@ -23,7 +23,14 @@
             android:layout_height="40sp"
             android:layout_margin="10dp"
             android:background="@drawable/btn_main_setting"
-            android:onClick="setting" />
+            android:onClick="location" />
+
+        <ImageButton
+            android:layout_width="40sp"
+            android:layout_height="40sp"
+            android:layout_margin="10dp"
+            android:background="@drawable/btn_main_setting"
+            android:onClick="theme" />
 
         <ImageButton
             android:layout_width="40sp"

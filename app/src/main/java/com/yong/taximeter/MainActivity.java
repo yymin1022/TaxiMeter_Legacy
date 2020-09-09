@@ -30,11 +30,15 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, DonationActivity.class));
     }
 
-    public void setting(View v){
+    public void info(View v){
+        startActivity(new Intent(this, InfoActivity.class));
+    }
+
+    public void location(View v){
         startActivity(new Intent(this, SettingsActivity.class));
     }
 
-    public void info(View v){
-        startActivity(new Intent(this, InfoActivity.class));
+    public void theme(View v){
+        startActivity(new Intent(this, SettingsActivity.class));
     }
 }
