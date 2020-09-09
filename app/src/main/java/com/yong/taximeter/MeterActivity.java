@@ -230,25 +230,6 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
     }
 
     @Override
-    public void onBackPressed(){
-        ActivityManager manager = (ActivityManager)getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
-        boolean isRunning = false;
-
-        if(manager != null){
-            for(ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)){
-                if (MeterService.class.getName().equals(service.service.getClassName())) {
-                    isRunning = true;
-                }
-            }
-            if(isRunning){
-                Toast.makeText(getApplicationContext(), getString(R.string.meter_toast_stop_first), Toast.LENGTH_SHORT).show();
-            }else{
-                finish();
-            }
-        }
-    }
-
-    @Override
     protected void onPause() {
         super.onPause();
 
