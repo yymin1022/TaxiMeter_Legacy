@@ -191,18 +191,6 @@ public class DonationActivity extends AppCompatActivity implements PurchasesUpda
         }else if(billingResult.getResponseCode() == BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED){
             //Already Purchased Item
             Toast.makeText(getApplicationContext(), getString(R.string.donation_toast_purchase_alreadyowned), Toast.LENGTH_LONG).show();
-
-            for(Purchase purchase : purchases){
-                if(purchase.getSku().equals(SKU_AD_REMOVE)){
-                    Toast.makeText(getApplicationContext(), "AAA", Toast.LENGTH_LONG).show();
-
-                    SharedPreferences prefs = getApplicationContext().getSharedPreferences("prefs", MODE_PRIVATE);
-                    SharedPreferences.Editor ed = prefs.edit();
-                    ed.remove("ad_removed");
-                    ed.putBoolean("ad_removed", true);
-                    ed.apply();
-                }
-            }
         }else{
             //Unknown Code
             Toast.makeText(getApplicationContext(),  String.format(Locale.getDefault(), getString(R.string.donation_toast_purchase_unknown_error), billingResult.getResponseCode()), Toast.LENGTH_LONG).show();
