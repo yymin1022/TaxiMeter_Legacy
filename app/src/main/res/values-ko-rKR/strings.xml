@@ -79,7 +79,7 @@
     <string name="setting_radio_gwangju">광주</string>
     <string name="setting_radio_gyeonggi">경기</string>
     <string name="setting_radio_incheon">인천</string>
-    <string name="setting_radio_seoul">" 서울"</string>
+    <string name="setting_radio_seoul">서울</string>
     <string name="setting_radio_ulsan">울산</string>
     <string name="setting_title">설정</string>
     <string name="setting_toast_input_wrong">일부 입력란이 입력되지 않았습니다.</string>
