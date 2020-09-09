@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void theme(View v){
+        final String[] themeStrList = {getString(R.string.setting_radio_horse), getString(R.string.setting_radio_circle)};
         final String[] themeList = {"Horse", "Circle"};
         final int[] selectedItem = {0};
 
@@ -63,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
         AlertDialog.Builder themeDialog = new AlertDialog.Builder(MainActivity.this);
         themeDialog.setTitle("Set Theme");
-        themeDialog.setSingleChoiceItems(themeList, selectedItem[0], new DialogInterface.OnClickListener() {
+        themeDialog.setSingleChoiceItems(themeStrList, selectedItem[0], new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int index) {
                 selectedItem[0] = index;
