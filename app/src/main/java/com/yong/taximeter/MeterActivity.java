@@ -37,7 +37,7 @@ import java.util.Locale;
 
 public class MeterActivity extends AppCompatActivity implements CaulyAdViewListener, CaulyInterstitialAdListener {
     boolean showInterstitial = false;
-    boolean isInterstialAdLoaded = false;
+    boolean isInterstitialAdLoaded = false;
 
     int curCost = 0;
     double curDistance = 0.0;
@@ -100,7 +100,7 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
         }
     };
 
-    CaulyInterstitialAd loadedInterstialAd;
+    CaulyInterstitialAd loadedInterstitialAd;
     PowerManager powerManager;
     PowerManager.WakeLock wakeLock;
     SharedPreferences prefs;
@@ -233,15 +233,15 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
             params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
             rootView.addView(javaAdView, params);
 
-            CaulyAdInfo InterstialAdInfo = new CaulyAdInfoBuilder(CAULY_KEY)
+            CaulyAdInfo InterstitialAdInfo = new CaulyAdInfoBuilder(CAULY_KEY)
                     .build();
 
-            CaulyInterstitialAd interstial = new CaulyInterstitialAd();
-            interstial.setAdInfo(InterstialAdInfo);
-            interstial.setInterstialAdListener(this);
-            interstial.disableBackKey();
+            CaulyInterstitialAd interstitial = new CaulyInterstitialAd();
+            interstitial.setAdInfo(InterstitialAdInfo);
+            interstitial.setInterstialAdListener(this);
+            interstitial.disableBackKey();
 
-            interstial.requestInterstitialAd(this);
+            interstitial.requestInterstitialAd(this);
 
             showInterstitial = true;
         }
@@ -315,11 +315,11 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
         }
 
         if(!prefs.getBoolean("ad_removed", false)) {
-            if((int)(Math.random() * 10) > 4 && loadedInterstialAd != null){
-                if(showInterstitial && isInterstialAdLoaded){
-                    loadedInterstialAd.show();
+            if((int)(Math.random() * 10) > 4 && loadedInterstitialAd != null){
+                if(showInterstitial && isInterstitialAdLoaded){
+                    loadedInterstitialAd.show();
                 }else{
-                    loadedInterstialAd.cancel();
+                    loadedInterstitialAd.cancel();
                 }
             }
         }
@@ -492,8 +492,8 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
             Log.d("CaulyExample", "normal interstitial AD received.");
         }
 
-        isInterstialAdLoaded = true;
-        loadedInterstialAd = ad;
+        isInterstitialAdLoaded = true;
+        loadedInterstitialAd = ad;
     }
 
     @Override
