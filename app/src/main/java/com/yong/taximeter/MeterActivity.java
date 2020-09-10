@@ -194,6 +194,26 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
             });
             cautionDialog.create().show();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        IntentFilter speedFilter = new IntentFilter();
+        speedFilter.addAction("CURRENT_SPEED");
+
+        try{
+            registerReceiver(speedReceiver, speedFilter);
+        }catch(Exception e){
+            Log.e("ERROR", e.toString());
+        }
+
+        powerManager = (PowerManager)getSystemService(Context.POWER_SERVICE);
+        if(powerManager != null){
+            wakeLock = powerManager.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.ON_AFTER_RELEASE, "METER:WAKELOCK");
+            wakeLock.acquire();
+        }
 
         if(!prefs.getBoolean("ad_removed", false)){
             Log.d("CAULY", CAULY_KEY);
@@ -224,26 +244,6 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
             interstial.requestInterstitialAd(this);
 
             showInterstitial = true;
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        IntentFilter speedFilter = new IntentFilter();
-        speedFilter.addAction("CURRENT_SPEED");
-
-        try{
-            registerReceiver(speedReceiver, speedFilter);
-        }catch(Exception e){
-            Log.e("ERROR", e.toString());
-        }
-
-        powerManager = (PowerManager)getSystemService(Context.POWER_SERVICE);
-        if(powerManager != null){
-            wakeLock = powerManager.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.ON_AFTER_RELEASE, "METER:WAKELOCK");
-            wakeLock.acquire();
         }
     }
 
@@ -315,7 +315,7 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
         }
 
         if(!prefs.getBoolean("ad_removed", false)) {
-            if((int)(Math.random() * 10) > 6 && loadedInterstialAd != null){
+            if((int)(Math.random() * 10) > 4 && loadedInterstialAd != null){
                 if(showInterstitial && isInterstialAdLoaded){
                     loadedInterstialAd.show();
                 }else{
