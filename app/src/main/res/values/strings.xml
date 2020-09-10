@@ -117,6 +117,12 @@
     <string name="welcome_tv_location_select_info">Fee is about Default Taxi, if you want Smaller or Larger Taxi, you can input Fee by your selft with ETC.</string>
     <string name="welcome_tv_location_select">Select your Location.</string>
 
+    <string name="desc_donation_btn_1000" translatable="false">1000 Donation Button</string>
+    <string name="desc_donation_btn_5000" translatable="false">5000 Donation Button</string>
+    <string name="desc_donation_btn_10000" translatable="false">10000 Donation Button</string>
+    <string name="desc_donation_btn_50000" translatable="false">50000 Donation Button</string>
+    <string name="desc_donation_btn_adremove" translatable="false">Advertisement Removal Button</string>
+    <string name="desc_donation_btn_self" translatable="false">Self Donation Button</string>
     <string name="desc_info_btn_blog" translatable="false">Blog Button</string>
     <string name="desc_info_btn_git" translatable="false">Git Button</string>
     <string name="desc_main_logo" translatable="false">Main Logo</string>

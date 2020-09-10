@@ -1,5 +1,6 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -17,12 +18,14 @@
             android:layout_margin="15dp"
             android:orientation="vertical"
             android:gravity="center"
-            android:id="@+id/btn_donation_1000">
+            android:id="@+id/btn_donation_1000"
+            tools:ignore="UseCompoundDrawables">
 
             <ImageView
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:src="@drawable/ic_donation_1000" />
+                android:src="@drawable/ic_donation_1000"
+                android:contentDescription="@string/desc_donation_btn_1000"/>
 
             <TextView
                 android:gravity="center"
@@ -38,12 +41,14 @@
             android:layout_margin="15dp"
             android:orientation="vertical"
             android:gravity="center"
-            android:id="@+id/btn_donation_5000">
+            android:id="@+id/btn_donation_5000"
+            tools:ignore="UseCompoundDrawables">
 
             <ImageView
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:src="@drawable/ic_donation_5000" />
+                android:src="@drawable/ic_donation_5000"
+                android:contentDescription="@string/desc_donation_btn_5000"/>
 
             <TextView
                 android:gravity="center"
@@ -59,12 +64,14 @@
             android:layout_margin="15dp"
             android:orientation="vertical"
             android:gravity="center"
-            android:id="@+id/btn_donation_10000">
+            android:id="@+id/btn_donation_10000"
+            tools:ignore="UseCompoundDrawables">
 
             <ImageView
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:src="@drawable/ic_donation_10000" />
+                android:src="@drawable/ic_donation_10000"
+                android:contentDescription="@string/desc_donation_btn_10000"/>
 
             <TextView
                 android:gravity="center"
@@ -88,12 +95,14 @@
             android:layout_margin="15dp"
             android:orientation="vertical"
             android:gravity="center"
-            android:id="@+id/btn_donation_50000">
+            android:id="@+id/btn_donation_50000"
+            tools:ignore="UseCompoundDrawables">
 
             <ImageView
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:src="@drawable/ic_donation_50000" />
+                android:src="@drawable/ic_donation_50000"
+                android:contentDescription="@string/desc_donation_btn_50000"/>
 
             <TextView
                 android:gravity="center"
@@ -109,12 +118,14 @@
             android:layout_margin="15dp"
             android:orientation="vertical"
             android:gravity="center"
-            android:id="@+id/btn_donation_ad">
+            android:id="@+id/btn_donation_ad"
+            tools:ignore="UseCompoundDrawables">
 
             <ImageView
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:src="@drawable/ic_donation_adremove" />
+                android:src="@drawable/ic_donation_adremove"
+                android:contentDescription="@string/desc_donation_btn_adremove"/>
 
             <TextView
                 android:gravity="center"
@@ -130,12 +141,14 @@
             android:layout_margin="15dp"
             android:orientation="vertical"
             android:gravity="center"
-            android:id="@+id/btn_donation_self">
+            android:id="@+id/btn_donation_self"
+            tools:ignore="UseCompoundDrawables">
 
             <ImageView
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:src="@drawable/ic_donation_self" />
+                android:src="@drawable/ic_donation_self"
+                android:contentDescription="@string/desc_donation_btn_self"/>
 
             <TextView
                 android:gravity="center"
