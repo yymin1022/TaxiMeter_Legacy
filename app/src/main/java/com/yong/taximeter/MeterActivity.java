@@ -30,10 +30,15 @@ import com.fsn.cauly.CaulyAdInfo;
 import com.fsn.cauly.CaulyAdInfoBuilder;
 import com.fsn.cauly.CaulyAdView;
 import com.fsn.cauly.CaulyAdViewListener;
+import com.fsn.cauly.CaulyInterstitialAd;
+import com.fsn.cauly.CaulyInterstitialAdListener;
 
 import java.util.Locale;
 
-public class MeterActivity extends AppCompatActivity implements CaulyAdViewListener{
+public class MeterActivity extends AppCompatActivity implements CaulyAdViewListener, CaulyInterstitialAdListener {
+    boolean showInterstitial = false;
+    boolean isInterstialAdLoaded = false;
+
     int curCost = 0;
     double curDistance = 0.0;
     String curAnim = "HORSE";
@@ -95,6 +100,7 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
         }
     };
 
+    CaulyInterstitialAd loadedInterstialAd;
     PowerManager powerManager;
     PowerManager.WakeLock wakeLock;
     SharedPreferences prefs;
@@ -191,7 +197,7 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
 
         if(!prefs.getBoolean("ad_removed", false)){
             Log.d("CAULY", CAULY_KEY);
-            CaulyAdInfo adInfo = new CaulyAdInfoBuilder(CAULY_KEY).
+            CaulyAdInfo bannerAdInfo = new CaulyAdInfoBuilder(CAULY_KEY).
                     effect("FadeIn").
                     bannerHeight("Fixed_50").
                     enableDefaultBannerAd(true).
@@ -199,13 +205,25 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
                     build();
 
             CaulyAdView javaAdView = new CaulyAdView(this);
-            javaAdView.setAdInfo(adInfo);
+            javaAdView.setAdInfo(bannerAdInfo);
             javaAdView.setAdViewListener(MeterActivity.this);
 
             RelativeLayout rootView = findViewById(R.id.meter_cauly);
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
             params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
             rootView.addView(javaAdView, params);
+
+            CaulyAdInfo InterstialAdInfo = new CaulyAdInfoBuilder(CAULY_KEY)
+                    .build();
+
+            CaulyInterstitialAd interstial = new CaulyInterstitialAd();
+            interstial.setAdInfo(InterstialAdInfo);
+            interstial.setInterstialAdListener(this);
+            interstial.disableBackKey();
+
+            interstial.requestInterstitialAd(this);
+
+            showInterstitial = true;
         }
     }
 
@@ -293,6 +311,14 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
             }
             if(!isRunning){
                 Toast.makeText(getApplicationContext(), getString(R.string.meter_toast_start_first), Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        if((int)(Math.random() * 10) > 6){
+            if(showInterstitial && isInterstialAdLoaded){
+                loadedInterstialAd.show();
+            }else{
+                loadedInterstialAd.cancel();
             }
         }
     }
@@ -452,6 +478,33 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
 
     @Override
     public void onCloseLandingScreen(CaulyAdView caulyAdView) {
+
+    }
+
+    @Override
+    public void onReceiveInterstitialAd(CaulyInterstitialAd ad, boolean isChargeableAd) {
+        if(!isChargeableAd){
+            Log.d("CaulyExample", "free interstitial AD received.");
+        }else{
+            Log.d("CaulyExample", "normal interstitial AD received.");
+        }
+
+        isInterstialAdLoaded = true;
+        loadedInterstialAd = ad;
+    }
+
+    @Override
+    public void onFailedToReceiveInterstitialAd(CaulyInterstitialAd ad, int errorCode, String errorMsg) {
+        Log.d("CaulyExample", "failed to receive interstitial AD.");
+    }
+
+    @Override
+    public void onClosedInterstitialAd(CaulyInterstitialAd ad) {
+        Log.d("CaulyExample", "interstitial AD closed.");
+    }
+
+    @Override
+    public void onLeaveInterstitialAd(CaulyInterstitialAd caulyInterstitialAd) {
 
     }
 }
