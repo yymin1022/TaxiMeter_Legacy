@@ -314,13 +314,16 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
             }
         }
 
-        if((int)(Math.random() * 10) > 6 && loadedInterstialAd != null){
-            if(showInterstitial && isInterstialAdLoaded){
-                loadedInterstialAd.show();
-            }else{
-                loadedInterstialAd.cancel();
+        if(!prefs.getBoolean("ad_removed", false)) {
+            if((int)(Math.random() * 10) > 6 && loadedInterstialAd != null){
+                if(showInterstitial && isInterstialAdLoaded){
+                    loadedInterstialAd.show();
+                }else{
+                    loadedInterstialAd.cancel();
+                }
             }
         }
+
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
