@@ -116,4 +116,16 @@
     <string name="welcome_tv_location_info">You must grant Location Permission to Application works properly.</string>
     <string name="welcome_tv_location_select_info">Fee is about Default Taxi, if you want Smaller or Larger Taxi, you can input Fee by your selft with ETC.</string>
     <string name="welcome_tv_location_select">Select your Location.</string>
+
+    <string name="desc_info_btn_blog" translatable="false">Blog Button</string>
+    <string name="desc_info_btn_git" translatable="false">Git Button</string>
+    <string name="desc_main_logo" translatable="false">Main Logo</string>
+    <string name="desc_main_btn_donation" translatable="false">Donation Button</string>
+    <string name="desc_main_btn_info" translatable="false">Info Button</string>
+    <string name="desc_main_btn_location" translatable="false">Location Button</string>
+    <string name="desc_main_btn_theme" translatable="false">Theme Button</string>
+    <string name="desc_meter_image_anim" translatable="false">Meter Animation</string>
+    <string name="desc_welcome_btn_done" translatable="false">Done Button</string>
+    <string name="desc_welcome_image_gps" translatable="false">GPS Logo</string>
+    <string name="desc_welcome_image_warn" translatable="false">Warning Logo</string>
 </resources>

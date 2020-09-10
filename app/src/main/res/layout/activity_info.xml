@@ -33,7 +33,8 @@
             android:layout_height="50sp"
             android:gravity="center"
             android:onClick="openGit"
-            android:background="@drawable/btn_info_git"/>
+            android:background="@drawable/btn_info_git"
+            android:contentDescription="@string/desc_info_btn_git"/>
 
         <View
             android:layout_width="40sp"
@@ -44,7 +45,8 @@
             android:layout_height="60sp"
             android:gravity="center"
             android:onClick="openBlog"
-            android:background="@drawable/btn_info_blog"/>
+            android:background="@drawable/btn_info_blog"
+            android:contentDescription="@string/desc_info_btn_blog"/>
 
     </LinearLayout>
 

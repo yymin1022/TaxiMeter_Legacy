@@ -192,7 +192,8 @@
                 android:background="@drawable/ic_horse_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"/>
+                android:layout_marginBottom="20dp"
+                android:contentDescription="@string/desc_meter_image_anim"/>
 
             <TextView
                 android:layout_width="match_parent"
