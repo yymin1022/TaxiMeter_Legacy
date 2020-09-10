@@ -22,6 +22,9 @@
     <string name="info_tv_name">Yongmin Yoo(a.k.a LR)</string>
     <string name="info_tv_school">Chung-Ang University Software Dept. 19\nObligatory Military Service Ongoing (Oct. 2020 ~)</string>
 
+    <string name="main_dialog_ok">OK</string>
+    <string name="main_dialog_title_locaion">Select Location</string>
+    <string name="main_dialog_title_theme">Select Theme</string>
     <string name="main_tv_info">Change Theme or Location Info with Below Buttons!</string>
     <string name="main_tv_meter">Meter</string>
     <string name="main_tv_start">Touch to Start</string>
@@ -29,6 +32,10 @@
 
     <string name="meter_btn_start">Start</string>
     <string name="meter_btn_stop">Stop</string>
+    <string name="meter_dialog_caution_content">If driver costs Taxi Fee to Passenger with this application, driver might be punished by Korean Law(PASSENGER TRANSPORT SERVICE ACT).</string>
+    <string name="meter_dialog_caution_never">Never Show Again</string>
+    <string name="meter_dialog_caution_ok">OK</string>
+    <string name="meter_dialog_caution_title">CAUTION</string>
     <string name="meter_dialog_finish_message">Cost : %dwon\nDistance : %.2fkm\nTime : %s</string>
     <string name="meter_dialog_finish_title">Finished</string>
     <string name="meter_dialog_gps_unavailable">GPS is currently unavailable</string>
@@ -109,11 +116,4 @@
     <string name="welcome_tv_location_info">You must grant Location Permission to Application works properly.</string>
     <string name="welcome_tv_location_select_info">Fee is about Default Taxi, if you want Smaller or Larger Taxi, you can input Fee by your selft with ETC.</string>
     <string name="welcome_tv_location_select">Select your Location.</string>
-    <string name="main_dialog_title_locaion">Select Location</string>
-    <string name="main_dialog_title_theme">Select Theme</string>
-    <string name="main_dialog_ok">OK</string>
-    <string name="meter_dialog_caution_title">CAUTION</string>
-    <string name="meter_dialog_caution_content">If driver costs Taxi Fee to Passenger with this application, driver might be punished by Korean Law(PASSENGER TRANSPORT SERVICE ACT).</string>
-    <string name="meter_dialog_caution_ok">OK</string>
-    <string name="meter_dialog_caution_never">Never Show Again</string>
 </resources>
