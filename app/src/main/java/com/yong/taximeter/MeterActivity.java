@@ -314,7 +314,7 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
             }
         }
 
-        if((int)(Math.random() * 10) > 6){
+        if((int)(Math.random() * 10) > 6 && loadedInterstialAd != null){
             if(showInterstitial && isInterstialAdLoaded){
                 loadedInterstialAd.show();
             }else{
