@@ -41,6 +41,7 @@
             android:theme="@style/actionbarAppTheme" />
         <activity
             android:name=".MeterActivity"
+            android:launchMode="singleInstance"
             android:theme="@style/meterAppTheme"
             android:configChanges="keyboard|keyboardHidden"/>
         <activity
