@@ -12,9 +12,9 @@ import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.PowerManager;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -101,8 +101,6 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
     };
 
     CaulyInterstitialAd loadedInterstitialAd;
-    PowerManager powerManager;
-    PowerManager.WakeLock wakeLock;
     SharedPreferences prefs;
     SharedPreferences.Editor ed;
 
@@ -200,6 +198,8 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
     protected void onResume() {
         super.onResume();
 
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
         IntentFilter speedFilter = new IntentFilter();
         speedFilter.addAction("CURRENT_SPEED");
 
@@ -207,12 +207,6 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
             registerReceiver(speedReceiver, speedFilter);
         }catch(Exception e){
             Log.e("ERROR", e.toString());
-        }
-
-        powerManager = (PowerManager)getSystemService(Context.POWER_SERVICE);
-        if(powerManager != null){
-            wakeLock = powerManager.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.ON_AFTER_RELEASE, "METER:WAKELOCK");
-            wakeLock.acquire();
         }
 
         if(!prefs.getBoolean("ad_removed", false)){
@@ -271,8 +265,6 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
                 }
             }
         }
-
-        wakeLock.release();
     }
 
     @Override
