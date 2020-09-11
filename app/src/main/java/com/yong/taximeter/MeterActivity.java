@@ -55,8 +55,6 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
                 curDistance = intent.getDoubleExtra("curDistance", 0.0);
                 curTime = intent.getStringExtra("curTime");
 
-                Log.d("STATUS", String.format("%d %.1f %.2f %d %s", curCost, curSpeed, curDistance, curMode, curTime));
-
                 tvCost.setText(String.format(Locale.getDefault(), getString(R.string.meter_tv_current_cost_format), curCost));
                 tvDistance.setText(String.format(Locale.getDefault(), getString(R.string.meter_tv_moving_distance_format), curDistance));
                 tvSpeed.setText(String.format(Locale.getDefault(), getString(R.string.meter_tv_current_speed_format), curSpeed));
@@ -225,7 +223,6 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
         sendBroadcast(intent);
 
         if(!prefs.getBoolean("ad_removed", false)){
-            Log.d("CAULY", CAULY_KEY);
             CaulyAdInfo bannerAdInfo = new CaulyAdInfoBuilder(CAULY_KEY).
                     effect("FadeIn").
                     bannerHeight("Fixed_50").
@@ -463,8 +460,8 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
     }
 
     @Override
-    public void onFailedToReceiveAd(CaulyAdView caulyAdView, int i, String s) {
-        Log.d("CAULY ERROR", s + " : " + i);
+    public void onFailedToReceiveAd(CaulyAdView caulyAdView, int errorCode, String errorMsg) {
+        Log.e("CAULY ERROR", errorMsg + " : " + errorCode);
     }
 
     @Override
@@ -479,11 +476,7 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
 
     @Override
     public void onReceiveInterstitialAd(CaulyInterstitialAd ad, boolean isChargeableAd) {
-        if(!isChargeableAd){
-            Log.d("CaulyExample", "free interstitial AD received.");
-        }else{
-            Log.d("CaulyExample", "normal interstitial AD received.");
-        }
+        Log.d("CAULY", "OK");
 
         isInterstitialAdLoaded = true;
         loadedInterstitialAd = ad;
@@ -491,12 +484,12 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
 
     @Override
     public void onFailedToReceiveInterstitialAd(CaulyInterstitialAd ad, int errorCode, String errorMsg) {
-        Log.d("CaulyExample", "failed to receive interstitial AD.");
+        Log.e("CAULY ERROR", errorMsg + " : " + errorCode);
     }
 
     @Override
     public void onClosedInterstitialAd(CaulyInterstitialAd ad) {
-        Log.d("CaulyExample", "interstitial AD closed.");
+
     }
 
     @Override

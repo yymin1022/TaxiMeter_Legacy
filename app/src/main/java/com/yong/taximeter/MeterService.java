@@ -69,11 +69,9 @@ public class MeterService extends Service  implements LocationListener {
                 switch(Objects.requireNonNull(intent.getStringExtra("addType"))){
                     case "NIGHT":
                         isNight = intent.getBooleanExtra("enable", false);
-                        Log.d("ADDING", "NIGHT status " + isNight);
                         break;
                     case "OUTCITY":
                         isOutCity = intent.getBooleanExtra("enable", false);
-                        Log.d("ADDING", "NIGHT status " + isOutCity);
                         break;
                 }
             }
@@ -83,9 +81,7 @@ public class MeterService extends Service  implements LocationListener {
     BroadcastReceiver requestData = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.d("RECEIVER", intent.getAction());
             if(intent.getAction() != null && intent.getAction().equals("requestData")){
-                Log.d("RECEIVER", "OK");
                 sendData();
             }
         }
@@ -94,8 +90,9 @@ public class MeterService extends Service  implements LocationListener {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
         ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION);
+
+        locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000,0, this);
 
         prefs = getSharedPreferences("prefs", MODE_PRIVATE);
