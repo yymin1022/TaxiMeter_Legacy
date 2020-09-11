@@ -83,7 +83,9 @@ public class MeterService extends Service  implements LocationListener {
     BroadcastReceiver requestData = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+            Log.d("RECEIVER", intent.getAction());
             if(intent.getAction() != null && intent.getAction().equals("requestData")){
+                Log.d("RECEIVER", "OK");
                 sendData();
             }
         }

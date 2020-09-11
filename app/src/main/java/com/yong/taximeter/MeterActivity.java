@@ -203,6 +203,15 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
+        IntentFilter gpsStatusFilter = new IntentFilter();
+        gpsStatusFilter.addAction("GPS_STATUS");
+
+        try{
+            registerReceiver(gpsStatusReceiver, gpsStatusFilter);
+        }catch(Exception e){
+            Log.e("ERROR", e.toString());
+        }
+
         IntentFilter speedFilter = new IntentFilter();
         speedFilter.addAction("CURRENT_SPEED");
 
