@@ -256,14 +256,8 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
             Log.e("ERROR", e.toString());
         }
 
-        ActivityManager manager = (ActivityManager)getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
-        if(manager != null){
-            for(ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE))
-            {
-                if(MeterService.class.getName().equals(service.service.getClassName())){
-                    Toast.makeText(getApplicationContext(), getString(R.string.meter_toast_onpause_warning), Toast.LENGTH_SHORT).show();
-                }
-            }
+        if(prefs.getBoolean("isServiceRunning", false)){
+            Toast.makeText(getApplicationContext(), getString(R.string.meter_toast_onpause_warning), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -273,37 +267,29 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
     }
 
     public void startCount(View v){
-        tvInfo.setText(getString(R.string.meter_tv_info_running));
+        if(!prefs.getBoolean("isServiceRunning", false)){
+            tvInfo.setText(getString(R.string.meter_tv_info_running));
 
-        startService(new Intent(this, MeterService.class));
+            startService(new Intent(this, MeterService.class));
+        }
     }
 
     public void stopCount(View v){
-        ActivityManager manager = (ActivityManager)getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
-        boolean isRunning = false;
+        if(prefs.getBoolean("isServiceRunning", false)){
+            stopService(new Intent(this, MeterService.class));
 
-        if(manager != null){
-            for(ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE))
-            {
-                if(MeterService.class.getName().equals(service.service.getClassName())){
-                    isRunning = true;
-                    stopService(new Intent(this, MeterService.class));
-
-                    AlertDialog.Builder stopDialog = new AlertDialog.Builder(this);
-                    stopDialog.setTitle(getString(R.string.meter_dialog_finish_title));
-                    stopDialog.setMessage(String.format(Locale.getDefault(), getString(R.string.meter_dialog_finish_message), curCost, curDistance, curTime));
-                    stopDialog.setPositiveButton(getString(R.string.meter_dialog_ok), new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i){
-                            finish();
-                        }
-                    });
-                    stopDialog.show();
+            AlertDialog.Builder stopDialog = new AlertDialog.Builder(this);
+            stopDialog.setTitle(getString(R.string.meter_dialog_finish_title));
+            stopDialog.setMessage(String.format(Locale.getDefault(), getString(R.string.meter_dialog_finish_message), curCost, curDistance, curTime));
+            stopDialog.setPositiveButton(getString(R.string.meter_dialog_ok), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i){
+                    finish();
                 }
-            }
-            if(!isRunning){
-                Toast.makeText(getApplicationContext(), getString(R.string.meter_toast_start_first), Toast.LENGTH_SHORT).show();
-            }
+            });
+            stopDialog.show();
+        }else{
+            Toast.makeText(getApplicationContext(), getString(R.string.meter_toast_start_first), Toast.LENGTH_SHORT).show();
         }
 
         if(!prefs.getBoolean("ad_removed", false)) {

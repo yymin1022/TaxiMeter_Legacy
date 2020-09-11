@@ -54,6 +54,7 @@ public class MeterService extends Service  implements LocationListener {
     boolean isSeoul = true;
 
     SharedPreferences prefs;
+    SharedPreferences.Editor ed;
     private LocationManager locationManager;
     private Location mLastlocation = null;
 
@@ -105,6 +106,10 @@ public class MeterService extends Service  implements LocationListener {
 
         startForeground(1379, getServiceNotification(getString(R.string.meter_noti_text_default)));
 
+        ed = prefs.edit();
+        ed.putBoolean("isServiceRunning", true);
+        ed.apply();
+
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -126,6 +131,9 @@ public class MeterService extends Service  implements LocationListener {
         }catch(Exception e){
             Log.e("ERROR", e.toString());
         }
+
+        ed.putBoolean("isServiceRunning", false);
+        ed.apply();
     }
 
     @Override
