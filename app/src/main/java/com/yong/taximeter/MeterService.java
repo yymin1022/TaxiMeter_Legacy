@@ -36,6 +36,10 @@ public class MeterService extends Service  implements LocationListener {
     int runningCostDistance = 132;  // 주행   요금 추가 기준 거리
     int timeCostSecond = 31;       // 시간요금 추가 기준 시간
 
+    double curDistance = 0;
+    double curSpeed = 0;
+    String curTime = "";
+
     int costMode = 0; // 0 : 기본요금, 1 : 거리요금, 2 : 시간요금, 3 : 서울시 동시병산
     int currentCost = 0;    // 계산된 최종 요금
 
@@ -76,6 +80,16 @@ public class MeterService extends Service  implements LocationListener {
         }
     };
 
+    BroadcastReceiver requestData = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if(intent.getAction() != null && intent.getAction().equals("requestData")){
+                sendData();
+            }
+        }
+    };
+
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
@@ -104,6 +118,10 @@ public class MeterService extends Service  implements LocationListener {
         addEnableFilter.addAction("ADD_ENABLE");
         registerReceiver(addCostEnable, addEnableFilter);
 
+        IntentFilter requestDataFilter = new IntentFilter();
+        addEnableFilter.addAction("requestData");
+        registerReceiver(requestData, requestDataFilter);
+
         startForeground(1379, getServiceNotification(getString(R.string.meter_noti_text_default)));
 
         ed = prefs.edit();
@@ -131,6 +149,11 @@ public class MeterService extends Service  implements LocationListener {
         }catch(Exception e){
             Log.e("ERROR", e.toString());
         }
+        try{
+            unregisterReceiver(requestData);
+        }catch(Exception e){
+            Log.e("ERROR", e.toString());
+        }
 
         ed.putBoolean("isServiceRunning", false);
         ed.apply();
@@ -143,20 +166,13 @@ public class MeterService extends Service  implements LocationListener {
         if(mLastlocation != null) {
             carculate(getSpeed);
 
-            double curDistance = (double)sumDistance / 1000;
-            double curSpeed = getSpeed * 3.6;
-            String curTime = getTimeFormat(sumTime);
+            curDistance = (double)sumDistance / 1000;
+            curSpeed = getSpeed * 3.6;
+            curTime = getTimeFormat(sumTime);
 
-            Intent intent = new Intent("CURRENT_SPEED");
-            intent.putExtra("curCost", currentCost);
-            intent.putExtra("curCostMode", costMode);
-            intent.putExtra("curDistance",curDistance);
-            intent.putExtra("curSpeed", curSpeed);
-            intent.putExtra("curTime", curTime);
+            sendData();
 
             updateServiceNotification(String.format(Locale.getDefault(), getString(R.string.meter_noti_text_running), currentCost, curSpeed, curTime));
-
-            sendBroadcast(intent);
         }
         mLastlocation = location;
     }
@@ -192,6 +208,17 @@ public class MeterService extends Service  implements LocationListener {
     @Override
     public IBinder onBind(Intent intent) {
         return null;
+    }
+
+    public void sendData(){
+        Intent intent = new Intent("CURRENT_SPEED");
+        intent.putExtra("curCost", currentCost);
+        intent.putExtra("curCostMode", costMode);
+        intent.putExtra("curDistance",curDistance);
+        intent.putExtra("curSpeed", curSpeed);
+        intent.putExtra("curTime", curTime);
+
+        sendBroadcast(intent);
     }
 
     public void carculate(double curSpeed){

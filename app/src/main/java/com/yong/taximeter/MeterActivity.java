@@ -212,6 +212,9 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
             Log.e("ERROR", e.toString());
         }
 
+        Intent intent = new Intent("requestData");
+        sendBroadcast(intent);
+
         if(!prefs.getBoolean("ad_removed", false)){
             Log.d("CAULY", CAULY_KEY);
             CaulyAdInfo bannerAdInfo = new CaulyAdInfoBuilder(CAULY_KEY).
