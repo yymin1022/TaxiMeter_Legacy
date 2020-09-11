@@ -38,7 +38,7 @@ public class MeterService extends Service  implements LocationListener {
 
     double curDistance = 0;
     double curSpeed = 0;
-    String curTime = "";
+    String curTime = "00:00:00";
 
     int costMode = 0; // 0 : 기본요금, 1 : 거리요금, 2 : 시간요금, 3 : 서울시 동시병산
     int currentCost = 0;    // 계산된 최종 요금
@@ -121,7 +121,7 @@ public class MeterService extends Service  implements LocationListener {
         registerReceiver(addCostEnable, addEnableFilter);
 
         IntentFilter requestDataFilter = new IntentFilter();
-        addEnableFilter.addAction("requestData");
+        requestDataFilter.addAction("requestData");
         registerReceiver(requestData, requestDataFilter);
 
         startForeground(1379, getServiceNotification(getString(R.string.meter_noti_text_default)));
