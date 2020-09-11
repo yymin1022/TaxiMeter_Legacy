@@ -25,6 +25,7 @@
     <string name="main_dialog_ok">확인</string>
     <string name="main_dialog_title_locaion">지역 선택</string>
     <string name="main_dialog_title_theme">테마 선택</string>
+    <string name="main_toast_location_disabled">미터기가 작동중일 경우, 위치 변경이 불가합니다.</string>
     <string name="main_tv_info">하단 버튼을 이용해 테마나 위치정보를 변경할 수 있습니다!</string>
     <string name="main_tv_meter">미터기</string>
     <string name="main_tv_start">터치하여 시작하기</string>

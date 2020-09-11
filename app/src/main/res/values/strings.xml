@@ -25,6 +25,7 @@
     <string name="main_dialog_ok">OK</string>
     <string name="main_dialog_title_locaion">Select Location</string>
     <string name="main_dialog_title_theme">Select Theme</string>
+    <string name="main_toast_location_disabled">Location Change is disabled when Meter is Running</string>
     <string name="main_tv_info">Change Theme or Location Info with Below Buttons!</string>
     <string name="main_tv_meter">Meter</string>
     <string name="main_tv_start">Touch to Start</string>

@@ -192,6 +192,10 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
             });
             cautionDialog.create().show();
         }
+
+        if(prefs.getBoolean("isServiceRunning", false)){
+            tvInfo.setText(getString(R.string.meter_tv_info_running));
+        }
     }
 
     @Override
