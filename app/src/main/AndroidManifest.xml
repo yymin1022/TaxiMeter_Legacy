@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.yong.taximeter">
 
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -49,7 +50,8 @@
 
         <service
             android:name=".MeterService"
-            android:enabled="true" />
+            android:enabled="true"
+            android:foregroundServiceType="location"/>
     </application>
 
 </manifest>

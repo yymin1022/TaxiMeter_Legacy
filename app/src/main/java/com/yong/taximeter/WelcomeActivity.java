@@ -3,6 +3,7 @@ package com.yong.taximeter;
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.IdRes;
@@ -93,23 +94,45 @@ public class WelcomeActivity extends AppCompatActivity {
                             locationLayout.setVisibility(View.INVISIBLE);
                             warningLayout.setVisibility(View.VISIBLE);
                         }else{
-                            TedPermission.with(WelcomeActivity.this)
-                                    .setPermissionListener(new PermissionListener() {
-                                        @Override
-                                        public void onPermissionGranted() {
-                                            Toast.makeText(getApplicationContext(), getString(R.string.welcome_toast_location_granted), Toast.LENGTH_SHORT).show();
-                                        }
+                            if(Build.VERSION.SDK_INT > Build.VERSION_CODES.P){
+                                TedPermission.with(WelcomeActivity.this)
+                                        .setPermissionListener(new PermissionListener() {
+                                            @Override
+                                            public void onPermissionGranted() {
+                                                Toast.makeText(getApplicationContext(), getString(R.string.welcome_toast_location_granted), Toast.LENGTH_SHORT).show();
+                                            }
 
-                                        @Override
-                                        public void onPermissionDenied(List<String> deniedPermissions) {
-                                        }
-                                    })
-                                    .setDeniedMessage(getString(R.string.welcome_toast_location_not_granted))
-                                    .setPermissions(Manifest.permission.ACCESS_FINE_LOCATION)
-                                    .check();
+                                            @Override
+                                            public void onPermissionDenied(List<String> deniedPermissions) {
+                                            }
+                                        })
+                                        .setDeniedMessage(getString(R.string.welcome_toast_location_not_granted))
+                                        .setPermissions(Manifest.permission.ACCESS_FINE_LOCATION)
+                                        .setPermissions(Manifest.permission.ACCESS_BACKGROUND_LOCATION)
+                                        .check();
+                            }else{
+                                TedPermission.with(WelcomeActivity.this)
+                                        .setPermissionListener(new PermissionListener() {
+                                            @Override
+                                            public void onPermissionGranted() {
+                                                Toast.makeText(getApplicationContext(), getString(R.string.welcome_toast_location_granted), Toast.LENGTH_SHORT).show();
+                                            }
+
+                                            @Override
+                                            public void onPermissionDenied(List<String> deniedPermissions) {
+                                            }
+                                        })
+                                        .setDeniedMessage(getString(R.string.welcome_toast_location_not_granted))
+                                        .setPermissions(Manifest.permission.ACCESS_FINE_LOCATION)
+                                        .check();
+                            }
+                        }
+                        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.P){
+                            ActivityCompat.requestPermissions(WelcomeActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_BACKGROUND_LOCATION}, 100);
+                        }else{
+                            ActivityCompat.requestPermissions(WelcomeActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
                         }
 
-                        ActivityCompat.requestPermissions(WelcomeActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
                         break;
                     case R.id.btn_welcome_warning_next:
                         costLayout.setVisibility(View.VISIBLE);
