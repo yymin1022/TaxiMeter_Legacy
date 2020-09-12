@@ -11,6 +11,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -120,6 +121,27 @@ public class MeterActivity extends AppCompatActivity implements CaulyAdViewListe
         tvType = findViewById(R.id.tvType);
         ToggleButton isNightButton = findViewById(R.id.isNight);
         ToggleButton isOutCityButton = findViewById(R.id.isOuterCity);
+
+        tvDistance.setMaxLines(1);
+        tvDistance.setHorizontallyScrolling(true);
+        tvDistance.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+        tvDistance.setSelected(true);
+        tvInfo.setMaxLines(1);
+        tvInfo.setHorizontallyScrolling(true);
+        tvInfo.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+        tvInfo.setSelected(true);
+        tvSpeed.setMaxLines(1);
+        tvSpeed.setHorizontallyScrolling(true);
+        tvSpeed.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+        tvSpeed.setSelected(true);
+        tvTime.setMaxLines(1);
+        tvTime.setHorizontallyScrolling(true);
+        tvTime.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+        tvTime.setSelected(true);
+        tvType.setMaxLines(1);
+        tvType.setHorizontallyScrolling(true);
+        tvType.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+        tvType.setSelected(true);
 
         Typeface typeFace = Typeface.createFromAsset(getAssets(), "fonts/digital_num.ttf");
         tvCost.setTypeface(typeFace);
