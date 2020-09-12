@@ -50,7 +50,7 @@
                     android:id="@+id/tvCost"
                     android:gravity="end"
                     android:text="@string/meter_tv_current_cost"
-                    android:textSize="80sp"
+                    android:textSize="75sp"
                     android:textColor="#ffd3d3d3"/>
 
             </LinearLayout>
