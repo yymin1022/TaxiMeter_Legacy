@@ -107,7 +107,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/meter_tv_cost_mode_text"
-                        android:textSize="25sp"
+                        android:textSize="20sp"
                         android:textColor="#ffd3d3d3" />
 
                     <TextView
@@ -115,7 +115,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/tvType"
                         android:text="@string/meter_tv_cost_mode_default"
-                        android:textSize="25sp"
+                        android:textSize="20sp"
                         android:textColor="#ffd3d3d3" />
 
                     <View
@@ -126,7 +126,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/meter_tv_current_speed_text"
-                        android:textSize="25sp"
+                        android:textSize="20sp"
                         android:textColor="#ffd3d3d3"/>
 
                     <TextView
@@ -134,7 +134,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/tvSpeed"
                         android:text="@string/meter_tv_current_speed"
-                        android:textSize="25sp"
+                        android:textSize="20sp"
                         android:textColor="#ffd3d3d3" />
 
                     <View
@@ -146,7 +146,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/tvTimeTitle"
                         android:text="@string/meter_tv_moving_time_text"
-                        android:textSize="25sp"
+                        android:textSize="20sp"
                         android:textColor="#ffd3d3d3" />
 
                     <TextView
@@ -154,7 +154,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/tvTime"
                         android:text="@string/meter_tv_moving_time"
-                        android:textSize="25sp"
+                        android:textSize="20sp"
                         android:textColor="#ffd3d3d3" />
 
                     <View
@@ -165,7 +165,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/meter_tv_moving_distance_text"
-                        android:textSize="25sp"
+                        android:textSize="20sp"
                         android:textColor="#ffd3d3d3" />
 
                     <TextView
@@ -173,7 +173,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/tvDistance"
                         android:text="@string/meter_tv_moving_distance"
-                        android:textSize="25sp"
+                        android:textSize="20sp"
                         android:textColor="#ffd3d3d3" />
 
                 </LinearLayout>
