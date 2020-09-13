@@ -126,6 +126,7 @@
     <string name="desc_donation_btn_self" translatable="false">Self Donation Button</string>
     <string name="desc_info_btn_blog" translatable="false">Blog Button</string>
     <string name="desc_info_btn_git" translatable="false">Git Button</string>
+    <string name="desc_info_profile" translatable="false">Profile Logo</string>
     <string name="desc_main_logo" translatable="false">Main Logo</string>
     <string name="desc_main_btn_donation" translatable="false">Donation Button</string>
     <string name="desc_main_btn_info" translatable="false">Info Button</string>

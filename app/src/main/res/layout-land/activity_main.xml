@@ -15,8 +15,8 @@
         android:onClick="start">
 
         <ImageView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:src="@drawable/btn_main_taxi"
             android:contentDescription="@string/desc_main_logo"/>
 
