@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:baselineAligned="false">
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_profile"
+                    android:contentDescription="@string/desc_info_profile"/>
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/info_tv_name"
+            android:textSize="30sp"/>
+
+        <TextView
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/info_tv_school"
+            android:textSize="20sp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20sp"
+            android:gravity="center">
+
+            <ImageButton
+                android:layout_width="50sp"
+                android:layout_height="50sp"
+                android:gravity="center"
+                android:onClick="openGit"
+                android:background="@drawable/btn_info_git"
+                android:contentDescription="@string/desc_info_btn_git"/>
+
+            <View
+                android:layout_width="40sp"
+                android:layout_height="50sp"/>
+
+            <ImageButton
+                android:layout_width="60sp"
+                android:layout_height="60sp"
+                android:gravity="center"
+                android:onClick="openBlog"
+                android:background="@drawable/btn_info_blog"
+                android:contentDescription="@string/desc_info_btn_blog"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
