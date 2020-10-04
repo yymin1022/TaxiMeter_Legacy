@@ -1,7 +1,8 @@
 # 택시미터기 for Android
 
-![](Images/app_1.png)
-![](Images/app_2.png)
+<img src="Images/app_1.png" width="20%" height="30%" alt="Screenshot"></img>
+<br/>
+<img src="Images/app_2.png" width="20%" height="30%" alt="Screenshot"></img>
 
 기기에 내장된 GPS를 이용해 현재속도와 이동거리를 측정해 택시 예상 요금을 계산합니다.
 GPS 특성상 터널이나 전파간섭이 심한 장소에서는 정확도가 떨어질 수 있습니다.
