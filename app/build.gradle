@@ -11,7 +11,7 @@ android {
         versionName "1.3_release1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField 'String', "CAULY_KEY", Cauly_TaxiMeter
+        buildConfigField("String", "CAULY_KEY", CAULY_KEY)
     }
     buildTypes {
         release {
