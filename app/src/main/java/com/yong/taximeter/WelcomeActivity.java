@@ -11,6 +11,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -40,9 +41,11 @@ public class WelcomeActivity extends AppCompatActivity {
     String selectedCity = "";
 
     LinearLayout btnCostDone;
+    LinearLayout btnBackgroundLocationNext;
     LinearLayout btnLocationNext;
     LinearLayout btnWarningNext;
     LinearLayout costLayout;
+    LinearLayout backgroundLocationLayout;
     LinearLayout locationLayout;
     LinearLayout warningLayout;
     SharedPreferences prefs;
@@ -54,14 +57,17 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
 
         btnCostDone = findViewById(R.id.btn_welcome_cost_done);
+        btnBackgroundLocationNext = findViewById(R.id.btn_welcome_background_location_next);
         btnLocationNext = findViewById(R.id.btn_welcome_location_next);
         btnWarningNext = findViewById(R.id.btn_welcome_warning_next);
 
         costLayout = findViewById(R.id.layout_welcome_cost);
+        backgroundLocationLayout = findViewById(R.id.layout_welcome_background_location);
         locationLayout = findViewById(R.id.layout_welcome_location);
         warningLayout = findViewById(R.id.layout_welcome_warning);
 
         costLayout.setVisibility(View.INVISIBLE);
+        backgroundLocationLayout.setVisibility(View.INVISIBLE);
         warningLayout.setVisibility(View.INVISIBLE);
 
         prefs = getSharedPreferences("prefs", MODE_PRIVATE);
@@ -88,54 +94,68 @@ public class WelcomeActivity extends AppCompatActivity {
 
                         finish();
                         break;
-                    case R.id.btn_welcome_location_next:
-                        if(TedPermission.isGranted(WelcomeActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)){
+                    case R.id.btn_welcome_background_location_next:
+                        if(TedPermission.isGranted(WelcomeActivity.this, Manifest.permission.ACCESS_BACKGROUND_LOCATION)){
                             costLayout.setVisibility(View.INVISIBLE);
+                            backgroundLocationLayout.setVisibility(View.INVISIBLE);
                             locationLayout.setVisibility(View.INVISIBLE);
                             warningLayout.setVisibility(View.VISIBLE);
                         }else{
+                            TedPermission.with(WelcomeActivity.this)
+                                .setPermissionListener(new PermissionListener() {
+                                    @Override
+                                    public void onPermissionGranted() {
+                                        Toast.makeText(getApplicationContext(), getString(R.string.welcome_toast_location_granted), Toast.LENGTH_SHORT).show();
+                                    }
+
+                                    @Override
+                                    public void onPermissionDenied(List<String> deniedPermissions) {
+                                    }
+                                })
+                                .setDeniedMessage(getString(R.string.welcome_toast_location_not_granted))
+                                .setPermissions(Manifest.permission.ACCESS_COARSE_LOCATION)
+                                .setPermissions(Manifest.permission.ACCESS_BACKGROUND_LOCATION)
+                                .check();
+                        }
+
+                        ActivityCompat.requestPermissions(WelcomeActivity.this, new String[]{Manifest.permission.ACCESS_BACKGROUND_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
+                        break;
+                    case R.id.btn_welcome_location_next:
+                        if(TedPermission.isGranted(WelcomeActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION)){
                             if(Build.VERSION.SDK_INT > Build.VERSION_CODES.P){
-                                TedPermission.with(WelcomeActivity.this)
-                                        .setPermissionListener(new PermissionListener() {
-                                            @Override
-                                            public void onPermissionGranted() {
-                                                Toast.makeText(getApplicationContext(), getString(R.string.welcome_toast_location_granted), Toast.LENGTH_SHORT).show();
-                                            }
-
-                                            @Override
-                                            public void onPermissionDenied(List<String> deniedPermissions) {
-                                            }
-                                        })
-                                        .setDeniedMessage(getString(R.string.welcome_toast_location_not_granted))
-                                        .setPermissions(Manifest.permission.ACCESS_FINE_LOCATION)
-                                        .setPermissions(Manifest.permission.ACCESS_BACKGROUND_LOCATION)
-                                        .check();
+                                costLayout.setVisibility(View.INVISIBLE);
+                                backgroundLocationLayout.setVisibility(View.VISIBLE);
+                                locationLayout.setVisibility(View.INVISIBLE);
+                                warningLayout.setVisibility(View.INVISIBLE);
                             }else{
-                                TedPermission.with(WelcomeActivity.this)
-                                        .setPermissionListener(new PermissionListener() {
-                                            @Override
-                                            public void onPermissionGranted() {
-                                                Toast.makeText(getApplicationContext(), getString(R.string.welcome_toast_location_granted), Toast.LENGTH_SHORT).show();
-                                            }
-
-                                            @Override
-                                            public void onPermissionDenied(List<String> deniedPermissions) {
-                                            }
-                                        })
-                                        .setDeniedMessage(getString(R.string.welcome_toast_location_not_granted))
-                                        .setPermissions(Manifest.permission.ACCESS_FINE_LOCATION)
-                                        .check();
+                                costLayout.setVisibility(View.INVISIBLE);
+                                backgroundLocationLayout.setVisibility(View.INVISIBLE);
+                                locationLayout.setVisibility(View.INVISIBLE);
+                                warningLayout.setVisibility(View.VISIBLE);
                             }
-                        }
-                        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.P){
-                            ActivityCompat.requestPermissions(WelcomeActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_BACKGROUND_LOCATION}, 100);
                         }else{
-                            ActivityCompat.requestPermissions(WelcomeActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
+                            TedPermission.with(WelcomeActivity.this)
+                                .setPermissionListener(new PermissionListener() {
+                                    @Override
+                                    public void onPermissionGranted() {
+                                        Toast.makeText(getApplicationContext(), getString(R.string.welcome_toast_location_granted), Toast.LENGTH_SHORT).show();
+                                    }
+
+                                    @Override
+                                    public void onPermissionDenied(List<String> deniedPermissions) {
+                                    }
+                                })
+                                .setDeniedMessage(getString(R.string.welcome_toast_location_not_granted))
+                                .setPermissions(Manifest.permission.ACCESS_COARSE_LOCATION)
+                                .check();
                         }
+
+                        ActivityCompat.requestPermissions(WelcomeActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
 
                         break;
                     case R.id.btn_welcome_warning_next:
                         costLayout.setVisibility(View.VISIBLE);
+                        backgroundLocationLayout.setVisibility(View.INVISIBLE);
                         locationLayout.setVisibility(View.INVISIBLE);
                         warningLayout.setVisibility(View.INVISIBLE);
 
@@ -154,6 +174,7 @@ public class WelcomeActivity extends AppCompatActivity {
         };
 
         btnCostDone.setOnClickListener(onClickListener);
+        btnBackgroundLocationNext.setOnClickListener(onClickListener);
         btnLocationNext.setOnClickListener(onClickListener);
         btnWarningNext.setOnClickListener(onClickListener);
 

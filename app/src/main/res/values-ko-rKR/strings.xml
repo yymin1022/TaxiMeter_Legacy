@@ -116,4 +116,6 @@
     <string name="welcome_tv_location_info">애플리케이션이 올바르게 동작하기 위해 위치정보 사용 권한을 허용해주셔야 합니다.\n백그라운드에서의 요금측정 정확도 향상을 위해 항상 허용을 선택해주세요.</string>
     <string name="welcome_tv_location_select">지역을 선택해주세요.</string>
     <string name="welcome_tv_location_select_info">일반 중형택시 기준의 요금입니다. 대형 및 기타택시의 경우 기타 메뉴에서 직접 입력해주세요.</string>
+    <string name="welcome_tv_background_location_info">(선택) 백그라운드 위치 권한을 허용하시면, 앱이 백그라운드로 전환된 경우에도 요금계산이 동작합니다.</string>
+    <string name="welcome_btn_background_location_grant">백그라운드 위치정보 사용 권한 허용하기</string>
 </resources>

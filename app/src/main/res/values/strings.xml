@@ -93,6 +93,7 @@
     <string name="setting_toast_input_wrong">Some input is empty.</string>
     <string name="setting_tv_fee_info">Default Fee %dWon\nDefault Fee Distance %dm\nRunning Cost %dWon\nRunning Cost Standard %dm\nTime Cost %dWon\nTime Cost Standard %dsec\nNight/Outer City Both Adding Percentage %d%%\nNight Adding Percentage %d%%\nOuter City Adding Percentage %d%%</string>
 
+    <string name="welcome_btn_background_location_grant">Grant Background Location Permission</string>
     <string name="welcome_btn_done">Done</string>
     <string name="welcome_btn_gps_ok">OK</string>
     <string name="welcome_btn_location_grant">Grant Location Permission</string>
@@ -112,9 +113,10 @@
     <string name="welcome_toast_input_wrong">Some input is empty.</string>
     <string name="welcome_toast_location_granted">Location Permission has been Granted</string>
     <string name="welcome_toast_location_not_granted">Location Permission has been refused. Go to [Settings] > [Applications] > [TaxiMeter] and grant please.</string>
+    <string name="welcome_tv_background_location_info">(Optional) You can grant Background Location Permission to Application works properly when App is on Background.</string>
     <string name="welcome_tv_fee_info">Default Fee %dWon\nDefault Fee Distance %dm\nRunning Cost %dWon\nRunning Cost Standard %dm\nTime Cost %dWon\nTime Cost Standard %dsec\nNight/Outer City Both Adding Percentage %d%%\nNight Adding Percentage %d%%\nOuter City Adding Percentage %d%%</string>
     <string name="welcome_tv_gps_info">- If driver costs Taxi Fee to Passenger with this application, driver might be punished by Korean Law(PASSENGER TRANSPORT SERVICE ACT).\n\n- GPS Runtime might be wrong about the GPS satellite status and your environment. About this, the Taxi Fee might has some error with real Taxi Fee. All of the responsibility for these Fee Problem is on User, not Developer.</string>
-    <string name="welcome_tv_location_info">You must grant Location Permission to Application works properly.\nPlease select ALWAYS for Background Runtime Stability.</string>
+    <string name="welcome_tv_location_info">You must grant Location Permission to Application works properly.</string>
     <string name="welcome_tv_location_select_info">Fee is about Default Taxi, if you want Smaller or Larger Taxi, you can input Fee by your selft with ETC.</string>
     <string name="welcome_tv_location_select">Select your Location.</string>
 
