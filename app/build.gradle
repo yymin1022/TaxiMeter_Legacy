@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "29.0.2"
+    buildToolsVersion "30.0.2"
     defaultConfig {
         applicationId "com.yong.taximeter"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 17
-        versionName "1.3_release1"
+        versionCode 18
+        versionName "1.3_release2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField("String", "CAULY_KEY", CAULY_KEY)
