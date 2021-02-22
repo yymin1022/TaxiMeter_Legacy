@@ -42,6 +42,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     LinearLayout btnCostDone;
     LinearLayout btnBackgroundLocationNext;
+    LinearLayout btnBackgroundLocationSkip;
     LinearLayout btnLocationNext;
     LinearLayout btnWarningNext;
     LinearLayout costLayout;
@@ -58,6 +59,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
         btnCostDone = findViewById(R.id.btn_welcome_cost_done);
         btnBackgroundLocationNext = findViewById(R.id.btn_welcome_background_location_next);
+        btnBackgroundLocationSkip = findViewById(R.id.btn_welcome_background_location_skip);
         btnLocationNext = findViewById(R.id.btn_welcome_location_next);
         btnWarningNext = findViewById(R.id.btn_welcome_warning_next);
 
@@ -120,6 +122,12 @@ public class WelcomeActivity extends AppCompatActivity {
 
                         ActivityCompat.requestPermissions(WelcomeActivity.this, new String[]{Manifest.permission.ACCESS_BACKGROUND_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
                         break;
+                    case R.id.btn_welcome_background_location_skip:
+                        costLayout.setVisibility(View.INVISIBLE);
+                        backgroundLocationLayout.setVisibility(View.INVISIBLE);
+                        locationLayout.setVisibility(View.INVISIBLE);
+                        warningLayout.setVisibility(View.VISIBLE);
+                        break;
                     case R.id.btn_welcome_location_next:
                         if(TedPermission.isGranted(WelcomeActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION)){
                             if(Build.VERSION.SDK_INT > Build.VERSION_CODES.P){
@@ -175,6 +183,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
         btnCostDone.setOnClickListener(onClickListener);
         btnBackgroundLocationNext.setOnClickListener(onClickListener);
+        btnBackgroundLocationSkip.setOnClickListener(onClickListener);
         btnLocationNext.setOnClickListener(onClickListener);
         btnWarningNext.setOnClickListener(onClickListener);
 

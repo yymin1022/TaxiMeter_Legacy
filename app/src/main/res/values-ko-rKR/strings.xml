@@ -118,4 +118,5 @@
     <string name="welcome_tv_location_select_info">일반 중형택시 기준의 요금입니다. 대형 및 기타택시의 경우 기타 메뉴에서 직접 입력해주세요.</string>
     <string name="welcome_tv_background_location_info">(선택) 백그라운드 위치 권한을 허용하시면, 앱이 백그라운드로 전환된 경우에도 요금계산이 동작합니다.</string>
     <string name="welcome_btn_background_location_grant">백그라운드 위치정보 사용 권한 허용하기</string>
+    <string name="welcome_btn_background_location_skip">동의하지 않고 건너뛰기</string>
 </resources>

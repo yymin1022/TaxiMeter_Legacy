@@ -94,6 +94,7 @@
     <string name="setting_tv_fee_info">Default Fee %dWon\nDefault Fee Distance %dm\nRunning Cost %dWon\nRunning Cost Standard %dm\nTime Cost %dWon\nTime Cost Standard %dsec\nNight/Outer City Both Adding Percentage %d%%\nNight Adding Percentage %d%%\nOuter City Adding Percentage %d%%</string>
 
     <string name="welcome_btn_background_location_grant">Grant Background Location Permission</string>
+    <string name="welcome_btn_background_location_skip">No Thanks. Skip this.</string>
     <string name="welcome_btn_done">Done</string>
     <string name="welcome_btn_gps_ok">OK</string>
     <string name="welcome_btn_location_grant">Grant Location Permission</string>
