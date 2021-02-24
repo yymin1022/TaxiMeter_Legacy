@@ -15,6 +15,7 @@
     <string name="donation_toast_purchase_thanks">Thanks for Donation!</string>
     <string name="donation_toast_purchase_unknown_error">%d : Unknown Error</string>
 
+    <string name="info_btn_privacy">Privacy Policy</string>
     <string name="info_dialog_blog_text">Move to Developer\'s Blog</string>
     <string name="info_dialog_github_text">Move to Developer\'s Github</string>
     <string name="info_dialog_ok">OK</string>
