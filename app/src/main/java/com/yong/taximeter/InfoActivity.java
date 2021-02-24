@@ -22,6 +22,18 @@ public class InfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_info);
     }
 
+    public void openBlog(View V){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(getString(R.string.info_dialog_blog_text));
+        builder.setPositiveButton(getString(R.string.info_dialog_ok), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://blog.naver.com/yymin1022")));
+            }
+        });
+        builder.show();
+    }
+
     public void openGit(View V){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(getString(R.string.info_dialog_github_text));
@@ -34,15 +46,7 @@ public class InfoActivity extends AppCompatActivity {
         builder.show();
     }
 
-    public void openBlog(View V){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(getString(R.string.info_dialog_blog_text));
-        builder.setPositiveButton(getString(R.string.info_dialog_ok), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://blog.naver.com/yymin1022")));
-            }
-        });
-        builder.show();
+    public void openPrivaryPolicy(View V){
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://defcon.or.kr/privacy")));
     }
 }

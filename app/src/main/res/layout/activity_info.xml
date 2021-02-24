@@ -58,6 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:onClick="openPrivaryPolicy"
         android:text="@string/info_btn_privacy"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="20sp"/>
