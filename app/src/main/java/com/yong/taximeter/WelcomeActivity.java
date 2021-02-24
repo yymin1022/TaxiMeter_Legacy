@@ -115,12 +115,11 @@ public class WelcomeActivity extends AppCompatActivity {
                                     }
                                 })
                                 .setDeniedMessage(getString(R.string.welcome_toast_location_not_granted))
-                                .setPermissions(Manifest.permission.ACCESS_COARSE_LOCATION)
                                 .setPermissions(Manifest.permission.ACCESS_BACKGROUND_LOCATION)
                                 .check();
                         }
 
-                        ActivityCompat.requestPermissions(WelcomeActivity.this, new String[]{Manifest.permission.ACCESS_BACKGROUND_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
+                        ActivityCompat.requestPermissions(WelcomeActivity.this, new String[]{Manifest.permission.ACCESS_BACKGROUND_LOCATION}, 100);
                         break;
                     case R.id.btn_welcome_background_location_skip:
                         costLayout.setVisibility(View.INVISIBLE);
@@ -129,7 +128,8 @@ public class WelcomeActivity extends AppCompatActivity {
                         warningLayout.setVisibility(View.VISIBLE);
                         break;
                     case R.id.btn_welcome_location_next:
-                        if(TedPermission.isGranted(WelcomeActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION)){
+                        if(TedPermission.isGranted(WelcomeActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) &&
+                                TedPermission.isGranted(WelcomeActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)){
                             if(Build.VERSION.SDK_INT > Build.VERSION_CODES.P){
                                 costLayout.setVisibility(View.INVISIBLE);
                                 backgroundLocationLayout.setVisibility(View.VISIBLE);
@@ -155,10 +155,11 @@ public class WelcomeActivity extends AppCompatActivity {
                                 })
                                 .setDeniedMessage(getString(R.string.welcome_toast_location_not_granted))
                                 .setPermissions(Manifest.permission.ACCESS_COARSE_LOCATION)
+                                .setPermissions(Manifest.permission.ACCESS_FINE_LOCATION)
                                 .check();
                         }
 
-                        ActivityCompat.requestPermissions(WelcomeActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
+                        ActivityCompat.requestPermissions(WelcomeActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
 
                         break;
                     case R.id.btn_welcome_warning_next:
