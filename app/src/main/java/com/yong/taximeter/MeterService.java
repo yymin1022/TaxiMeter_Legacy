@@ -312,7 +312,7 @@ public class MeterService extends Service  implements LocationListener {
             }
         }
 
-        PendingIntent contentIntent = PendingIntent.getActivity(this,0, new Intent(this, MeterActivity.class),0);
+        PendingIntent contentIntent = PendingIntent.getActivity(this,0, new Intent(this, MeterActivity.class),PendingIntent.FLAG_MUTABLE);
 
         return new NotificationCompat.Builder(getApplicationContext(), "RunningBackground")
                 .setAutoCancel(false)
