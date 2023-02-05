@@ -21,7 +21,7 @@
     <string name="info_dialog_ok">OK</string>
     <string name="info_title">Developer Info</string>
     <string name="info_tv_name">Yongmin Yoo(a.k.a LR)</string>
-    <string name="info_tv_school">Chung-Ang University Software Dept. 19\nObligatory Military Service Ongoing (Oct. 2020 ~)</string>
+    <string name="info_tv_school">Chung-Ang University Software Dept. 19</string>
 
     <string name="main_dialog_ok">OK</string>
     <string name="main_dialog_title_locaion">Select Location</string>

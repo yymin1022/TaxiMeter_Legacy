@@ -7,8 +7,8 @@ android {
         applicationId "com.yong.taximeter"
         minSdkVersion 21
         targetSdkVersion 31
-        versionCode 19
-        versionName "1.3_release3"
+        versionCode 20
+        versionName "1.4_release1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField("String", "CAULY_KEY", CAULY_KEY)
