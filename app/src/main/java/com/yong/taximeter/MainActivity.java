@@ -137,19 +137,19 @@ public class MainActivity extends AppCompatActivity {
 
     public void updateCostData(String curLocation){
         boolean isSeoul = false;
-        int defaultCost = 3800;          // 기본요금
+        int defaultCost = 4800;          // 기본요금
         int runningCost = 100;          // 주행요금
         int timeCost = 100;             // 시간요금 (시속 15km 이하)
-        int defaultCostDistance = 2000;  // 기본요금 주행 거리
-        int runningCostDistance = 132;  // 주행요금 추가 기준 거리
-        int timeCostSecond = 31;       // 시간요금 추가 기준 시간
+        int defaultCostDistance = 1600;  // 기본요금 주행 거리
+        int runningCostDistance = 131;  // 주행요금 추가 기준 거리
+        int timeCostSecond = 30;       // 시간요금 추가 기준 시간
         int addBoth = 40;                 // 복합할증 비율
         int addNight = 20;                // 심야할증 비율
         int addOutCity = 20;              // 시외할증 비율
 
         switch(curLocation){
             case "BUSAN":
-                defaultCost = 3300;
+                defaultCost = 3800;
                 defaultCostDistance = 2000;
                 runningCost = 100;
                 runningCostDistance = 133;
@@ -160,12 +160,12 @@ public class MainActivity extends AppCompatActivity {
                 addOutCity = 30;
                 break;
             case "DAEGU":
-                defaultCost = 3300;
+                defaultCost = 4000;
                 defaultCostDistance = 2000;
                 runningCost = 100;
-                runningCostDistance = 134;
+                runningCostDistance = 130;
                 timeCost = 100;
-                timeCostSecond = 32;
+                timeCostSecond = 31;
                 addBoth = 40;
                 addNight = 20;
                 addOutCity = 20;
@@ -261,18 +261,18 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case "SEOUL":
                 isSeoul = true;
-                defaultCost = 3800;
-                defaultCostDistance = 2000;
+                defaultCost = 4800;
+                defaultCostDistance = 1600;
                 runningCost = 100;
-                runningCostDistance = 132;
+                runningCostDistance = 131;
                 timeCost = 100;
-                timeCostSecond = 31;
+                timeCostSecond = 30;
                 addBoth = 40;
                 addNight = 20;
                 addOutCity = 20;
                 break;
             case "ULSAN":
-                defaultCost = 3300;
+                defaultCost = 4000;
                 defaultCostDistance = 2000;
                 runningCost = 100;
                 runningCostDistance = 125;
