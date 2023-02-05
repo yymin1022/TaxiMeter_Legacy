@@ -150,7 +150,7 @@ public class DonationActivity extends AppCompatActivity implements PurchasesUpda
         if(billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK && purchases != null){
             //Successfully Purchased
             for(Purchase purchase : purchases){
-                if(purchase.getSku().equals(SKU_AD_REMOVE)){
+                if(purchase.getSkus().contains(SKU_AD_REMOVE)){
                     Toast.makeText(getApplicationContext(), getString(R.string.donation_toast_purchase_adremove), Toast.LENGTH_SHORT).show();
 
                     //Save SharedPreferences about Removing Advertisement
