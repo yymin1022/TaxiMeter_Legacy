@@ -1,4 +1,6 @@
-# 택시미터기 for Android
+# [LEGACY] 택시미터기 for Android
+
+본 프로젝트는 [신규 Repository](https://github.com/yymin1022/TaxiMeter)에서 리팩토링된 버전으로 관리되고 있습니다. 현재 Repository는 Legacy Repository입니다.
 
 <img src="Images/app_1.png" width="30%" height="30%" alt="Screenshot"></img>
 <img src="Images/app_2.png" width="30%" height="30%" alt="Screenshot"></img>
